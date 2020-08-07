@@ -337,6 +337,12 @@ class SptProvider {
         }
       }
     }
+
+    ///TRASH
+    if(data['content']['trash'] != null){
+
+    }
+
     var res = await Future.wait(futures).then((value){
       return true;
     }).catchError((e) {
