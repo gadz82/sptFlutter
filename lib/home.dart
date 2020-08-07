@@ -37,13 +37,13 @@ class _HomeState extends State<Home> {
               builder: (context, AsyncSnapshot<bool> ready) {
                 // ignore: missing_return
                 if(ready.hasData){
-                  log('d');
+                  log('App Sync with remote completed');
                   return Visibility(
                       visible: false,
                       child: Text('loaded')
                   );
                 }
-                log('c');
+                log('App Sync with remote in progress during Home rendering');
                 return IconButton(
                   icon: const Icon(Icons.navigate_next),
                   tooltip: 'Next page'

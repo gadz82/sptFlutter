@@ -21,13 +21,13 @@ class DBProvider {
   // Create the database and the Employee table
   initDB() async {
     WidgetsFlutterBinding.ensureInitialized();
-    final path = join(await getDatabasesPath(), 'employee_manager.db');
+    final path = join(await getDatabasesPath(), 'spt.db');
 
     return await openDatabase(
         path,
         version: 1,
         onOpen: (db) {},
-        onCreate: (Database db, int version) async { await createDb(db); }
+        onCreate: (Database db, int version) async { await createDb(); }
     );
   }
 
@@ -61,7 +61,8 @@ class DBProvider {
     return res;
   }
 
-  createDb(Database db) async {
+  createDb() async {
+    Database db = _database;
     db.execute(
         "CREATE TABLE IF NOT EXISTS \"frutta_verdura\" (" +
             "`post_id` INTEGER PRIMARY KEY UNIQUE," +
@@ -182,7 +183,8 @@ class DBProvider {
     );
   }
 
-  Future<bool> dropDb(Database db)  {
+  Future<bool> dropDb()  {
+    Database db = _database;
     return Future.wait([
       db.execute("DROP TABLE IF EXISTS \"frutta_verdura\""),
       db.execute("DROP TABLE IF EXISTS \"piante\""),

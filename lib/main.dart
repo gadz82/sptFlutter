@@ -33,7 +33,7 @@ class _AppSplashLoaderState extends State<AppSplashLoader> {
         future: localStorage,
         builder: (context, AsyncSnapshot<SharedPreferences> storage) {
           if(storage.hasData && storage.data.containsKey('boot') && storage.data.getBool('boot')){
-            log('a');
+            log('App Already booted, rendering home page during appa sync');
             return Home(appReady : appReady);
           } else {
             return FutureBuilder<dynamic>(
@@ -41,6 +41,7 @@ class _AppSplashLoaderState extends State<AppSplashLoader> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     storage.data.setBool('boot', true);
+                    log('App Ready, Home first time rendering');
                     return Home(appReady: appReady);
                   } else if (snapshot.hasError) {
 
@@ -49,7 +50,7 @@ class _AppSplashLoaderState extends State<AppSplashLoader> {
                         style: TextStyle(color: Colors.black87));
 
                   } else {
-
+                    log('App First Boot, waiting for first data sync');
                     return DecoratedBox(
                       decoration: const BoxDecoration(color: Colors.white),
                       child: Center(
