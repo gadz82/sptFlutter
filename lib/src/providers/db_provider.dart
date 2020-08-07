@@ -23,6 +23,7 @@ class DBProvider {
 
   // Create the database and the Employee table
   initDB() async {
+    Sqflite.setDebugModeOn(true);
     WidgetsFlutterBinding.ensureInitialized();
     final path = join(await getDatabasesPath(), 'sptn.db');
 
