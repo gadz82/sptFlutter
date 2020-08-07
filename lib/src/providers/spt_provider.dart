@@ -47,22 +47,53 @@ class SptProvider {
           DBProvider.db.dropDb().then((value) async {
             storage.setInt('rebootAppVersion', int.parse(data['content']['rebootAppVersion']));
             await DBProvider.db.initDB();
-            return popDb(data);
+            return popDb(data).then((value) => true);
           });
         } else {
-          return popDb(data);
+          return popDb(data).then((value) => true);
         }
       }
 
-      return true;
     } else {
       throw Exception('Failed to load data');
     }
   }
 
-  static bool popDb(dynamic data) {
+  static Future<bool> popDb(dynamic data) async {
+    var futures = <Future>[];
+    if(data['content']['e404_slide'] != null){
+      List chunks = arrayChunk(data['content']['e404_slide'], 40);
+      for(int x = 0; x < chunks.length; x++){
+        int nr = chunks[x].length;
 
-    return true;
+        String query = "INSERT OR REPLACE INTO `slides`" +
+            "(`post_id`,`immagine`,`navto`,`navlink`) " +
+            "VALUES ";
+        List qparts = [];
+        List bindings = [];
+        for(int i = 0; i < nr; i++){
+          final sl = chunks[x][i];
+          qparts.add('(?,?,?,?)');
+          bindings.addAll([sl['id'], sl['image'], sl['navto'], sl['navlink']]);
+        }
+        query += qparts.join(',');
+        if(x == 0){
+          futures.add(DBProvider.db.executeInsert(query, bindings));
+        } else {
+          DBProvider.db.executeInsert(query, bindings);
+        }
+      }
+    }
+    var res = await Future.wait(futures).then((value){
+      return true;
+    }).catchError((e) {
+      log("Got error: ${e.error}");
+      print("Got error: ${e.error}");
+      return false;
+    }).whenComplete((){
+      log('completed');
+    });
+    return res;
   }
 
   static List arrayChunk(List data, int chunkSize){
