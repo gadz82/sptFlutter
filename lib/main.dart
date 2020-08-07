@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:scelteperte/home.dart';
 import 'package:scelteperte/src/providers/spt_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:developer';
 
 void main() {
   runApp(AppSplashLoader());
@@ -16,13 +17,13 @@ class AppSplashLoader extends StatefulWidget {
 
 class _AppSplashLoaderState extends State<AppSplashLoader> {
 
-  Future<dynamic> appData;
+  Future<bool> appReady;
   Future<SharedPreferences> localStorage;
 
   @override
   void initState(){
     super.initState();
-    appData = SptProvider.fetchData();
+    appReady = SptProvider.fetchData();
     localStorage = SptProvider.localStorage;
   }
 
@@ -32,14 +33,15 @@ class _AppSplashLoaderState extends State<AppSplashLoader> {
         future: localStorage,
         builder: (context, AsyncSnapshot<SharedPreferences> storage) {
           if(storage.hasData && storage.data.containsKey('boot') && storage.data.getBool('boot')){
-            return Home();
+            log('a');
+            return Home(appReady : appReady);
           } else {
             return FutureBuilder<dynamic>(
-                future: appData,
+                future: appReady,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     storage.data.setBool('boot', true);
-                    return Home();
+                    return Home(appReady: appReady);
                   } else if (snapshot.hasError) {
 
                     return Text("${snapshot.error}", textDirection: TextDirection.ltr,
