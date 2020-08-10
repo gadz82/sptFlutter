@@ -15,6 +15,33 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+Column macroHomeSectionButton({String image, String title}){
+
+    return Column(
+      children: [
+        Container(
+            width: 75.0,
+            height: 75.0,
+            margin: EdgeInsets.only(bottom: 10),
+            decoration: new BoxDecoration(
+                shape: BoxShape.circle,
+                image: new DecorationImage(
+                    fit: BoxFit.fill,
+                    image: new AssetImage(image)))),
+        Container(
+            width: 100.0,
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.clip,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ))
+      ],
+    );
+  }
+}
+
+
 class _HomeState extends State<Home> {
   Future<bool> appReady;
 
@@ -79,95 +106,20 @@ class _HomeState extends State<Home> {
                       children: [
                         GestureDetector(
                           onTap: (){log('tap');},
-                          child: Column(
-                            children: [
-                              Container(
-                                  width: 75.0,
-                                  height: 75.0,
-                                  margin: EdgeInsets.only(bottom: 10),
-                                  decoration: new BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: new DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: new AssetImage(
-                                              'images/linguaggio.jpg')))),
-                              Container(
-                                  width: 100.0,
-                                  child: Text(
-                                    'Linguaggio dei Fiori',
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.clip,
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                  ))
-                            ],
-                          )
+                          child: macroHomeSectionButton(image: 'images/linguaggio.jpg', title: 'Linguaggio dei Fiori')
                         ),
-                        Column(
-                          children: [
-                            Container(
-                                width: 75.0,
-                                height: 75.0,
-                                margin: EdgeInsets.only(bottom: 10),
-                                decoration: new BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: new DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: new AssetImage(
-                                            'images/oroscopo.jpg')))),
-                            Container(
-                                width: 100.0,
-                                child: Text(
-                                  'Oroscopo del verde',
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ))
-                          ],
+                        GestureDetector(
+                            onTap: (){log('tap');},
+                            child: macroHomeSectionButton(image: 'images/oroscopo.jpg', title: 'Oroscopo del verde')
                         ),
-                        Column(
-                          children: [
-                            Container(
-                                width: 75.0,
-                                height: 75.0,
-                                margin: EdgeInsets.only(bottom: 10),
-                                decoration: new BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: new DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: new AssetImage(
-                                            'images/giardini.jpg')))),
-                            Container(
-                                width: 100.0,
-                                child: Text(
-                                  'Giardini e Orti Botanici',
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ))
-                          ],
+                        GestureDetector(
+                            onTap: (){log('tap');},
+                            child: macroHomeSectionButton(image: 'images/giardini.jpg', title: 'Giardini e Orti Botanici')
                         ),
-                        Column(
-                          children: [
-                            Container(
-                                width: 75.0,
-                                height: 75.0,
-                                margin: EdgeInsets.only(bottom: 10),
-                                decoration: new BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: new DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: new AssetImage(
-                                            'images/ricetta.jpg')))),
-                            Container(
-                                width: 100.0,
-                                child: Text(
-                                  'Ricetta del mese',
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ))
-                          ],
-                        ),
+                        GestureDetector(
+                            onTap: (){log('tap');},
+                            child: macroHomeSectionButton(image: 'images/ricetta.jpg', title: 'Ricetta del mese')
+                        )
                       ],
                     ),
                   )
@@ -189,3 +141,4 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
