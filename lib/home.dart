@@ -27,54 +27,165 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Welcome to Flutter',
-        home: Scaffold(
-          appBar: AppBar(title: Text('Welcome to Flutter'), actions: <Widget>[
-            FutureBuilder<bool>(
-                future: appReady,
-                builder: (context, AsyncSnapshot<bool> ready) {
-                  // ignore: missing_return
-                  if (ready.hasData) {
-                    log('App Sync with remote completed');
-                    return Visibility(visible: false, child: Text('loaded'));
-                  }
-                  log('App Sync with remote in progress during Home rendering');
-                  return IconButton(
-                      icon: const Icon(Icons.navigate_next),
-                      tooltip: 'Next page',
-                      onPressed: null);
-                })
-          ]),
-          body: Center(
-            child: FutureBuilder(
-                future: Slide().getSlides(),
-                builder: (context, AsyncSnapshot<List<Slide>> slides) {
-                  if (slides.hasData) {
-                    return Container(
-                        child: CarouselSlider.builder(
-                            itemCount: slides.data.length,
-                            options: CarouselOptions(
-                                autoPlay: true,
-                                aspectRatio: 2.0,
-                                enlargeCenterPage: true,
-                            ),
-                            itemBuilder: (context, index) {
-                              return Container(
-                                child: Center(
-                                    child: Image.network(slides.data[index].image, fit: BoxFit.cover, width: 1000)),
-                              );
-                            },
-                        ));
-                  } else {
-                    return Column(
+      title: 'Scelte per Te',
+      home: Scaffold(
+        appBar: AppBar(
+            title: Text('Scelte per Te'),
+            backgroundColor: Colors.green,
+            actions: <Widget>[
+              FutureBuilder<bool>(
+                  future: appReady,
+                  builder: (context, AsyncSnapshot<bool> ready) {
+                    // ignore: missing_return
+                    if (ready.hasData) {
+                      log('App Sync with remote completed');
+                      return Visibility(visible: false, child: Text('loaded'));
+                    }
+                    log('App Sync with remote in progress during Home rendering');
+                    return IconButton(
+                        icon: const Icon(Icons.navigate_next),
+                        tooltip: 'Next page',
+                        onPressed: null);
+                  })
+            ]
+        ),
+        body: FutureBuilder(
+            future: Slide().getSlides(),
+            builder: (context, AsyncSnapshot<List<Slide>> slides) {
+              if (slides.hasData) {
+                return Wrap(children: [
+                  Container(
+                      alignment: Alignment.topCenter,
+                      child: CarouselSlider.builder(
+                        itemCount: slides.data.length,
+                        options: CarouselOptions(
+                            autoPlay: false,
+                            aspectRatio: 2.5,
+                            viewportFraction: 1.0,
+                            enlargeCenterPage: false),
+                        itemBuilder: (context, index) {
+                          return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.network(slides.data[index].image,
+                                    fit: BoxFit.cover, width: 1000)
+                              ]);
+                        },
+                      )),
+                  Container(
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        CircularProgressIndicator(),
-                        Text('Caricamento...')
+                        GestureDetector(
+                          onTap: (){log('tap');},
+                          child: Column(
+                            children: [
+                              Container(
+                                  width: 75.0,
+                                  height: 75.0,
+                                  margin: EdgeInsets.only(bottom: 10),
+                                  decoration: new BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: new DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: new AssetImage(
+                                              'images/linguaggio.jpg')))),
+                              Container(
+                                  width: 100.0,
+                                  child: Text(
+                                    'Linguaggio dei Fiori',
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ))
+                            ],
+                          )
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                                width: 75.0,
+                                height: 75.0,
+                                margin: EdgeInsets.only(bottom: 10),
+                                decoration: new BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: new DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: new AssetImage(
+                                            'images/oroscopo.jpg')))),
+                            Container(
+                                width: 100.0,
+                                child: Text(
+                                  'Oroscopo del verde',
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ))
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                                width: 75.0,
+                                height: 75.0,
+                                margin: EdgeInsets.only(bottom: 10),
+                                decoration: new BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: new DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: new AssetImage(
+                                            'images/giardini.jpg')))),
+                            Container(
+                                width: 100.0,
+                                child: Text(
+                                  'Giardini e Orti Botanici',
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ))
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                                width: 75.0,
+                                height: 75.0,
+                                margin: EdgeInsets.only(bottom: 10),
+                                decoration: new BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: new DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: new AssetImage(
+                                            'images/ricetta.jpg')))),
+                            Container(
+                                width: 100.0,
+                                child: Text(
+                                  'Ricetta del mese',
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ))
+                          ],
+                        ),
                       ],
-                    );
-                  }
-                }),
-          ),
-        ));
+                    ),
+                  )
+                ]);
+              } else {
+                return Container(
+                    child: Column(
+                  children: [
+                    Center(
+                        child: Padding(
+                            padding: EdgeInsets.only(top: 50.00),
+                            child: CircularProgressIndicator())),
+                    Text('Caricamento...')
+                  ],
+                ));
+              }
+            }),
+      ),
+    );
   }
 }

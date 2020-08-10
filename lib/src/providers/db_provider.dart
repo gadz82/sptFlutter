@@ -23,7 +23,6 @@ class DBProvider {
 
   // Create the database and the Employee table
   initDB() async {
-    Sqflite.setDebugModeOn(true);
     WidgetsFlutterBinding.ensureInitialized();
     final path = join(await getDatabasesPath(), 'sptn.db');
 
@@ -171,8 +170,7 @@ class DBProvider {
 
   Future<int> executeDelete(String sql) async {
     final db = await database;
-    final res = await db.rawDelete(sql);
-    return res;
+    return await db.rawDelete(sql);
   }
 
   Future<void> executeSql(String sql) async {

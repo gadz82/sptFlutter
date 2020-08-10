@@ -379,7 +379,6 @@ class SptProvider {
     final storage = await localStorage;
 
     storage.setString('initMd5', data['content']['md5']);
-
     if(data['content']['md5_tokenFruttaVerdura'] != null){
       storage.setString('tokenFruttaVerdura', data['content']['md5_tokenFruttaVerdura']);
     }
@@ -413,7 +412,7 @@ class SptProvider {
     }
 
     if(data['content']['banner'] != 'undefined'){
-      storage.setString('bannerList', jsonEncode(data.content['banner']));
+      storage.setString('bannerList', jsonEncode(data['content']['banner']));
     } else {
       storage.remove('bannerList');
     }
