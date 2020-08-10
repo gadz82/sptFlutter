@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:scelteperte/src/providers/db_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -45,8 +48,8 @@ class Slide {
       return Slide(
           postId: maps[i]['post_id'],
           image: maps[i]['immagine'],
-          navLink: maps[i]['nav_link'],
-          navTo: maps[i]['nav_to']
+          navTo: maps[i]['navto'],
+          navLink: maps[i]['navlink']
       );
     });
   }

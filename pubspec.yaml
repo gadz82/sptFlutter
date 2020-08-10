@@ -30,6 +30,7 @@ dependencies:
   path: ^1.6.4
   http: ^0.12.2
   shared_preferences: ^0.5.8
+  carousel_slider: ^2.2.1
 
 dev_dependencies:
   flutter_test:
