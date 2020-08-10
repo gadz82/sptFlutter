@@ -46,7 +46,8 @@ class _HomeState extends State<Home> {
                 log('App Sync with remote in progress during Home rendering');
                 return IconButton(
                   icon: const Icon(Icons.navigate_next),
-                  tooltip: 'Next page'
+                  tooltip: 'Next page',
+                  onPressed: null
                 );
               })
           ]

@@ -20,6 +20,8 @@ class SptProvider {
     return _preferences;
   }
 
+  static set table(String table) {}
+
   static Future<bool> fetchData() async {
     final storage = await localStorage;
 
@@ -340,7 +342,80 @@ class SptProvider {
 
     ///TRASH
     if(data['content']['trash'] != null){
+      data['content']['trash'].forEach((key, value){
+        String table = "";
+        switch(key){
+          case 'ricette':
+            table = key;
+            break;
+          case 'promozioni-app':
+            table = 'promozioni';
+            break;
+          case 'post':
+            table = 'news';
+            break;
+          case 'prodotti':
+            table = 'piante';
+            break;
+          case 'frutta-verdura':
+            table = 'frutta_verdura';
+            break;
+          case 'page':
+            table = 'pagine';
+            break;
+          case 'notifiche-push':
+            table = 'notifiche';
+            break;
+          case 'e404_slide':
+            table = 'slides';
+            break;
+        }
+        if(table != ""){
+          futures.add(DBProvider.db.executeDelete("DELETE FROM "+table+" WHERE post_id IN("+data['content']['trash'][key].join(',')+")"));
+        }
+      });
+    }
 
+    final storage = await localStorage;
+
+    storage.setString('initMd5', data['content']['md5']);
+
+    if(data['content']['md5_tokenFruttaVerdura'] != null){
+      storage.setString('tokenFruttaVerdura', data['content']['md5_tokenFruttaVerdura']);
+    }
+
+    if(data['content']['md5_tokenPiante'] != null){
+      storage.setString('tokenPiante', data['content']['md5_tokenPiante']);
+    }
+
+    if(data['content']['md5_tokenNews'] != null){
+      storage.setString('tokenNews', data['content']['md5_tokenNews']);
+    }
+
+    if(data['content']['md5_tokenSlides'] != null){
+      storage.setString('tokenSlides', data['content']['md5_tokenSlides']);
+    }
+
+    if(data['content']['md5_tokenNotifiche'] != null){
+      storage.setString('tokenNotifiche', data['content']['md5_tokenNotifiche']);
+    }
+
+    if(data['content']['md5_tokenPagine'] != null){
+      storage.setString('tokenPagine', data['content']['md5_tokenPagine']);
+    }
+
+    if(data['content']['md5_tokenRicette'] != null){
+      storage.setString('tokenRicette', data['content']['md5_tokenRicette']);
+    }
+
+    if(data['content']['md5_tokenPromozioni'] != null){
+      storage.setString('tokenPromozioni', data['content']['md5_tokenPromozioni']);
+    }
+
+    if(data['content']['banner'] != 'undefined'){
+      storage.setString('bannerList', jsonEncode(data.content['banner']));
+    } else {
+      storage.remove('bannerList');
     }
 
     var res = await Future.wait(futures).then((value){
