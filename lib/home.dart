@@ -16,29 +16,27 @@ class Home extends StatefulWidget {
 }
 
 Column macroHomeSectionButton({String image, String title}){
-
-    return Column(
-      children: [
-        Container(
-            width: 75.0,
-            height: 75.0,
-            margin: EdgeInsets.only(bottom: 10),
-            decoration: new BoxDecoration(
-                shape: BoxShape.circle,
-                image: new DecorationImage(
-                    fit: BoxFit.fill,
-                    image: new AssetImage(image)))),
-        Container(
-            width: 100.0,
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.clip,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ))
-      ],
-    );
-  }
+  return Column(
+    children: [
+      Container(
+          width: 75.0,
+          height: 75.0,
+          margin: EdgeInsets.only(bottom: 10),
+          decoration: new BoxDecoration(
+              shape: BoxShape.circle,
+              image: new DecorationImage(
+                  fit: BoxFit.fill,
+                  image: new AssetImage(image)))),
+      Container(
+          width: 100.0,
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.clip,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ))
+    ],
+  );
 }
 
 
