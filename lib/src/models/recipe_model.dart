@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:scelteperte/src/providers/db_provider.dart';
 
@@ -66,6 +68,12 @@ class Recipe{
         evidence: map['evidenza'],
         date: map['date']
     );
+  }
+
+  Future<Recipe> getFeaturedRecipe() async {
+    final Database db = await DBProvider.db.database;
+    final List<Map<String, dynamic>> maps = await db.query('ricette', where: 'evidenza = 1', orderBy: 'date DESC', limit: 1);
+    return fromMap(maps[0]);
   }
 
   /// Insert operation

@@ -4,6 +4,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:scelteperte/drawer.dart';
+import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:scelteperte/src/models/slide_model.dart';
 
 class Home extends StatefulWidget {
@@ -15,7 +17,7 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-Column macroHomeSectionButton({String image, String title}){
+Column macroHomeSectionButton({ImageProvider image, String title}){
   return Column(
     children: [
       Container(
@@ -26,7 +28,7 @@ Column macroHomeSectionButton({String image, String title}){
               shape: BoxShape.circle,
               image: new DecorationImage(
                   fit: BoxFit.fill,
-                  image: new AssetImage(image)))),
+                  image: image))),
       Container(
           width: 100.0,
           child: Text(
@@ -74,6 +76,7 @@ class _HomeState extends State<Home> {
                   })
             ]
         ),
+        drawer: SptDrawer(),
         body: FutureBuilder(
             future: Slide().getSlides(),
             builder: (context, AsyncSnapshot<List<Slide>> slides) {
@@ -104,19 +107,32 @@ class _HomeState extends State<Home> {
                       children: [
                         GestureDetector(
                           onTap: (){log('tap');},
-                          child: macroHomeSectionButton(image: 'images/linguaggio.jpg', title: 'Linguaggio dei Fiori')
+                          child: macroHomeSectionButton(image : new AssetImage('images/linguaggio.jpg'), title: 'Linguaggio dei Fiori')
                         ),
                         GestureDetector(
                             onTap: (){log('tap');},
-                            child: macroHomeSectionButton(image: 'images/oroscopo.jpg', title: 'Oroscopo del verde')
+                            child: macroHomeSectionButton(image : new AssetImage('images/oroscopo.jpg'), title: 'Oroscopo del verde')
                         ),
                         GestureDetector(
                             onTap: (){log('tap');},
-                            child: macroHomeSectionButton(image: 'images/giardini.jpg', title: 'Giardini e Orti Botanici')
+                            child: macroHomeSectionButton(image: new AssetImage('images/giardini.jpg'), title: 'Giardini e Orti Botanici')
                         ),
-                        GestureDetector(
-                            onTap: (){log('tap');},
-                            child: macroHomeSectionButton(image: 'images/ricetta.jpg', title: 'Ricetta del mese')
+                        FutureBuilder(
+                          future: Recipe().getFeaturedRecipe(),
+                          builder: (context, AsyncSnapshot<Recipe> recipe) {
+                            if(recipe.hasData){
+                              return GestureDetector(
+                                  onTap: (){log('tap');},
+                                  child: macroHomeSectionButton(image: new NetworkImage(recipe.data.image), title: 'Ricetta del mese')
+                              );
+                            } else {
+                              return GestureDetector(
+                                  onTap: (){log('tap');},
+                                  child: macroHomeSectionButton(image: new AssetImage('images/ricetta.jpg'), title: 'Ricetta del mese')
+                              );
+                            }
+
+                          },
                         )
                       ],
                     ),
