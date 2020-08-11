@@ -17,30 +17,30 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-Column macroHomeSectionButton({ImageProvider image, String title}){
+Column macroHomeSectionButton({ImageProvider image, String title, BuildContext context}) {
   return Column(
     children: [
       Container(
-          width: 75.0,
-          height: 75.0,
+          width: MediaQuery.of(context).size.width * 0.20,
+          height: MediaQuery.of(context).size.width * 0.20,
           margin: EdgeInsets.only(bottom: 10),
           decoration: new BoxDecoration(
               shape: BoxShape.circle,
-              image: new DecorationImage(
-                  fit: BoxFit.fill,
-                  image: image))),
+              image: new DecorationImage(fit: BoxFit.fill, image: image)
+          )
+      ),
       Container(
-          width: 100.0,
+          width: MediaQuery.of(context).size.width * 0.25,
           child: Text(
             title,
             textAlign: TextAlign.center,
             overflow: TextOverflow.clip,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ))
+            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 11.50 ),
+          )
+      )
     ],
   );
 }
-
 
 class _HomeState extends State<Home> {
   Future<bool> appReady;
@@ -74,8 +74,7 @@ class _HomeState extends State<Home> {
                         tooltip: 'Next page',
                         onPressed: null);
                   })
-            ]
-        ),
+            ]),
         drawer: SptDrawer(),
         body: FutureBuilder(
             future: Slide().getSlides(),
@@ -91,14 +90,13 @@ class _HomeState extends State<Home> {
                             aspectRatio: 2.5,
                             viewportFraction: 1.0,
                             enlargeCenterPage: false),
-                        itemBuilder: (context, index) {
-                          return Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Image.network(slides.data[index].image,
-                                    fit: BoxFit.cover, width: 1000)
-                              ]);
-                        },
+                            itemBuilder: (context, index) {
+                            return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Image.network(slides.data[index].image, fit: BoxFit.cover, width: 1000)
+                                ]);
+                            },
                       )),
                   Container(
                     alignment: Alignment.center,
@@ -106,32 +104,61 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         GestureDetector(
-                          onTap: (){log('tap');},
-                          child: macroHomeSectionButton(image : new AssetImage('images/linguaggio.jpg'), title: 'Linguaggio dei Fiori')
+                            onTap: () {
+                              log('tap');
+                            },
+                            child: macroHomeSectionButton(
+                                image: new AssetImage('images/linguaggio.jpg'),
+                                title: 'Linguaggio dei Fiori',
+                                context : context
+                            )
                         ),
                         GestureDetector(
-                            onTap: (){log('tap');},
-                            child: macroHomeSectionButton(image : new AssetImage('images/oroscopo.jpg'), title: 'Oroscopo del verde')
+                            onTap: () {
+                              log('tap');
+                            },
+                            child: macroHomeSectionButton(
+                                image: new AssetImage('images/oroscopo.jpg'),
+                                title: 'Oroscopo del verde',
+                                context : context
+                            )
                         ),
                         GestureDetector(
-                            onTap: (){log('tap');},
-                            child: macroHomeSectionButton(image: new AssetImage('images/giardini.jpg'), title: 'Giardini e Orti Botanici')
+                            onTap: () {
+                              log('tap');
+                            },
+                            child: macroHomeSectionButton(
+                                image: new AssetImage('images/giardini.jpg'),
+                                title: 'Giardini e Orti Botanici',
+                                context : context
+                            )
                         ),
                         FutureBuilder(
                           future: Recipe().getFeaturedRecipe(),
                           builder: (context, AsyncSnapshot<Recipe> recipe) {
-                            if(recipe.hasData){
+                            if (recipe.hasData) {
                               return GestureDetector(
-                                  onTap: (){log('tap');},
-                                  child: macroHomeSectionButton(image: new NetworkImage(recipe.data.image), title: 'Ricetta del mese')
+                                  onTap: () {
+                                    log('tap');
+                                  },
+                                  child: macroHomeSectionButton(
+                                      image: new NetworkImage(recipe.data.image),
+                                      title: 'Ricetta del mese',
+                                      context : context
+                                  )
                               );
                             } else {
                               return GestureDetector(
-                                  onTap: (){log('tap');},
-                                  child: macroHomeSectionButton(image: new AssetImage('images/ricetta.jpg'), title: 'Ricetta del mese')
+                                  onTap: () {
+                                    log('tap');
+                                  },
+                                  child: macroHomeSectionButton(
+                                      image: new AssetImage('images/ricetta.jpg'),
+                                      title: 'Ricetta del mese',
+                                      context : context
+                                  )
                               );
                             }
-
                           },
                         )
                       ],
@@ -140,7 +167,7 @@ class _HomeState extends State<Home> {
                 ]);
               } else {
                 return Container(
-                    child: Column(
+                  child: Column(
                   children: [
                     Center(
                         child: Padding(
@@ -155,4 +182,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
