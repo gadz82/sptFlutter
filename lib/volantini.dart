@@ -81,25 +81,25 @@ class _VolantiniState extends State<Volantini> {
         ]));
   }
 
-  CupertinoActionSheet _showActionSheet(List items){
+  CupertinoActionSheet _showActionSheet(List items, String region){
     List<CupertinoActionSheetAction> menu = [];
     items.forEach((element){
       menu.add(
           CupertinoActionSheetAction(
             child: Text(element),
             onPressed: () {
-              Navigator.pop(context, '🙋 Yes');
+              Navigator.pop(context, '🙋 Ok!');
+              Navigator.pushNamed(context, '/volantini/webview', arguments: VolantinoWebViewArgs(url: 'https://promozioni.gustourconad.it/'+region+'/'+element,));
             },
           )
       );
     });
     return CupertinoActionSheet(
-        title: const Text('Choose frankly 😊'),
-        message: const Text(
-            'Your options are '),
+        title: const Text('Scegli il punto vendita'),
+        message: const Text('Consulta il volantino Spazio Conad di'),
         actions: menu,
         cancelButton: CupertinoActionSheetAction(
-          child: const Text('Cancel'),
+          child: const Text('Annulla'),
           isDefaultAction: true,
           onPressed: () {
             Navigator.pop(context, 'Cancel');
@@ -137,7 +137,7 @@ class _VolantiniState extends State<Volantini> {
                 onTap: () {
                   containerForSheet<String>(
                     context: context,
-                    child: _showActionSheet(_jsonData[item.key][key].keys.toList())
+                    child: _showActionSheet(_jsonData[item.key][key].keys.toList(), key)
                   );
                 }
               )
@@ -147,7 +147,7 @@ class _VolantiniState extends State<Volantini> {
                 trailing: Icon(Icons.chevron_right),
                 dense: true,
                 onTap: () {
-                  Navigator.pushNamed(context, '/volantini/webview', arguments: VolantiniWebView(url: 'https://www.gustourconad.it/',));
+                  Navigator.pushNamed(context, '/volantini/webview', arguments: VolantinoWebViewArgs(url: 'https://promozioni.gustourconad.it/'+item.key,));
                 },
               );
             },
@@ -161,11 +161,11 @@ class _VolantiniState extends State<Volantini> {
     showCupertinoModalPopup<T>(
       context: context,
       builder: (BuildContext context) => child,
-    ).then<void>((T value) {
+    )/*.then<void>((T value) {
       Scaffold.of(context).showSnackBar(new SnackBar(
         content: new Text('You clicked $value'),
         duration: Duration(milliseconds: 800),
       ));
-    });
+    })*/;
   }
 }
