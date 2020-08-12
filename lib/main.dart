@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:scelteperte/home.dart';
 import 'package:scelteperte/src/providers/spt_provider.dart';

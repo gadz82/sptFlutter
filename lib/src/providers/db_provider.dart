@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -177,11 +174,6 @@ class DBProvider {
     final db = await database;
     final res = await db.execute(sql);
     return res;
-  }
-
-  createDb() async {
-    Database db = await database;
-
   }
 
   Future<bool> dropDb()  {

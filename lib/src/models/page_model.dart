@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:scelteperte/src/providers/db_provider.dart';
 
-class Page {
+class Pagina {
   final int postId;
   final String slug;
   final String title;
@@ -10,7 +10,7 @@ class Page {
   final String image;
   final String thumb;
 
-  Page({this.postId, this.slug, this.title, this.url, this.jsonData, this.image, this.thumb});
+  Pagina({this.postId, this.slug, this.title, this.url, this.jsonData, this.image, this.thumb});
 
   Map<String, dynamic> toMap() {
     return {
@@ -24,8 +24,8 @@ class Page {
     };
   }
 
-  Page fromMap(Map map){
-    return Page(
+  Pagina fromMap(Map map){
+    return Pagina(
         postId : map['post_id'],
         slug : map['slug'],
         title : map['titolo'],
@@ -36,8 +36,14 @@ class Page {
     );
   }
 
+  Future<Pagina> getPageVolantino() async {
+    final Database db = await DBProvider.db.database;
+    final List<Map<String, dynamic>> maps = await db.query('pagine', where: 'slug = ?', whereArgs: ['offerte'], limit: 1);
+    return fromMap(maps[0]);
+  }
+
   /// Insert operation
-  Future<void> insertPage(Page page) async {
+  Future<void> insertPage(Pagina page) async {
     final Database db = await DBProvider.db.database;
     await db.insert(
       'pagine',
@@ -47,7 +53,7 @@ class Page {
   }
 
   /// List Operation
-  Future<List<Page>> getPages() async {
+  Future<List<Pagina>> getPages() async {
     final Database db = await DBProvider.db.database;
     final List<Map<String, dynamic>> maps = await db.query('pagine');
     return List.generate(maps.length, (i) {
@@ -57,7 +63,7 @@ class Page {
 
 
 
-  Future<List<Page>> getPage(int postId) async {
+  Future<List<Pagina>> getPage(int postId) async {
     final Database db = await DBProvider.db.database;
     final List<Map<String, dynamic>> maps = await db.query('pagine', where: 'post_id = ?', whereArgs: [postId], limit: 1);
     return List.generate(maps.length, (i) {
@@ -67,7 +73,7 @@ class Page {
   }
 
   /// Update Operation
-  Future<void> updatePage(Page page) async {
+  Future<void> updatePage(Pagina page) async {
     final Database db = await DBProvider.db.database;
     await db.update(
       'pagine',

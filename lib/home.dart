@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
@@ -7,6 +6,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:scelteperte/drawer.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:scelteperte/src/models/slide_model.dart';
+import 'package:scelteperte/volantini.dart';
+import 'package:scelteperte/volantini_webview.dart';
 
 class Home extends StatefulWidget {
   final Future<bool> appReady;
@@ -44,17 +45,30 @@ Column macroHomeSectionButton({ImageProvider image, String title, BuildContext c
 
 class _HomeState extends State<Home> {
   Future<bool> appReady;
+  Future<List<Slide>> slides;
 
   @override
   void initState() {
     super.initState();
     this.appReady = widget.appReady;
+    this.appReady.whenComplete((){
+      setState(() {
+        slides = Slide().getSlides();
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Scelte per Te',
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        '/home': (context) => Home(appReady: this.appReady),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/volantini': (context) => Volantini(),
+        '/volantini/webview' : (context) => VolantiniWebView()
+      },
       home: Scaffold(
         appBar: AppBar(
             title: Text('Scelte per Te'),
@@ -69,15 +83,21 @@ class _HomeState extends State<Home> {
                       return Visibility(visible: false, child: Text('loaded'));
                     }
                     log('App Sync with remote in progress during Home rendering');
-                    return IconButton(
-                        icon: const Icon(Icons.navigate_next),
-                        tooltip: 'Next page',
-                        onPressed: null);
+                    return Container(
+                        width: 60.0,
+                        height: 20.0,
+                        padding: EdgeInsets.all(15.00),
+                        color: Colors.green,
+                        child: new CircularProgressIndicator(
+                            backgroundColor: Colors.white,
+                            valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightGreen)
+                        )
+                    );
                   })
             ]),
         drawer: SptDrawer(),
         body: FutureBuilder(
-            future: Slide().getSlides(),
+            future: slides,
             builder: (context, AsyncSnapshot<List<Slide>> slides) {
               if (slides.hasData) {
                 return Wrap(children: [
@@ -163,6 +183,30 @@ class _HomeState extends State<Home> {
                         )
                       ],
                     ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top:20.00),
+                    padding: EdgeInsets.all(10.00),
+                    child: RaisedButton(
+                        textColor: Colors.white,
+                        color: Colors.green,
+                        padding: EdgeInsets.symmetric(horizontal: 10.00),
+                        onPressed: () {
+                          // Navigate back to the first screen by popping the current route
+                          // off the stack.
+                          Navigator.pushNamed(context, '/volantini');
+                        },
+                        child: ListTile(
+                          contentPadding: EdgeInsets.all(0),
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.green,
+                            backgroundImage: new AssetImage('images/margherita.png')
+                          ),
+                          title: Text('Volantino Conad', style: TextStyle(color: Colors.white)),
+                          subtitle: Text('Sfoglia il volantino e scopri le offerte', style: TextStyle(color: Colors.white, fontSize: 10.00)),
+                          trailing: Icon(Icons.chevron_right, color: Colors.white),
+                        )
+                    )
                   )
                 ]);
               } else {

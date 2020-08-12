@@ -37,7 +37,7 @@ class SptProvider {
     if(storage.containsKey('tokenNews')) url += '&md5_tokenNews='+storage.getString('tokenNews');
     if(storage.containsKey('tokenNotifiche')) url += '&md5_tokenNotifiche='+storage.getString('tokenNotifiche');
 
-    final response =  await http.get('http://www.scelteperte.it/sptrapi/initialize?mtoken=FNmZbp6nR7EEs7Eg&ts=');
+    final response =  await http.get(url);
 
     if (response.statusCode == 200) {
       //log('Apiresponse', name: 'Api Response', error: jsonDecode(response.body));
@@ -203,9 +203,9 @@ class SptProvider {
         for(int i = 0; i < nr; i++){
           final r = chunks[x][i];
 
-          String filtro_tipologia = r['filtri'] != null && r['filtri']['tipologia-piatto'] != null ? r['filtri']['tipologia-piatto'] : '';
-          String filtro_tempo = r['filtri'] != null && r['filtri']['tempo-preparazione'] != null ? r['filtri']['tempo-preparazione'] : '';
-          String filtro_difficolta = r['filtri'] != null && r['filtri']['difficolta'] != null ? r['filtri']['difficolta'] : '';
+          String filtroTipologia = r['filtri'] != null && r['filtri']['tipologia-piatto'] != null ? r['filtri']['tipologia-piatto'] : '';
+          String filtroTempo = r['filtri'] != null && r['filtri']['tempo-preparazione'] != null ? r['filtri']['tempo-preparazione'] : '';
+          String filtroDifficolta = r['filtri'] != null && r['filtri']['difficolta'] != null ? r['filtri']['difficolta'] : '';
 
           qparts.add('(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
           bindings.addAll([
@@ -213,9 +213,9 @@ class SptProvider {
             r['title'],
             r['link'],
             r['scheda_pdf'],
-            filtro_tipologia,
-            filtro_tempo,
-            filtro_difficolta,
+            filtroTipologia,
+            filtroTempo,
+            filtroDifficolta,
             r['introduzione'],
             r['tempo'],
             r['tempo_cottura'],
@@ -252,9 +252,9 @@ class SptProvider {
         for(int i = 0; i < nr; i++){
           final f = chunks[x][i];
 
-          String filtro_stagione = f['filtri'] != null && f['filtri']['stagione'] != null ? f['filtri']['stagione'] : '';
-          String filtro_origine = f['filtri'] != null && f['filtri']['origine'] != null ? f['filtri']['origine'] : '';
-          String filtro_tipologia_fv = f['filtri'] != null && f['filtri']['tipologia-frutta-verdura'] != null ? f['filtri']['tipologia-frutta-verdura'] : '';
+          String filtroStagione = f['filtri'] != null && f['filtri']['stagione'] != null ? f['filtri']['stagione'] : '';
+          String filtroOrigine = f['filtri'] != null && f['filtri']['origine'] != null ? f['filtri']['origine'] : '';
+          String filtroTipologiaFv = f['filtri'] != null && f['filtri']['tipologia-frutta-verdura'] != null ? f['filtri']['tipologia-frutta-verdura'] : '';
 
           qparts.add('(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
           bindings.addAll([
@@ -262,9 +262,9 @@ class SptProvider {
             f['title'],
             f['link'],
             f['scheda_pdf'],
-            filtro_stagione,
-            filtro_origine,
-            filtro_tipologia_fv,
+            filtroStagione,
+            filtroOrigine,
+            filtroTipologiaFv,
             f['immagine'],
             f['thumb'],
             f['thumb_avatar'],
@@ -301,10 +301,10 @@ class SptProvider {
         for(int i = 0; i < nr; i++){
           final p = chunks[x][i];
 
-          String filtro_fioritura = p['filtri'] != null && p['filtri']['fioritura'] != null ? p['filtri']['fioritura'] : '';
-          String filtro_ambiente = p['filtri'] != null && p['filtri']['ambiente'] != null ? p['filtri']['ambiente'] : '';
-          String filtro_foglie = p['filtri'] != null && p['filtri']['foglie'] != null ? p['filtri']['foglie'] : '';
-          String filtro_tipologia = p['filtri'] != null && p['filtri']['tipologia-piante'] != null ? p['filtri']['tipologia-piante'] : '';
+          String filtroFioritura = p['filtri'] != null && p['filtri']['fioritura'] != null ? p['filtri']['fioritura'] : '';
+          String filtroAmbiente = p['filtri'] != null && p['filtri']['ambiente'] != null ? p['filtri']['ambiente'] : '';
+          String filtroFoglie = p['filtri'] != null && p['filtri']['foglie'] != null ? p['filtri']['foglie'] : '';
+          String filtroTipologia = p['filtri'] != null && p['filtri']['tipologia-piante'] != null ? p['filtri']['tipologia-piante'] : '';
 
           qparts.add('(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
           bindings.addAll([
@@ -312,10 +312,10 @@ class SptProvider {
             p['title'],
             p['link'],
             p['scheda_pdf'],
-            filtro_fioritura,
-            filtro_ambiente,
-            filtro_foglie,
-            filtro_tipologia,
+            filtroFioritura,
+            filtroAmbiente,
+            filtroFoglie,
+            filtroTipologia,
             p['immagine'],
             p['immagini_extra'],
             p['thumb'],
