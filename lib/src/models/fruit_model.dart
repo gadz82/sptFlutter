@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:scelteperte/frutta.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:scelteperte/src/providers/db_provider.dart';
 
@@ -80,15 +83,20 @@ class Fruit{
   }
 
   /// List Operation
-  Future<List<Fruit>> getFruits() async {
+  Future<List<Fruit>> getFruits({FruitFilters filter}) async {
+    log(filter.filtroNome);
     final Database db = await DBProvider.db.database;
     final List<Map<String, dynamic>> maps = await db.query('frutta_verdura');
     return List.generate(maps.length, (i) {
       return fromMap(maps[i]);
     });
   }
-  
-  
+
+  Future<Fruit> getLast() async {
+    final Database db = await DBProvider.db.database;
+    final List<Map<String, dynamic>> maps = await db.query('frutta_verdura', orderBy: 'date DESC', limit: 1);
+    return fromMap(maps[0]);
+  }
 
   Future<List<Fruit>> getFruit(int postId) async {
     final Database db = await DBProvider.db.database;

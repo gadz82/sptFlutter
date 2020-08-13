@@ -74,6 +74,12 @@ class Recipe{
     return fromMap(maps[0]);
   }
 
+  Future<Recipe> getLast() async {
+    final Database db = await DBProvider.db.database;
+    final List<Map<String, dynamic>> maps = await db.query('ricette', orderBy: 'date DESC', limit: 1);
+    return fromMap(maps[0]);
+  }
+
   /// Insert operation
   Future<void> insertRecipe(Recipe recipe) async {
     final Database db = await DBProvider.db.database;

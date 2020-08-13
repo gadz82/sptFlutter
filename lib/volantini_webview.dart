@@ -22,7 +22,6 @@ class _VolantiniWebViewState extends State<VolantiniWebView> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     final VolantinoWebViewArgs args = ModalRoute.of(context).settings.arguments;

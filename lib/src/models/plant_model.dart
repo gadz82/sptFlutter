@@ -79,6 +79,12 @@ class Plant{
     );
   }
 
+  Future<Plant> getLast() async {
+    final Database db = await DBProvider.db.database;
+    final List<Map<String, dynamic>> maps = await db.query('piante', orderBy: 'date DESC', limit: 1);
+    return fromMap(maps[0]);
+  }
+
   /// Insert operation
   Future<void> insertPlant(Plant plant) async {
     final Database db = await DBProvider.db.database;
