@@ -7,6 +7,7 @@ import 'package:scelteperte/partials/drawer.dart';
 import 'package:scelteperte/partials/home/home_slider.dart';
 import 'package:scelteperte/partials/home/last_entries.dart';
 import 'package:scelteperte/partials/home/nav_card.dart';
+import 'package:scelteperte/piante.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:scelteperte/src/models/slide_model.dart';
 import 'package:scelteperte/volantini.dart';
@@ -53,6 +54,7 @@ class _HomeState extends State<Home> {
         '/volantini': (context) => Volantini(),
         '/volantini/webview': (context) => VolantiniWebView(),
         '/frutta': (context) => Fruits(),
+        '/piante': (context) => Plants(),
       },
       home: Scaffold(
           appBar: AppBar(
@@ -76,8 +78,9 @@ class _HomeState extends State<Home> {
                           color: Colors.green,
                           child: new CircularProgressIndicator(
                               backgroundColor: Colors.white,
-                              valueColor: new AlwaysStoppedAnimation<Color>(
-                              Colors.lightGreen)));
+                              valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightGreen)
+                          )
+                      );
                     })
               ]),
           drawer: SptDrawer(),
@@ -160,7 +163,7 @@ class _HomeState extends State<Home> {
                   ),
                   HomeNavCard(items: [
                     NavItem(title: 'Frutta e Verdura', subTitle: 'Scopri le nostre schede', namedRoute: '/frutta', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-frutta-app.jpg'),
-                    NavItem(title: 'Piante e Fiori', subTitle: 'Scopri come coltivare', namedRoute: '/volantini', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-fiori-app.jpg'),
+                    NavItem(title: 'Piante e Fiori', subTitle: 'Scopri come coltivare', namedRoute: '/piante', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-fiori-app.jpg'),
                     NavItem(title: 'Ricette', subTitle: 'A base di frutta e verdura', namedRoute: '/volantini', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-ricette-app.jpg')
                   ]),
                   Container(

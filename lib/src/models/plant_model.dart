@@ -1,3 +1,4 @@
+import 'package:scelteperte/piante.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:scelteperte/src/providers/db_provider.dart';
 
@@ -96,9 +97,9 @@ class Plant{
   }
 
   /// List Operation
-  Future<List<Plant>> getPlants() async {
+  Future<List<Plant>> getPlants({PlantsFilters filter, int offset, int limit}) async {
     final Database db = await DBProvider.db.database;
-    final List<Map<String, dynamic>> maps = await db.query('piante');
+    final List<Map<String, dynamic>> maps = await db.query('piante', offset: offset, limit: limit, orderBy: 'date DESC');
     return List.generate(maps.length, (i) {
       return fromMap(maps[i]);
     });

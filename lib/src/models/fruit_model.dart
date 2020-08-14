@@ -83,10 +83,9 @@ class Fruit{
   }
 
   /// List Operation
-  Future<List<Fruit>> getFruits({FruitFilters filter}) async {
-    log(filter.filtroNome);
+  Future<List<Fruit>> getFruits({FruitFilters filter, int offset, int limit}) async {
     final Database db = await DBProvider.db.database;
-    final List<Map<String, dynamic>> maps = await db.query('frutta_verdura');
+    final List<Map<String, dynamic>> maps = await db.query('frutta_verdura', offset: offset, limit: limit, orderBy: 'date DESC');
     return List.generate(maps.length, (i) {
       return fromMap(maps[i]);
     });
