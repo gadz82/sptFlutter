@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:scelteperte/frutta.dart';
+import 'package:scelteperte/src/filters/fruit_filters.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:scelteperte/src/providers/db_provider.dart';
 
@@ -127,8 +128,20 @@ class Fruit{
     );
   }
 
-  @override
+  Future<List<dynamic>> getFilters() async {
+    final Database db = await DBProvider.db.database;
+    final query =
+        "SELECT " +
+            "GROUP_CONCAT(DISTINCT stagione) AS stagione," +
+            "GROUP_CONCAT(DISTINCT origine) AS origine," +
+            "GROUP_CONCAT(DISTINCT tipologia) AS tipologia "+
+            "FROM frutta_verdura " +
+            "LIMIT 1 OFFSET 0";
 
+    return await DBProvider.db.executeSelect(query);
+  }
+
+  @override
   String toString() {
     return 'Fruit{'
         'post_id: $postId,'
