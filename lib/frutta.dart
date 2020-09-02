@@ -26,7 +26,7 @@ class _FruitsState extends State<Fruits> {
 
   bool isLoading = false;
 
-  FruitFilters activeFilters;
+  FruitFilters activeFilters = FruitFilters();
 
   ScrollController _scrollController;
 
@@ -99,8 +99,11 @@ class _FruitsState extends State<Fruits> {
             actions: [
               IconButton(
                 icon: Icon(Icons.filter_list),
-                onPressed: () {
-                  Navigator.push(context, _showFilters(FruitFilterMenu()));
+                onPressed: () async {
+                  final result = await Navigator.push(context, _showFilters(FruitFilterMenu(activeFilters: this.activeFilters)));
+                  setState(() {
+                    activeFilters = result;
+                  });
                 },
               )
             ],
