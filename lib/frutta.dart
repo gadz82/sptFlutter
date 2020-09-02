@@ -104,6 +104,9 @@ class _FruitsState extends State<Fruits> {
                 onPressed: () async {
                   final result = await Navigator.push(context, _showFilters(FruitFilterMenu(activeFilters: this.activeFilters)));
                     if(result != null){
+                      _scrollController.animateTo(
+                        0.0, duration: const Duration(milliseconds: 300), curve: Curves.easeOut
+                      );
                       setState(() {
                           activeFilters = result;
                           frutti = [];
