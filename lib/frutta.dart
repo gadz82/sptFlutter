@@ -36,13 +36,17 @@ class _FruitsState extends State<Fruits> {
   @override
   initState() {
     super.initState();
-    this.fruitsReady = Fruit().getFruits(filter: activeFilters, offset: offset, limit: limit).then((value){
+    this.fruitsReady = getFruits();
+    _scrollController = new ScrollController(initialScrollOffset: 1000.00, keepScrollOffset: true)..addListener(_scrollListener);
+  }
+
+  getFruits(){
+    return Fruit().getFruits(filter: activeFilters, offset: offset, limit: limit).then((value){
       setState(() {
         frutti.addAll(value);
       });
       return true;
     });
-    _scrollController = new ScrollController(initialScrollOffset: 1000.00, keepScrollOffset: true)..addListener(_scrollListener);
   }
 
   //// ADDING THE SCROLL LISTINER
@@ -101,9 +105,15 @@ class _FruitsState extends State<Fruits> {
                 icon: Icon(Icons.filter_list),
                 onPressed: () async {
                   final result = await Navigator.push(context, _showFilters(FruitFilterMenu(activeFilters: this.activeFilters)));
-                  setState(() {
-                    activeFilters = result;
-                  });
+                  log('wowowowo');
+
+                    setState(() {
+                        activeFilters = result;
+                        frutti = [];
+                        this.fruitsReady = Future.value(false);
+                        this.fruitsReady = getFruits();
+                    });
+
                 },
               )
             ],
