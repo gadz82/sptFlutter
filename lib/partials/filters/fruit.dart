@@ -1,8 +1,7 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:scelteperte/frutta.dart';
+import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:scelteperte/src/filters/fruit_filters.dart';
 import 'package:scelteperte/src/models/fruit_model.dart';
 
@@ -24,9 +23,9 @@ class _FruitFilterMenuState extends State<FruitFilterMenu> {
   FruitFilters filterSnapshot;
   FruitFilters filterObject;
 
-  List<DropdownMenuItem> origineValues = [];
-  List<DropdownMenuItem> tipologiaValues = [];
-  List<DropdownMenuItem> stagioneValues = [];
+  List<dynamic> origineValues = [];
+  List<dynamic> tipologiaValues = [];
+  List<dynamic> stagioneValues = [];
 
   final _formKey = GlobalKey<FormState>();
 
@@ -47,31 +46,34 @@ class _FruitFilterMenuState extends State<FruitFilterMenu> {
 
   Future<bool> getFilters() async {
     Fruit().getFilters().then((value) {
-      List<DropdownMenuItem> _origineValues = [];
-      List<DropdownMenuItem> _stagioneValues = [];
-      List<DropdownMenuItem> _tipologiaValues = [];
+      List<dynamic> _origineValues = [];
+      List<dynamic> _stagioneValues = [];
+      List<dynamic> _tipologiaValues = [];
 
       value[0]['origine'].toString().split(',').forEach((element) {
         if (element != '') {
-          _origineValues.add(DropdownMenuItem(
-              value: element.toLowerCase(),
-              child: Text(element.toUpperCase())));
+          _origineValues.add({
+            "name": element.toUpperCase(),
+            "value": element.toLowerCase()
+          });
         }
       });
 
       value[0]['stagione'].toString().split(',').forEach((element) {
         if (element != '') {
-          _stagioneValues.add(DropdownMenuItem(
-              value: element.toLowerCase(),
-              child: Text(element.toUpperCase())));
+          _stagioneValues.add({
+            "name": element.toUpperCase(),
+            "value": element.toLowerCase()
+          });
         }
       });
 
       value[0]['tipologia'].toString().split(',').forEach((element) {
         if (element != '') {
-          _tipologiaValues.add(DropdownMenuItem(
-              value: element.toLowerCase(),
-              child: Text(element.toUpperCase())));
+          _tipologiaValues.add({
+            "name": element.toUpperCase(),
+            "value": element.toLowerCase()
+          });
         }
       });
       setState(() {
@@ -94,10 +96,11 @@ class _FruitFilterMenuState extends State<FruitFilterMenu> {
         appBar: AppBar(
             leading: IconButton(
               icon: Icon(Icons.close),
-              onPressed: () => _sendDataBack(context, filterSnapshot),
+              onPressed: () => _sendDataBack(context, null),
             ),
-            title: Text("Filtra Frutte e Verdura"),
-            backgroundColor: Colors.green),
+            title: Text("Filtra Frutta e Verdura"),
+            backgroundColor: Colors.green
+        ),
         body: Container(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -110,6 +113,7 @@ class _FruitFilterMenuState extends State<FruitFilterMenu> {
                           autofocus: false,
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10.00),
                             labelText: 'Nome Frutta e Verdura',
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.black),
@@ -122,9 +126,14 @@ class _FruitFilterMenuState extends State<FruitFilterMenu> {
                             ),
                             labelStyle: TextStyle(color: Colors.grey),
                             suffixIcon: IconButton(
-                              onPressed: () => searchStringController.clear(),
+                              onPressed: (){
+                                setState(() {
+                                  searchStringController.clear();
+                                  filterObject.filtroNome = null;
+                                });
+                              },
                               icon: Icon(Icons.clear, color: Colors.black),
-                              iconSize: 15.00,
+                              iconSize: searchStringController.text.length > 0 ? 15.00 : 0.00,
                               padding: EdgeInsets.only(top: 20.00),
                             ),
                           ),
@@ -136,7 +145,7 @@ class _FruitFilterMenuState extends State<FruitFilterMenu> {
                             });
                           }),
                       DropdownButtonFormField(
-                          decoration: InputDecoration(labelText: 'Ordinamento'),
+                          decoration: InputDecoration(labelText: 'Ordinamento',contentPadding: EdgeInsets.all(10.00)),
                           value: this.filterObject.filtroOrdinamento != null ? this.filterObject.filtroOrdinamento : 'recenti',
                           items: [
                             DropdownMenuItem(
@@ -155,34 +164,84 @@ class _FruitFilterMenuState extends State<FruitFilterMenu> {
                               filterObject.filtroOrdinamento = value;
                             });
                           }),
-                      DropdownButtonFormField(
-                        decoration: InputDecoration(labelText: 'Origine'),
-                        value: filterObject.filtroOrigine,
-                        items: origineValues,
-                        onChanged: (value) {
+                      MultiSelectFormField(
+                        autovalidate: false,
+                        titleText: 'Origine',
+                        validator: (value) {
+                          if (value == null || value.length == 0) {
+                            return 'Filtra in base all\'origine';
+                          }
+                          return null;
+                        },
+                        dataSource: origineValues,
+                        textField: 'name',
+                        valueField: 'value',
+                        okButtonLabel: 'OK',
+                        cancelButtonLabel: 'ANNULLA',
+                        hintText: 'Seleziona i valori',
+                        initialValue: filterObject.filtroOrigine != null ? filterObject.filtroOrigine.split(',') : null,
+                        onSaved: (value) {
                           setState(() {
-                            filterObject.filtroOrigine = value;
+                            if(value != null){
+                              filterObject.filtroOrigine = value.length > 0 ? value.join(",") : null;
+                            } else {
+                              filterObject.filtroOrigine = null;
+                            }
+                          });
+                        }
+                      ),
+                      MultiSelectFormField(
+                        autovalidate: false,
+                        titleText: 'Stagione',
+                        validator: (value) {
+                          if (value == null || value.length == 0) {
+                            return 'Filtra in base alla stagione';
+                          }
+                          return null;
+                        },
+                        dataSource: stagioneValues,
+                        textField: 'name',
+                        valueField: 'value',
+                        okButtonLabel: 'OK',
+                        cancelButtonLabel: 'ANNULLA',
+                        hintText: 'Seleziona la stagione',
+                        initialValue: filterObject.filtroStagione != null ? filterObject.filtroStagione.split(',') : null,
+                        onSaved: (value) {
+                          setState(() {
+                            if(value != null){
+                              filterObject.filtroStagione = value.length > 0 ? value.join(",") : null;
+                            } else {
+                              filterObject.filtroStagione = null;
+                            }
                           });
                         },
                       ),
-                      DropdownButtonFormField(
-                          decoration: InputDecoration(labelText: 'Stagione'),
-                          value: filterObject.filtroStagione,
-                          items: stagioneValues,
-                          onChanged: (value) {
-                            setState(() {
-                              filterObject.filtroStagione = value;
-                            });
-                          }),
-                      DropdownButtonFormField(
-                          decoration: InputDecoration(labelText: 'Tipologia'),
-                          value: filterObject.filtroTipologia,
-                          items: tipologiaValues,
-                          onChanged: (value) {
-                            setState(() {
-                              filterObject.filtroTipologia = value;
-                            });
-                          }),
+                      MultiSelectFormField(
+                        autovalidate: false,
+                        titleText: 'Tipologia',
+                        validator: (value) {
+                          if (value == null || value.length == 0) {
+                            return 'Filtra in base alla tipologia';
+                          }
+                          return null;
+                        },
+                        dataSource: tipologiaValues,
+                        textField: 'name',
+                        valueField: 'value',
+                        okButtonLabel: 'OK',
+                        cancelButtonLabel: 'ANNULLA',
+                        hintText: 'Seleziona i valori',
+                        initialValue: filterObject.filtroTipologia != null ? filterObject.filtroTipologia.split(',') : null,
+                        onSaved: (value) {
+                          setState(() {
+                            if(value != null){
+                              filterObject.filtroTipologia = value.length > 0 ? value.join(",") : null;
+                            } else {
+                              filterObject.filtroTipologia = null;
+                            }
+                          });
+                        },
+                      ),
                       Row(
                         children: [
                           Expanded(
@@ -195,31 +254,6 @@ class _FruitFilterMenuState extends State<FruitFilterMenu> {
                                       _sendDataBack(context, filterObject);
                                     },
                                     child: Text('Applica Filtri', style: TextStyle(color: Colors.white)),
-                                  )
-                              )
-                          ),
-                          Expanded(
-                              child: Padding(
-                                  padding: EdgeInsets.only(top: 10.00),
-                                  child: RaisedButton(
-                                    color: Colors.redAccent,
-
-                                    onPressed: () {
-                                      // Validate returns true if the form is valid, or false
-                                      // otherwise.
-                                      setState(() {
-                                        filterObject.filtroOrdinamento = null;
-                                        filterObject.filtroTipologia = null;
-                                        filterObject.filtroOrigine = null;
-                                        filterObject.filtroStagione = null;
-                                        searchStringController.text = '';
-                                        filterObject.filtroNome = '';
-                                      });
-                                    },
-                                    child: Wrap(children: [
-                                      Icon(Icons.block, color: Colors.white, size: 16.00),
-                                      Text(' Pulisci', style: TextStyle(color: Colors.white))
-                                    ])
                                   )
                               )
                           )

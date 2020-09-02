@@ -86,7 +86,16 @@ class Fruit{
   /// List Operation
   Future<List<Fruit>> getFruits({FruitFilters filter, int offset, int limit}) async {
     final Database db = await DBProvider.db.database;
-    final List<Map<String, dynamic>> maps = await db.query('frutta_verdura', offset: offset, limit: limit, orderBy: 'date DESC');
+    String _where = '1 = 1';
+
+    if(filter.filtroNome != null && filter.filtroNome.length > 2) _where+= " AND titolo LIKE '%"+filter.filtroNome+"%' ";
+    if(filter.filtroOrigine != null) _where+= " AND origine IN('"+filter.filtroOrigine.replaceAll(',', "','")+"') ";
+    if(filter.filtroTipologia != null) _where+= " AND tipologia IN('"+filter.filtroTipologia.replaceAll(',', "','")+"') ";
+    if(filter.filtroStagione != null) _where+= " AND stagione IN('"+filter.filtroStagione.replaceAll(',', "','")+"') ";
+
+    log(_where);
+
+    final List<Map<String, dynamic>> maps = await db.query('frutta_verdura', offset: offset, where: _where, limit: limit, orderBy: 'date DESC');
     return List.generate(maps.length, (i) {
       return fromMap(maps[i]);
     });

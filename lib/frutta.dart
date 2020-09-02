@@ -37,12 +37,12 @@ class _FruitsState extends State<Fruits> {
   initState() {
     super.initState();
     this.fruitsReady = getFruits();
-    _scrollController = new ScrollController(initialScrollOffset: 1000.00, keepScrollOffset: true)..addListener(_scrollListener);
+    _scrollController = new ScrollController(initialScrollOffset: 0.00, keepScrollOffset: true)..addListener(_scrollListener);
   }
 
   getFruits(){
     return Fruit().getFruits(filter: activeFilters, offset: offset, limit: limit).then((value){
-      setState(() {
+      setState((){
         frutti.addAll(value);
       });
       return true;
@@ -51,7 +51,7 @@ class _FruitsState extends State<Fruits> {
 
   //// ADDING THE SCROLL LISTINER
   _scrollListener() {
-    if (_scrollController.offset >= _scrollController.position.maxScrollExtent && !_scrollController.position.outOfRange) {
+    if (_scrollController.offset >= (_scrollController.position.maxScrollExtent - 200) && !_scrollController.position.outOfRange) {
       setState(() {
         isLoading = true;
       });
@@ -76,9 +76,7 @@ class _FruitsState extends State<Fruits> {
         var begin = Offset(0.0, 1.0);
         var end = Offset.zero;
         var curve = Curves.ease;
-
         var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
         return SlideTransition(
           position: animation.drive(tween),
           child: child,
@@ -105,15 +103,15 @@ class _FruitsState extends State<Fruits> {
                 icon: Icon(Icons.filter_list),
                 onPressed: () async {
                   final result = await Navigator.push(context, _showFilters(FruitFilterMenu(activeFilters: this.activeFilters)));
-                  log('wowowowo');
-
-                    setState(() {
-                        activeFilters = result;
-                        frutti = [];
-                        this.fruitsReady = Future.value(false);
-                        this.fruitsReady = getFruits();
-                    });
-
+                    if(result != null){
+                      setState(() {
+                          activeFilters = result;
+                          frutti = [];
+                          offset = 0;
+                          this.fruitsReady = Future.value(false);
+                          this.fruitsReady = getFruits();
+                      });
+                    }
                 },
               )
             ],
@@ -124,7 +122,6 @@ class _FruitsState extends State<Fruits> {
             builder: (context, AsyncSnapshot<bool> fruitsReady){
                if(fruitsReady.hasData && fruitsReady.data == true){
                  Size size = MediaQuery.of(context).size;
-
                  /*24 is for notification bar on Android*/
                  final double itemHeight = (size.height - kToolbarHeight - 350) / 2;
                  final double itemWidth = size.width / 2;
