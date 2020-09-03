@@ -134,65 +134,61 @@ class _RecipesState extends State<Recipes> {
                     /*24 is for notification bar on Android*/
                     final double itemHeight = (size.height - kToolbarHeight - 350) / 2;
                     final double itemWidth = size.width / 2;
-
                     return ListView(
                         padding: EdgeInsets.all(5.00),
                         controller: _scrollController,
                         children: [
                           for(Recipe r in ricette)
-                            FlatButton(
-                                onPressed: () => log('dettaglio '+r.title),
-                                padding: EdgeInsets.zero,
-                                child: Container(
-                                    child: Wrap(
-                                        children: [
-                                          Stack(
-                                            alignment: Alignment.bottomLeft,
-                                            children: <Widget>[
-                                              Center(
-                                                  child: FadeInImage.memoryNetwork(
-                                                      placeholder: kTransparentImage,
-                                                      image: r.thumb,
-                                                      fit: BoxFit.fitHeight,
-                                                      height: (itemHeight-10)
-                                                  )
+                            Card(
+                              child: InkWell(
+                                onTap: (){
+
+                                },
+                                child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children:[
+                                      Expanded(
+                                          flex: 3,
+                                          child: FadeInImage.memoryNetwork(
+                                              placeholder: kTransparentImage,
+                                              image: r.thumb,
+                                              fit: BoxFit.fitWidth
+                                          ),
+                                        ),
+                                      Expanded(
+                                        flex: 6,
+                                        child: Container(
+                                          padding: EdgeInsets.all(10.00),
+                                          child : Wrap(
+                                            children: [
+                                              Text(r.title, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color:Colors.green), textAlign: TextAlign.left),
+                                              Divider(),
+                                              Container(
+                                                width: 1000,
+                                                child: Text(r.description, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13, ), textAlign: TextAlign.left)
                                               ),
                                               Container(
-                                                height: 25,
-                                                width: 1000,
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    gradient: LinearGradient(
-                                                        begin: Alignment.centerRight,
-                                                        end: Alignment.centerLeft,
-                                                        colors: [
-                                                          Colors.transparent,
-                                                          Colors.green,
-                                                        ],
-                                                        stops: [
-                                                          0.0,
-                                                          1.0
-                                                        ])),
-                                                child: Padding(
-                                                    padding: EdgeInsets.all(5),
-                                                    child: Text(r.title, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color:Colors.white), textAlign: TextAlign.left)
-                                                ),
-                                              )
-
-                                            ],
+                                                  margin: EdgeInsets.only(top:5.00),
+                                                  width: 1000,
+                                                  child: Text("Pronto in ${r.preparationTime} minuti", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color:Colors.green ), textAlign: TextAlign.left)
+                                              ),
+                                              Container(
+                                                  width: 1000,
+                                                  margin: EdgeInsets.only(top:5.00),
+                                                  child: Text("Difficoltà ${r.difficultyFilter.toUpperCase()}", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12,color:Colors.blueGrey, fontWeight: FontWeight.bold), textAlign: TextAlign.left)
+                                              ),
+                                            ]
                                           )
-                                        ]
-                                    )
+                                        )
+                                      ),
+
+                                  ]
                                 )
-                            ),
 
-                          if(isLoading)
-                            Center(
-                                child: CircularProgressIndicator()
+                              ),
                             )
-
-                        ]
-                    );
+                          ]
+                      );
 
                   }
                   return Center(
