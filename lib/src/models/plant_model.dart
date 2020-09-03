@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:scelteperte/piante.dart';
+import 'package:scelteperte/src/filters/plant_filters.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:scelteperte/src/providers/db_provider.dart';
 
@@ -99,20 +102,50 @@ class Plant{
   /// List Operation
   Future<List<Plant>> getPlants({PlantsFilters filter, int offset, int limit}) async {
     final Database db = await DBProvider.db.database;
-    final List<Map<String, dynamic>> maps = await db.query('piante', offset: offset, limit: limit, orderBy: 'date DESC');
+
+    String _where = '1 = 1';
+    String _orderBy = 'date DESC';
+
+    if(filter.filtroNome != null && filter.filtroNome.length > 2) _where+= " AND titolo LIKE '%"+filter.filtroNome+"%' ";
+    if(filter.filtroTipologia != null) _where+= " AND tipologia IN('"+filter.filtroTipologia.replaceAll(',', "','")+"') ";
+    if(filter.filtroAmbiente != null) _where+= " AND ambiente IN('"+filter.filtroAmbiente.replaceAll(',', "','")+"') ";
+    if(filter.filtroFoglia != null) _where+= " AND foglia IN('"+filter.filtroFoglia.replaceAll(',', "','")+"') ";
+    if(filter.filtroFioritura != null) _where+= " AND fioritura IN('"+filter.filtroFioritura.replaceAll(',', "','")+"') ";
+
+    if(filter.filtroOrdinamento != null){
+
+      switch(filter.filtroOrdinamento){
+        case 'alfabetico-az':
+          _orderBy = "titolo ASC";
+          break;
+        case 'alfabetico-za':
+          _orderBy = "titolo DESC";
+          break;
+        case 'recenti':
+          _orderBy = "date DESC";
+          break;
+        case 'no-recenti':
+          _orderBy = "date ASC";
+          break;
+        default :
+          _orderBy = "date DESC";
+          break;
+      }
+
+    } else {
+      _orderBy = "date DESC";
+    }
+    final List<Map<String, dynamic>> maps = await db.query('piante', offset: offset, where: _where, limit: limit, orderBy: _orderBy);
     return List.generate(maps.length, (i) {
       return fromMap(maps[i]);
     });
   }
-
-
 
   Future<List<Plant>> getPlant(int postId) async {
     final Database db = await DBProvider.db.database;
     final List<Map<String, dynamic>> maps = await db.query('piante', where: 'post_id = ?', whereArgs: [postId], limit: 1);
     return List.generate(maps.length, (i) {
       return fromMap(maps[i]);
-      //Plant
     });
   }
 
@@ -136,7 +169,21 @@ class Plant{
       whereArgs: [postId],
     );
   }
-  
+
+  Future<List<dynamic>> getFilters() async {
+    final query =
+        "SELECT " +
+            "GROUP_CONCAT(DISTINCT ambiente) AS ambiente," +
+            "GROUP_CONCAT(DISTINCT foglia) AS foglia," +
+            "GROUP_CONCAT(DISTINCT tipologia) AS tipologia,"+
+            "GROUP_CONCAT(DISTINCT fioritura) AS fioritura "+
+            "FROM piante " +
+            "LIMIT 1 OFFSET 0";
+
+    return await DBProvider.db.executeSelect(query);
+  }
+
+
   @override
 
   String toString() {

@@ -1,25 +1,29 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:scelteperte/src/filters/recipe_filters.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:scelteperte/src/providers/db_provider.dart';
 
 class Recipe{
-  final int postId;
-  final String title;
-  final String url;
-  final String pdf;
-  final String description;
-  final String image;
-  final String thumb;
-  final String recipeType;
-  final String timeFilter;
-  final String difficultyFilter;
-  final int preparationTime;
-  final int cookingTime;
-  final int portions;
-  final int difficulty;
-  final String ingredients;
-  final String preparation;
-  final String evidence;
-  final int date;
+  final postId;
+  final title;
+  final url;
+  final pdf;
+  final description;
+  final image;
+  final thumb;
+  final recipeType;
+  final timeFilter;
+  final difficultyFilter;
+  final preparationTime;
+  final cookingTime;
+  final portions;
+  final difficulty;
+  final ingredients;
+  final preparation;
+  final evidence;
+  final date;
 
   Recipe({this.postId, this.title, this.url, this.pdf, this.description, this.image, this.thumb, this. recipeType, this.timeFilter, this.difficultyFilter, this.preparationTime, this.cookingTime, this.portions, this.difficulty, this.ingredients, this.preparation, this.evidence, this.date});
 
@@ -47,25 +51,25 @@ class Recipe{
 
 
   Recipe fromMap(Map map){
-    return Recipe(
-        postId: map['post_id'],
-        title: map['titolo'],
-        url: map['url'],
-        pdf: map['scheda_pdf'],
-        description: map['descrizione'],
-        image: map['immagine'],
-        thumb: map['thumb'],
-        recipeType: map['tipologia_piatto'],
-        difficultyFilter: map['filtro_difficolta'],
-        preparationTime: map['tempo_preparazione'],
-        cookingTime: map['tempo_cottura'],
-        portions: map['porzioni'],
-        difficulty: map['difficolta'],
-        ingredients: map['ingredienti'],
-        preparation: map['preparazione'],
-        evidence: map['evidenza'],
-        date: map['date']
-    );
+      return Recipe(
+          postId: map['post_id'],
+          title: map['titolo'],
+          url: map['url'],
+          pdf: map['scheda_pdf'],
+          description: map['descrizione'],
+          image: map['immagine'],
+          thumb: map['thumb'],
+          recipeType: map['tipologia_piatto'],
+          difficultyFilter: map['filtro_difficolta'],
+          preparationTime: map['tempo_preparazione'],
+          cookingTime: map['tempo_cottura'],
+          portions: map['porzioni'],
+          difficulty: map['difficolta'],
+          ingredients: map['ingredienti'],
+          preparation: map['preparazione'],
+          evidence: map['evidenza'],
+          date: map['date']
+      );
   }
 
   Future<Recipe> getFeaturedRecipe() async {
@@ -91,9 +95,41 @@ class Recipe{
   }
 
   /// List Operation
-  Future<List<Recipe>> getRecipes() async {
+  Future<List<Recipe>> getRecipes({RecipesFilters filter, int offset, int limit}) async {
     final Database db = await DBProvider.db.database;
-    final List<Map<String, dynamic>> maps = await db.query('ricette');
+
+    String _where = '1 = 1';
+    String _orderBy = 'date DESC';
+
+    if(filter.filtroNome != null && filter.filtroNome.length > 2) _where+= " AND titolo LIKE '%"+filter.filtroNome+"%' ";
+    if(filter.filtroDifficolta != null) _where+= " AND difficolta IN('"+filter.filtroDifficolta.replaceAll(',', "','")+"') ";
+    if(filter.filtroTempo != null) _where+= " AND filtro_tempo IN('"+filter.filtroTempo.replaceAll(',', "','")+"') ";
+    if(filter.filtroTipologiaPiatto != null) _where+= " AND tipologia_piatto IN('"+filter.filtroTipologiaPiatto.replaceAll(',', "','")+"') ";
+
+    if(filter.filtroOrdinamento != null){
+
+      switch(filter.filtroOrdinamento){
+        case 'alfabetico-az':
+          _orderBy = "titolo ASC";
+          break;
+        case 'alfabetico-za':
+          _orderBy = "titolo DESC";
+          break;
+        case 'recenti':
+          _orderBy = "date DESC";
+          break;
+        case 'no-recenti':
+          _orderBy = "date ASC";
+          break;
+        default :
+          _orderBy = "date DESC";
+          break;
+      }
+
+    } else {
+      _orderBy = "date DESC";
+    }
+    final List<Map<String, dynamic>> maps = await db.query('ricette', offset: offset, where: _where, limit: limit, orderBy: _orderBy);
     return List.generate(maps.length, (i) {
       return fromMap(maps[i]);
     });
@@ -129,6 +165,18 @@ class Recipe{
       where: "id = ?",
       whereArgs: [postId],
     );
+  }
+
+  Future<List<dynamic>> getFilters() async {
+    final query =
+        "SELECT " +
+            "GROUP_CONCAT(DISTINCT tipologia_piatto) AS tipologia_piatto," +
+            "GROUP_CONCAT(DISTINCT filtro_tempo) AS tempo," +
+            "GROUP_CONCAT(DISTINCT filtro_difficolta) AS difficolta " +
+            "FROM ricette " +
+            "LIMIT 1 OFFSET 0";
+
+    return await DBProvider.db.executeSelect(query);
   }
 
 

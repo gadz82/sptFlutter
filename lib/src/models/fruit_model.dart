@@ -118,9 +118,6 @@ class Fruit{
       _orderBy = "date DESC";
     }
 
-
-    log(_where);
-
     final List<Map<String, dynamic>> maps = await db.query('frutta_verdura', offset: offset, where: _where, limit: limit, orderBy: _orderBy);
     return List.generate(maps.length, (i) {
       return fromMap(maps[i]);
@@ -164,7 +161,6 @@ class Fruit{
   }
 
   Future<List<dynamic>> getFilters() async {
-    final Database db = await DBProvider.db.database;
     final query =
         "SELECT " +
             "GROUP_CONCAT(DISTINCT stagione) AS stagione," +
