@@ -1,22 +1,13 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:scelteperte/partials/filters/fruit.dart';
-import 'package:scelteperte/partials/filters/plants.dart';
 import 'package:scelteperte/partials/filters/recipes.dart';
-import 'package:scelteperte/src/filters/fruit_filters.dart';
-import 'package:scelteperte/src/filters/plant_filters.dart';
 import 'package:scelteperte/src/filters/recipe_filters.dart';
-import 'package:scelteperte/src/models/fruit_model.dart';
-import 'package:scelteperte/src/models/plant_model.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class Recipes extends StatefulWidget {
 
-  RecipesFilters activeFilters;
+  final RecipesFilters activeFilters;
 
   Recipes({this.activeFilters});
 
@@ -130,10 +121,10 @@ class _RecipesState extends State<Recipes> {
                 future: recipesReady,
                 builder: (context, AsyncSnapshot<bool> recipesReady){
                   if(recipesReady.hasData && recipesReady.data == true){
+                    /*24 is for notification bar on Android
                     Size size = MediaQuery.of(context).size;
-                    /*24 is for notification bar on Android*/
                     final double itemHeight = (size.height - kToolbarHeight - 350) / 2;
-                    final double itemWidth = size.width / 2;
+                    final double itemWidth = size.width / 2;*/
                     return ListView(
                         padding: EdgeInsets.all(5.00),
                         controller: _scrollController,

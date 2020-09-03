@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:scelteperte/src/filters/fruit_filters.dart';
@@ -7,7 +5,7 @@ import 'package:scelteperte/src/models/fruit_model.dart';
 
 class FruitFilterMenu extends StatefulWidget {
 
-  FruitFilters activeFilters;
+  final FruitFilters activeFilters;
 
   FruitFilterMenu({this.activeFilters});
 

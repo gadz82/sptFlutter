@@ -7,8 +7,4 @@ class FruitFilters{
   String filtroOrdinamento;
 
   FruitFilters({this.filtroNome, this.filtroOrigine, this.filtroTipologia, this.filtroStagione, this.filtroOrdinamento});
-
-  String toString(){
-    super.toString();
-  }
 }

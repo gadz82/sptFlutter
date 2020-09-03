@@ -2,14 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
-import 'package:scelteperte/src/filters/fruit_filters.dart';
 import 'package:scelteperte/src/filters/plant_filters.dart';
-import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
 
 class PlantsFilterMenu extends StatefulWidget {
 
-  PlantsFilters activeFilters;
+  final PlantsFilters activeFilters;
 
   PlantsFilterMenu({this.activeFilters});
 

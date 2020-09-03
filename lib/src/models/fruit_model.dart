@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:scelteperte/frutta.dart';
 import 'package:scelteperte/src/filters/fruit_filters.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:scelteperte/src/providers/db_provider.dart';

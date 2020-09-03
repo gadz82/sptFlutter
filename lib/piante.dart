@@ -1,19 +1,14 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:scelteperte/partials/filters/fruit.dart';
 import 'package:scelteperte/partials/filters/plants.dart';
 import 'package:scelteperte/src/filters/fruit_filters.dart';
 import 'package:scelteperte/src/filters/plant_filters.dart';
-import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class Plants extends StatefulWidget {
 
-  FruitFilters activeFilters;
+  final FruitFilters activeFilters;
 
   Plants({this.activeFilters});
 
@@ -141,7 +136,9 @@ class _PlantsState extends State<Plants> {
                         children: [
                           for(Plant p in piante)
                             FlatButton(
-                                onPressed: () => log('dettaglio '+p.title),
+                                onPressed: (){
+
+                                },
                                 padding: EdgeInsets.zero,
                                 child: Container(
                                     child: Wrap(

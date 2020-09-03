@@ -22,6 +22,7 @@ class SptProvider {
 
   static set table(String table) {}
 
+  // ignore: missing_return
   static Future<bool> fetchData() async {
     final storage = await localStorage;
 

@@ -42,7 +42,7 @@ class _VolantiniState extends State<Volantini> {
   Future<bool> volantinoReady;
 
   @override
-  Future<void> initState() {
+  initState() {
     super.initState();
     volantinoReady = Pagina().getPageVolantino().then((value) {
       _jsonData = jsonDecode(value.jsonData);

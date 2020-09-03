@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:scelteperte/partials/filters/fruit.dart';
 import 'package:scelteperte/src/filters/fruit_filters.dart';
@@ -10,7 +8,7 @@ import 'package:transparent_image/transparent_image.dart';
 
 class Fruits extends StatefulWidget {
 
-  FruitFilters activeFilters;
+  final FruitFilters activeFilters;
 
   Fruits({this.activeFilters});
 
