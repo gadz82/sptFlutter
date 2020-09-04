@@ -47,15 +47,14 @@ class News{
   }
 
   /// List Operation
-  Future<List<News>> getNewss() async {
+  Future<List<News>> getAllNews({int offset, int limit}) async {
     final Database db = await DBProvider.db.database;
-    final List<Map<String, dynamic>> maps = await db.query('news');
+
+    final List<Map<String, dynamic>> maps = await db.query('news', offset: offset, limit: limit, orderBy: 'date DESC');
     return List.generate(maps.length, (i) {
       return fromMap(maps[i]);
     });
   }
-
-
 
   Future<List<News>> getNews(int postId) async {
     final Database db = await DBProvider.db.database;

@@ -126,7 +126,6 @@ class _PlantsState extends State<Plants> {
                     /*24 is for notification bar on Android*/
                     final double itemHeight = (size.height - kToolbarHeight - 350) / 2;
                     final double itemWidth = size.width / 2;
-
                     return GridView.count(
                         padding: EdgeInsets.all(5.00),
                         crossAxisSpacing: 5,

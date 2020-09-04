@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scelteperte/frutta.dart';
+import 'package:scelteperte/news.dart';
+import 'package:scelteperte/oroscopo.dart';
 import 'package:scelteperte/partials/drawer.dart';
 import 'package:scelteperte/partials/home/home_slider.dart';
 import 'package:scelteperte/partials/home/last_entries.dart';
@@ -57,6 +59,8 @@ class _HomeState extends State<Home> {
         '/frutta': (context) => Fruits(),
         '/piante': (context) => Plants(),
         '/ricette': (context) => Recipes(),
+        '/news': (context) => News(),
+        '/oroscopo': (context) => Oroscopo(),
       },
       home: Scaffold(
           appBar: AppBar(
@@ -122,7 +126,7 @@ class _HomeState extends State<Home> {
                         ),
                         GestureDetector(
                             onTap: () {
-                              log('tap');
+                              Navigator.pushNamed(context, '/oroscopo');
                             },
                             child: MacroHomeSectionButton(
                                 image: new AssetImage('images/oroscopo.jpg'),
@@ -195,7 +199,7 @@ class _HomeState extends State<Home> {
                   ),
                   HomeLastEntries(),
                   HomeNavCard(items: [
-                    NavItem(title: 'Consigli e Curiosità', subTitle: 'Dal mondo di Flora', namedRoute: '/volantini', asset: 'images/flora.jpg'),
+                    NavItem(title: 'Consigli e Curiosità', subTitle: 'Dal mondo di Flora', namedRoute: '/news', asset: 'images/flora.jpg'),
                     NavItem(title: 'Fiere ed Eventi', subTitle: 'Sul mondo del Giardinaggio e Floricoltura', namedRoute: '/volantini', asset: 'images/fiere.jpg')
                   ]),
           ])

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:scelteperte/src/providers/db_provider.dart';
 
@@ -61,15 +63,10 @@ class Pagina {
     });
   }
 
-
-
-  Future<List<Pagina>> getPage(int postId) async {
+  Future<Pagina> getPage(String slug) async {
     final Database db = await DBProvider.db.database;
-    final List<Map<String, dynamic>> maps = await db.query('pagine', where: 'post_id = ?', whereArgs: [postId], limit: 1);
-    return List.generate(maps.length, (i) {
-      return fromMap(maps[i]);
-      //Page
-    });
+    final List<Map<String, dynamic>> maps = await db.query('pagine', where: 'slug = ?', whereArgs: [slug], limit: 1);
+    return fromMap(maps[0]);
   }
 
   /// Update Operation
