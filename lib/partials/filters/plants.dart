@@ -152,12 +152,7 @@ class _PlantsFilterMenuState extends State<PlantsFilterMenu> {
                             ),
                           ),
                           controller: searchStringController,
-                          onChanged: (value) {
-                            setState(() {
-                              filterObject.filtroNome = value;
-                              searchStringController.text = value;
-                            });
-                          }),
+                      ),
                       DropdownButtonFormField(
                           decoration: InputDecoration(labelText: 'Ordinamento',contentPadding: EdgeInsets.all(10.00)),
                           value: this.filterObject.filtroOrdinamento != null ? this.filterObject.filtroOrdinamento : 'recenti',
@@ -291,6 +286,7 @@ class _PlantsFilterMenuState extends State<PlantsFilterMenu> {
                                   child: RaisedButton(
                                     color: Colors.green,
                                     onPressed: () {
+                                      filterObject.filtroNome = searchStringController.text;
                                       _sendDataBack(context, filterObject);
                                     },
                                     child: Text('Applica Filtri', style: TextStyle(color: Colors.white)),

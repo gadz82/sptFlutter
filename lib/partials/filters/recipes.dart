@@ -158,11 +158,7 @@ class _RecipesFilterMenuState extends State<RecipesFilterMenu> {
                                 value: 'alfabetico-za',
                                 child: Text('Alfabetico Z-A'))
                           ],
-                          onChanged: (value) {
-                            setState(() {
-                              filterObject.filtroOrdinamento = value;
-                            });
-                          }),
+                      ),
                       MultiSelectFormField(
                         autovalidate: false,
                         titleText: 'Tipo Piatto',
@@ -250,6 +246,7 @@ class _RecipesFilterMenuState extends State<RecipesFilterMenu> {
                                   child: RaisedButton(
                                     color: Colors.green,
                                     onPressed: () {
+                                      filterObject.filtroNome = searchStringController.text;
                                       _sendDataBack(context, filterObject);
                                     },
                                     child: Text('Applica Filtri', style: TextStyle(color: Colors.white)),
