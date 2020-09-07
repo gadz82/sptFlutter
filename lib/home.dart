@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scelteperte/frutta.dart';
+import 'package:scelteperte/linguaggio.dart';
 import 'package:scelteperte/news.dart';
 import 'package:scelteperte/oroscopo.dart';
 import 'package:scelteperte/partials/drawer.dart';
@@ -61,6 +62,7 @@ class _HomeState extends State<Home> {
         '/ricette': (context) => Recipes(),
         '/news': (context) => News(),
         '/oroscopo': (context) => Oroscopo(),
+        '/linguaggio': (context) => Linguaggio()
       },
       home: Scaffold(
           appBar: AppBar(
@@ -118,7 +120,7 @@ class _HomeState extends State<Home> {
                       children: [
                         GestureDetector(
                             onTap: () {
-                              log('tap');
+                              Navigator.pushNamed(context, '/linguaggio');
                             },
                             child: MacroHomeSectionButton(
                                 image: new AssetImage('images/linguaggio.jpg'),
