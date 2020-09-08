@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:scelteperte/fiere.dart';
 import 'package:scelteperte/frutta.dart';
 import 'package:scelteperte/linguaggio.dart';
 import 'package:scelteperte/news.dart';
@@ -62,7 +63,8 @@ class _HomeState extends State<Home> {
         '/ricette': (context) => Recipes(),
         '/news': (context) => News(),
         '/oroscopo': (context) => Oroscopo(),
-        '/linguaggio': (context) => Linguaggio()
+        '/linguaggio': (context) => Linguaggio(),
+        '/fiere': (context) => Fiere()
       },
       home: Scaffold(
           appBar: AppBar(
@@ -202,7 +204,7 @@ class _HomeState extends State<Home> {
                   HomeLastEntries(),
                   HomeNavCard(items: [
                     NavItem(title: 'Consigli e Curiosità', subTitle: 'Dal mondo di Flora', namedRoute: '/news', asset: 'images/flora.jpg'),
-                    NavItem(title: 'Fiere ed Eventi', subTitle: 'Sul mondo del Giardinaggio e Floricoltura', namedRoute: '/volantini', asset: 'images/fiere.jpg')
+                    NavItem(title: 'Fiere ed Eventi', subTitle: 'Sul mondo del Giardinaggio e Floricoltura', namedRoute: '/fiere', asset: 'images/fiere.jpg')
                   ]),
           ])
         )
