@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scelteperte/fiere.dart';
 import 'package:scelteperte/frutta.dart';
+import 'package:scelteperte/giardini_orti.dart';
 import 'package:scelteperte/linguaggio.dart';
 import 'package:scelteperte/news.dart';
 import 'package:scelteperte/oroscopo.dart';
@@ -64,7 +65,8 @@ class _HomeState extends State<Home> {
         '/news': (context) => News(),
         '/oroscopo': (context) => Oroscopo(),
         '/linguaggio': (context) => Linguaggio(),
-        '/fiere': (context) => Fiere()
+        '/fiere': (context) => Fiere(),
+        '/giardini': (context) => Giardini()
       },
       home: Scaffold(
           appBar: AppBar(
@@ -138,7 +140,7 @@ class _HomeState extends State<Home> {
                             )),
                         GestureDetector(
                             onTap: () {
-                              log('tap');
+                              Navigator.pushNamed(context, '/giardini');
                             },
                             child: MacroHomeSectionButton(
                                 image: new AssetImage('images/giardini.jpg'),

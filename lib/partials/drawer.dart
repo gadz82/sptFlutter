@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SptDrawer extends StatefulWidget {
   @override
@@ -6,6 +7,15 @@ class SptDrawer extends StatefulWidget {
 }
 
 class _SptDrawerState extends State<SptDrawer> {
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -35,109 +45,87 @@ class _SptDrawerState extends State<SptDrawer> {
                 title: Text('Home'),
                 dense: true,
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
+                  Navigator.pushNamed(context, '/home');
                 },
               ),
               ListTile(
                 title: Text('Piante e Fiori'),
                 dense: true,
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
+                  Navigator.pushNamed(context, '/piante');
                 },
               ),
               ListTile(
                 title: Text('Frutta e Verdura'),
                 dense: true,
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
+                  Navigator.pushNamed(context, '/frutta');
                 },
               ),
               ListTile(
                 title: Text('Ricette'),
                 dense: true,
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
+                  Navigator.pushNamed(context, '/ricette');
                 },
               ),
               ListTile(
                 title: Text('Offerte Conad'),
                 dense: true,
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
+                  Navigator.pushNamed(context, '/volantini');
                 },
               ),
               ListTile(
                 title: Text('Consigli e Curiosità'),
                 dense: true,
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
+                  Navigator.pushNamed(context, '/news');
                 },
               ),
               ListTile(
                 title: Text('Significato dei Fiori'),
                 dense: true,
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
+                  Navigator.pushNamed(context, '/linguaggio');
                 },
               ),
               ListTile(
                 title: Text('Oroscopo'),
                 dense: true,
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
+                  Navigator.pushNamed(context, '/oroscopo');
                 },
               ),
               ListTile(
                 title: Text('Fiere ed Eventi'),
                 dense: true,
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
+
                   Navigator.pop(context);
+                  Navigator.pushNamed(context, '/fiere');
                 },
               ),
               ListTile(
                 title: Text('Giardini e Orti Botanici'),
                 dense: true,
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
+                  Navigator.pushNamed(context, '/giardini');
                 },
               ),
               ListTile(
                 title: Text('Sconti Esclusivi'),
                 dense: true,
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
                 },
               ),
@@ -145,20 +133,16 @@ class _SptDrawerState extends State<SptDrawer> {
                 title: Text('Instagram'),
                 dense: true,
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
+                  _launchURL('https://www.instagram.com/scelteperte/');
                 },
               ),
               ListTile(
                 title: Text('Facebook'),
                 dense: true,
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
+                  _launchURL('https://www.facebook.com/scelteperte');
                 },
               ),
               ListTile(

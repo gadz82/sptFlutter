@@ -45,12 +45,15 @@ class _FiereState extends State<Fiere> {
 
       child: ListView(
         children: [
-          FittedBox(
-            child: FadeInImage.memoryNetwork(
-                placeholder: kTransparentImage,
-                image: "http://www.scelteperte.it/wp-content/uploads/2013/06/fiere-eventi-giardinaggio-scelte-per-te.jpg"
-            ),
-            fit: BoxFit.fitWidth,
+          Container(
+            height: 140,
+            child:FittedBox(
+                child: FadeInImage.memoryNetwork(
+                  placeholder: kTransparentImage,
+                  image: "https://www.scelteperte.it/wp-content/uploads/2013/06/fiere-eventi-giardinaggio-scelte-per-te.jpg",
+                ),
+                fit: BoxFit.fitWidth
+            )
           ),
           Card(
             margin: EdgeInsets.all(10),
