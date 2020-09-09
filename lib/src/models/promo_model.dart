@@ -55,7 +55,6 @@ class Promo {
     final List<Map<String, dynamic>> maps = await db.query('promozioni', offset: offset, limit: limit);
 
     return List.generate(maps.length, (i) {
-      log(i.toString());
       return fromMap(maps[i]);
     });
   }
