@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:scelteperte/src/providers/db_provider.dart';
 
@@ -47,14 +49,16 @@ class Promo {
   }
 
   /// List Operation
-  Future<List<Promo>> getPromos() async {
+  Future<List<Promo>> getPromos({int offset, int limit}) async {
     final Database db = await DBProvider.db.database;
-    final List<Map<String, dynamic>> maps = await db.query('promozioni');
+
+    final List<Map<String, dynamic>> maps = await db.query('promozioni', offset: offset, limit: limit);
+
     return List.generate(maps.length, (i) {
+      log(i.toString());
       return fromMap(maps[i]);
     });
   }
-
 
 
   Future<List<Promo>> getPromo(int postId) async {

@@ -127,6 +127,7 @@ class _SptDrawerState extends State<SptDrawer> {
                 dense: true,
                 onTap: () {
                   Navigator.pop(context);
+                  Navigator.pushNamed(context, '/promozioni');
                 },
               ),
               ListTile(

@@ -142,19 +142,20 @@ class SptProvider {
 
     ///PROMOZIONI
     if(data['content']['promozioni'] != null){
+      log('promozioni');
       List chunks = arrayChunk(data['content']['promozioni'], 40);
       for(int x = 0; x < chunks.length; x++){
         int nr = chunks[x].length;
 
         String query = "INSERT OR REPLACE INTO `promozioni`" +
-            "(`post_id`,`titolo`,`descrizione`,`coupon`,`link`,`data_inizio`,`data_fine`) " +
+            "(`post_id`,`titolo`, `link`, `descrizione`,`coupon`,`data_inizio`,`data_fine`) " +
             "VALUES ";
         List qparts = [];
         List bindings = [];
         for(int i = 0; i < nr; i++){
           final o = chunks[x][i];
           qparts.add('(?,?,?,?,?,?,?)');
-          bindings.addAll([ o['id'], o['title'], o['descrizione'], o['coupon'], o['link'], o['data_inizio'], o['data_fine'] ]);
+          bindings.addAll([ o['id'], o['title'], o['link'], o['descrizione'], o['coupon'], o['data_inizio'], o['data_fine'] ]);
         }
         query += qparts.join(',');
         if(x == 0){

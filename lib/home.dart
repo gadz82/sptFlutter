@@ -13,6 +13,7 @@ import 'package:scelteperte/partials/home/home_slider.dart';
 import 'package:scelteperte/partials/home/last_entries.dart';
 import 'package:scelteperte/partials/home/nav_card.dart';
 import 'package:scelteperte/piante.dart';
+import 'package:scelteperte/promozioni.dart';
 import 'package:scelteperte/ricette.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:scelteperte/src/models/slide_model.dart';
@@ -54,9 +55,7 @@ class _HomeState extends State<Home> {
     return MaterialApp(
       title: 'Scelte per Te',
       routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
         '/home': (context) => Home(appReady: this.appReady),
-        // When navigating to the "/second" route, build the SecondScreen widget.
         '/volantini': (context) => Volantini(),
         '/volantini/webview': (context) => VolantiniWebView(),
         '/frutta': (context) => Fruits(),
@@ -66,7 +65,8 @@ class _HomeState extends State<Home> {
         '/oroscopo': (context) => Oroscopo(),
         '/linguaggio': (context) => Linguaggio(),
         '/fiere': (context) => Fiere(),
-        '/giardini': (context) => Giardini()
+        '/giardini': (context) => Giardini(),
+        '/promozioni': (context) => Promozioni()
       },
       home: Scaffold(
           appBar: AppBar(

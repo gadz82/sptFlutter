@@ -57,21 +57,6 @@ class _NewsState extends State<News> {
     }
   }
 
-  Route _showFilters(Widget filterWidget) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => filterWidget,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var begin = Offset(0.0, 1.0);
-        var end = Offset.zero;
-        var curve = Curves.ease;
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
   String _parseHtmlString(String htmlString) {
     RegExp exp = RegExp(
         r"<[^>]*>",
@@ -98,8 +83,8 @@ class _NewsState extends State<News> {
         body: Container(
             child: FutureBuilder(
                 future: newsReady,
-                builder: (context, AsyncSnapshot<bool> recipesReady){
-                  if(recipesReady.hasData && recipesReady.data == true){
+                builder: (context, AsyncSnapshot<bool> nReady){
+                  if(nReady.hasData && nReady.data == true){
                     /*24 is for notification bar on Android
                     Size size = MediaQuery.of(context).size;
                     final double itemHeight = (size.height - kToolbarHeight - 350) / 2;
