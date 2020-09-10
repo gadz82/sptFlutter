@@ -46,7 +46,7 @@ class _SptDrawerState extends State<SptDrawer> {
                 dense: true,
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.pushNamed(context, '/home');
+                  /*Navigator.pushNamed(context, '/home');*/
                 },
               ),
               ListTile(

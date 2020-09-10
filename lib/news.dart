@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:scelteperte/src/models/news_model.dart' as NewsModel;
+import 'package:scelteperte/src/utils.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class News extends StatefulWidget {
@@ -57,16 +58,6 @@ class _NewsState extends State<News> {
     }
   }
 
-  String _parseHtmlString(String htmlString) {
-    RegExp exp = RegExp(
-        r"<[^>]*>",
-        multiLine: true,
-        caseSensitive: true
-    );
-
-    return htmlString.replaceAll(exp, '');
-  }
-
   @override
   void dispose() {
     _scrollController.dispose();
@@ -120,7 +111,7 @@ class _NewsState extends State<News> {
                                                       Divider(),
                                                       Container(
                                                           width: 1000,
-                                                          child: Text(_parseHtmlString(n.text).substring(0,80)+"...", style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
+                                                          child: Text(Utils().parseHtmlString(n.text).substring(0,80)+"...", style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
                                                       )
                                                     ]
                                                 )

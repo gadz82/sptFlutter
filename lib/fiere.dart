@@ -1,12 +1,9 @@
-import 'dart:collection';
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:scelteperte/src/models/page_model.dart';
+import 'package:scelteperte/src/utils.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -143,7 +140,7 @@ class _FiereState extends State<Fiere> {
                               color: Colors.lightGreen,
                               label: const Text('Sito Web'),
                               onPressed: () {
-                                _launchURL(event['link']);
+                                Utils().launchURL(event['link']);
                               },
                             )
                           ),
@@ -184,7 +181,7 @@ class _FiereState extends State<Fiere> {
                             label: const Text('Vedi su Mappa'),
                             onPressed: () {
                               final url = 'https://www.google.com/maps/search/?api=1&query=${event['lat']},${event['lng']}';
-                              _launchURL(url);
+                              Utils().launchURL(url);
                             },
                           )
                       )

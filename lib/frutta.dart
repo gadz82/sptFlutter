@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:scelteperte/frutta_item.dart';
 import 'package:scelteperte/partials/filters/fruit.dart';
 import 'package:scelteperte/src/filters/fruit_filters.dart';
 import 'package:scelteperte/src/models/fruit_model.dart';
@@ -136,7 +137,7 @@ class _FruitsState extends State<Fruits> {
                      children: [
                        for(Fruit f in frutti)
                          FlatButton(
-                             onPressed: () => log('dettaglio '+f.title),
+                             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FruitItem(postId: f.postId, appBarTitle: f.title))),
                              padding: EdgeInsets.zero,
                              child: Container(
                                  child: Wrap(

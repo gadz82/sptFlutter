@@ -61,7 +61,7 @@ class Fruit{
         thumbAvatar : map['thumb_avatar'],
         description : map['descrizione'],
         additionalInfo : map['info_aggiuntive'],
-        history : map['history'],
+        history : map['storia'],
         features : map['caratteristiche'],
         variety : map['varieta'],
         plantId : map['id_pianta'],
@@ -127,13 +127,10 @@ class Fruit{
     return fromMap(maps[0]);
   }
 
-  Future<List<Fruit>> getFruit(int postId) async {
+  Future<Fruit> getFruit(int postId) async {
     final Database db = await DBProvider.db.database;
     final List<Map<String, dynamic>> maps = await db.query('frutta_verdura', where: 'post_id = ?', whereArgs: [postId], limit: 1);
-    return List.generate(maps.length, (i) {
-      return fromMap(maps[i]);
-      //Fruit
-    });
+    return fromMap(maps[0]);
   }
 
   /// Update Operation

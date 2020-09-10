@@ -101,7 +101,7 @@ class _PromozioniState extends State<Promozioni> {
                           for(Promo p in this.promos)
                             ListTile(
                               title: Text(p.title),
-                              subtitle : Text(_parseHtmlString(p.description).substring(0,80)+"...", style: TextStyle(fontSize: 13), textAlign: TextAlign.left),
+                              subtitle : Text(_parseHtmlString(p.description).substring(0,80)+"...", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13), textAlign: TextAlign.left),
                               trailing: Icon(Icons.keyboard_arrow_right)
                             )
                         ]

@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:scelteperte/src/models/page_model.dart';
+import 'package:scelteperte/src/utils.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -27,15 +28,6 @@ class _GiardiniState extends State<Giardini> {
     super.initState();
     this.pagina = Pagina().getPage('giardini-orti-botanici');
   }
-
-  _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
 
   Widget _buildRegionList(Pagina data){
 
@@ -142,7 +134,7 @@ class _GiardiniState extends State<Giardini> {
                                     color: Colors.lightGreen,
                                     label: Text(garden['telefono']),
                                     onPressed: () {
-                                      _launchURL("tel:${garden['telefono']}");
+                                      Utils().launchURL("tel:${garden['telefono']}");
                                     },
                                   )
                               ),
@@ -157,7 +149,7 @@ class _GiardiniState extends State<Giardini> {
                                     color: Colors.lightGreen,
                                     label: Text(garden['cellulare']),
                                     onPressed: () {
-                                      _launchURL("tel:${garden['cellulare']}");
+                                      Utils().launchURL("tel:${garden['cellulare']}");
                                     },
                                   )
                               ),
@@ -172,7 +164,7 @@ class _GiardiniState extends State<Giardini> {
                                     color: Colors.lightGreen,
                                     label: const Text('Sito Web'),
                                     onPressed: () {
-                                      _launchURL(garden['sito']);
+                                      Utils().launchURL(garden['sito']);
                                     },
                                   )
                               ),
@@ -188,7 +180,7 @@ class _GiardiniState extends State<Giardini> {
                                     label: const Text('Indicazioni Stradali'),
                                     onPressed: () {
                                       final url = 'https://www.google.com/maps/search/?api=1&query=${garden['lat']},${garden['lng']}';
-                                      _launchURL(url);
+                                      Utils().launchURL(url);
                                     },
                                   )
                               )
