@@ -155,7 +155,7 @@ class _HomeState extends State<Home> {
                                     log('tap');
                                   },
                                   child: MacroHomeSectionButton(
-                                      image: new NetworkImage(recipe.data.image),
+                                      image: new NetworkImage(recipe.data.thumb),
                                       title: 'Ricetta del mese'
                                   ));
                             } else {
