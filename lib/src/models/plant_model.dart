@@ -1,4 +1,5 @@
 import 'package:scelteperte/src/filters/plant_filters.dart';
+import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:scelteperte/src/providers/db_provider.dart';
 
@@ -138,11 +139,17 @@ class Plant{
     });
   }
 
-  Future<List<Plant>> getPlant(int postId) async {
+  Future<Plant> getPlant(int postId) async {
     final Database db = await DBProvider.db.database;
     final List<Map<String, dynamic>> maps = await db.query('piante', where: 'post_id = ?', whereArgs: [postId], limit: 1);
+    return fromMap(maps[0]);
+  }
+
+  Future<List<Fruit>> getRelatedFruits(Plant plant) async {
+    final Database db = await DBProvider.db.database;
+    final List<Map<String, dynamic>> maps = await db.query('frutta_verdura', where: 'id_pianta = ?', whereArgs: [plant.postId]);
     return List.generate(maps.length, (i) {
-      return fromMap(maps[i]);
+      return Fruit().fromMap(maps[i]);
     });
   }
 

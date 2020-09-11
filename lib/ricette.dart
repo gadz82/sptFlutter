@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:scelteperte/partials/filters/recipes.dart';
+import 'package:scelteperte/ricette_item.dart';
 import 'package:scelteperte/src/filters/recipe_filters.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -132,9 +133,7 @@ class _RecipesState extends State<Recipes> {
                           for(Recipe r in ricette)
                             Card(
                               child: InkWell(
-                                onTap: (){
-
-                                },
+                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeItem(postId: r.postId, appBarTitle: r.title))),
                                 child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children:[

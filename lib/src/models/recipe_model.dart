@@ -1,4 +1,5 @@
 import 'package:scelteperte/src/filters/recipe_filters.dart';
+import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:scelteperte/src/providers/db_provider.dart';
 
@@ -91,6 +92,14 @@ class Recipe{
     );
   }
 
+  Future<List<Fruit>> getRelatedFruits(Recipe recipe) async {
+    final Database db = await DBProvider.db.database;
+    final List<Map<String, dynamic>> maps = await db.query('frutta_verdura', where: 'id_ricetta = ?', whereArgs: [recipe.postId]);
+    return List.generate(maps.length, (i) {
+      return Fruit().fromMap(maps[i]);
+    });
+  }
+
   /// List Operation
   Future<List<Recipe>> getRecipes({RecipesFilters filter, int offset, int limit}) async {
     final Database db = await DBProvider.db.database;
@@ -134,13 +143,10 @@ class Recipe{
 
 
 
-  Future<List<Recipe>> getRecipe(int postId) async {
+  Future<Recipe> getRecipe(int postId) async {
     final Database db = await DBProvider.db.database;
     final List<Map<String, dynamic>> maps = await db.query('ricette', where: 'post_id = ?', whereArgs: [postId], limit: 1);
-    return List.generate(maps.length, (i) {
-      return fromMap(maps[i]);
-      //Recipe
-    });
+    return fromMap(maps[0]);
   }
 
   /// Update Operation

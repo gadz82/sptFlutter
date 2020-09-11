@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scelteperte/src/utils.dart';
 
-class ItemCard extends StatelessWidget {
+class CardIngredienti extends StatelessWidget {
 
   @required String cardTitle;
-  @required String content;
+  @required List<String> ingredienti;
 
-  ItemCard({this.cardTitle, this.content});
+  CardIngredienti({this.cardTitle, this.ingredienti});
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +20,14 @@ class ItemCard extends StatelessWidget {
             title: Text(cardTitle, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             visualDensity: VisualDensity.compact,
           ),
-          Padding(
-            padding: EdgeInsets.only(left:15.0, right:15.0, bottom:20),
-            child: Text(
-              Utils().parseHtmlString(content),
-              style: TextStyle(color: Colors.black.withOpacity(0.8)),
-            ),
-          ),
+          Container(
+              padding: EdgeInsets.only(left:15.0, right:15.0, bottom:20),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                Utils().parseHtmlString(ingredienti.join('-')),
+                style: TextStyle(color: Colors.black.withOpacity(0.8)),
+              )
+          )
         ],
       ),
     );

@@ -1,69 +1,59 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:scelteperte/partials/item/frutta/item_linked_fruit.dart';
 import 'package:scelteperte/partials/item/frutta/table.dart';
 import 'package:scelteperte/partials/item/item_card.dart';
 import 'package:scelteperte/partials/item/piante/item_linked_plant.dart';
+import 'package:scelteperte/partials/item/piante/table.dart';
 import 'package:scelteperte/partials/item/ricette/item_linked_recipe.dart';
+import 'package:scelteperte/piante.dart';
 import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class FruitItem extends StatefulWidget {
+class PlantItem extends StatefulWidget {
 
   final int postId;
   final String appBarTitle;
 
-  FruitItem({this.postId, this.appBarTitle});
+  PlantItem({this.postId, this.appBarTitle});
 
   @override
-  _FruitItemState createState() => _FruitItemState();
+  _PlantItemState createState() => _PlantItemState();
 }
 
-class _FruitItemState extends State<FruitItem> {
+class _PlantItemState extends State<PlantItem> {
 
-  Future<bool> fruitReady;
+  Future<bool> plantReady;
 
-  Fruit frutto;
+  Plant pianta;
 
-  bool hasRelatedPlants = false;
-  bool hasRelatedRecipes = false;
-
-  List<Plant> relatedPlants = [];
-  List<Recipe> relatedRecipes = [];
+  bool hasRelatedFruits = false;
+  List<Fruit> relatedFruits = [];
 
   @override
   initState() {
     super.initState();
-    this.fruitReady = getFruit();
+    this.plantReady = getPlant();
   }
 
-  getFruit(){
-    return Fruit().getFruit(widget.postId).then((value){
+  getPlant(){
+    return Plant().getPlant(widget.postId).then((value){
       setState((){
-        frutto = value;
+        pianta = value;
       });
       var futures = <Future>[];
 
-      if(frutto.plantId != null && frutto.plantId != 0) {
-        futures.add(Fruit().getRelatedPlants(frutto).then((value) {
-          setState(() {
-            this.relatedPlants.addAll(value);
-            this.hasRelatedPlants = value.length > 0 ? true : false;
-          });
-        }));
-      }
-
-      if(frutto.recipeId != null && frutto.recipeId != 0){
-        futures.add(Fruit().getRelatedRecipes(frutto).then((value){
-          setState((){
-            this.relatedRecipes.addAll(value);
-            this.hasRelatedRecipes = value.length > 0 ? true : false;
-          });
-        }));
-      }
+      futures.add(Plant().getRelatedFruits(pianta).then((value) {
+        setState(() {
+          this.relatedFruits.addAll(value);
+          this.hasRelatedFruits = value.length > 0 ? true : false;
+        });
+      }));
 
       return Future.wait(futures).then((value){
         return true;
@@ -83,7 +73,7 @@ class _FruitItemState extends State<FruitItem> {
         ),
         body: Container(
           child: FutureBuilder(
-            future: fruitReady,
+            future: plantReady,
             builder: (context, AsyncSnapshot<bool> fReady){
                if(fReady.hasData && fReady.data == true){
                  return ListView(
@@ -97,7 +87,7 @@ class _FruitItemState extends State<FruitItem> {
                               Expanded(
                                 child: FadeInImage.memoryNetwork(
                                     placeholder: kTransparentImage,
-                                    image: frutto.image,
+                                    image: pianta.image,
                                     fit: BoxFit.fitWidth
                                 ),
                               ),
@@ -107,11 +97,11 @@ class _FruitItemState extends State<FruitItem> {
                       Container(
                         padding: EdgeInsets.only(top:25),
                         alignment: Alignment.center,
-                        child: Text(frutto.title, style: TextStyle(fontSize: 18, color: Colors.green, fontWeight: FontWeight.bold)),
+                        child: Text(pianta.title, style: TextStyle(fontSize: 18, color: Colors.green, fontWeight: FontWeight.bold)),
                       ),
                       Container(
                         margin:EdgeInsets.symmetric(vertical:15),
-                        child: Html(data: frutto.description)
+                        child: Html(data: pianta.description)
                       ),
                       Row(
                         children: <Widget>[
@@ -125,7 +115,7 @@ class _FruitItemState extends State<FruitItem> {
                                         color: Color(0xffcccccc),
                                         width: 1000.0,
                                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                                        child: Text("Scheda Frutta e Verdura", style: TextStyle(fontWeight: FontWeight.bold)),
+                                        child: Text("Scheda Pianta", style: TextStyle(fontWeight: FontWeight.bold)),
                                       ),
                                     ]
                                 ),
@@ -134,27 +124,21 @@ class _FruitItemState extends State<FruitItem> {
                           ),
                         ]
                       ),
-                      FruttaTable(origine: frutto.origin, stagione: frutto.season),
-                      ItemCard(cardTitle: "Storia e curiosità", content: frutto.description),
-                      ItemCard(cardTitle: "Caratteristiche", content: frutto.features),
-                      ItemCard(cardTitle: "Varietà", content: frutto.variety),
-                      if(hasRelatedPlants)
+                      PiantaTable(ambiente: pianta.environment, fioritura: pianta.flowering, tipologiaFoglie: pianta.leaf, tipoPianta: pianta.type),
+                      ItemCard(cardTitle: "Storia e curiosità", content: pianta.history),
+                      ItemCard(cardTitle: "Terreno", content: pianta.terrain),
+                      ItemCard(cardTitle: "Tipologia Pianta", content: pianta.plantType),
+                      ItemCard(cardTitle: "Annaffiatura", content: pianta.watering),
+                      ItemCard(cardTitle: "Esposizione", content: pianta.sunExposition),
+                      ItemCard(cardTitle: "Malattie e Parassiti", content: pianta.diseases),
+
+                      if(hasRelatedFruits)
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 15),
                           margin: EdgeInsets.only(top:15, bottom:15),
-                          child: Text('Scheda Pianta', style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold, color:Colors.green)),
+                          child: Text('Scheda Frutto', style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold, color:Colors.green)),
                         ),
-                        ItemLinkedPlant(relatedPlants: relatedPlants),
-
-
-
-                      if(hasRelatedRecipes)
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          margin: EdgeInsets.only(top:15, bottom:15),
-                          child: Text('Ricetta Abbinata', style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold, color:Colors.green)),
-                        ),
-                        ItemLinkedRecipe(relatedRecipes : relatedRecipes)
+                        ItemLinkedFruit(relatedFruits: relatedFruits),
 
                     ],
                   );

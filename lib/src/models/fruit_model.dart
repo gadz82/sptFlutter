@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:scelteperte/src/filters/fruit_filters.dart';
+import 'package:scelteperte/src/models/plant_model.dart';
+import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:scelteperte/src/providers/db_provider.dart';
 
@@ -131,6 +135,25 @@ class Fruit{
     final Database db = await DBProvider.db.database;
     final List<Map<String, dynamic>> maps = await db.query('frutta_verdura', where: 'post_id = ?', whereArgs: [postId], limit: 1);
     return fromMap(maps[0]);
+  }
+
+  Future<List<Plant>> getRelatedPlants(Fruit fruit) async {
+    if(fruit.plantId == null || fruit.plantId == 0) throw Exception('no related');
+    final Database db = await DBProvider.db.database;
+    final List<Map<String, dynamic>> maps = await db.query('piante', where: 'post_id = ?', whereArgs: [fruit.plantId]);
+    return List.generate(maps.length, (i) {
+      return Plant().fromMap(maps[i]);
+    });
+  }
+
+  Future<List<Recipe>> getRelatedRecipes(Fruit fruit) async {
+    log(fruit.recipeId.toString());
+    if(fruit.recipeId == null || fruit.recipeId == 0) throw Exception('no related');
+    final Database db = await DBProvider.db.database;
+    final List<Map<String, dynamic>> maps = await db.query('ricette', where: 'post_id = ?', whereArgs: [fruit.recipeId]);
+    return List.generate(maps.length, (i) {
+      return Recipe().fromMap(maps[0]);
+    });
   }
 
   /// Update Operation

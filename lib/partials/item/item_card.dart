@@ -20,13 +20,14 @@ class ItemCard extends StatelessWidget {
             title: Text(cardTitle, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             visualDensity: VisualDensity.compact,
           ),
-          Padding(
+          Container(
             padding: EdgeInsets.only(left:15.0, right:15.0, bottom:20),
+            alignment: Alignment.centerLeft,
             child: Text(
               Utils().parseHtmlString(content),
-              style: TextStyle(color: Colors.black.withOpacity(0.8)),
-            ),
-          ),
+              style: TextStyle(color: Colors.black.withOpacity(0.8), fontSize: 14),
+            )
+          )
         ],
       ),
     );

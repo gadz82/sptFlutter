@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:scelteperte/partials/filters/plants.dart';
+import 'package:scelteperte/piante_item.dart';
 import 'package:scelteperte/src/filters/fruit_filters.dart';
 import 'package:scelteperte/src/filters/plant_filters.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
@@ -135,9 +136,7 @@ class _PlantsState extends State<Plants> {
                         children: [
                           for(Plant p in piante)
                             FlatButton(
-                                onPressed: (){
-
-                                },
+                                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PlantItem(postId: p.postId, appBarTitle: p.title))),
                                 padding: EdgeInsets.zero,
                                 child: Container(
                                     child: Wrap(
