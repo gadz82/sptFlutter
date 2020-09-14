@@ -168,7 +168,6 @@ class _PlantsItemState extends State<PlantsItem> {
                         child: DownloadButton(url: plant.pdf, buttonTitle: "Scarica Scheda PDF"),
                       )
 
-
                     ],
                   );
 

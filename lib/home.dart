@@ -104,16 +104,15 @@ class _HomeState extends State<Home> {
                       if (slides.hasData) {
                         return SliderHome(slides : slides.data);
                       } else {
+                        Size size = MediaQuery.of(context).size;
+                        final double containerHeight = (size.height - kToolbarHeight - 300) / 2;
+
                         return Container(
-                            child: Column(
-                            children: [
-                              Center(
-                                  child: Padding(
-                                      padding: EdgeInsets.only(top: 50.00),
-                                      child: CircularProgressIndicator())),
-                              Text('Caricamento...')
-                            ],
-                        ));
+                            height: containerHeight,
+                            child:  Center(
+                              child: CircularProgressIndicator(),
+                            )
+                        );
                       }
                     }),
                   Container(
@@ -177,7 +176,7 @@ class _HomeState extends State<Home> {
                     NavItem(title: 'Ricette', subTitle: 'A base di frutta e verdura', namedRoute: '/ricette', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-ricette-app.jpg')
                   ]),
                   Container(
-                      margin: EdgeInsets.only(top: 20.00),
+                      margin: EdgeInsets.only(top: 0.00),
                       padding: EdgeInsets.all(10.00),
                       child: RaisedButton(
                           textColor: Colors.white,

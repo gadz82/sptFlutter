@@ -22,7 +22,7 @@ class HomeNavCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(0.00),
-        margin: EdgeInsets.only(top: 30),
+        margin: EdgeInsets.only(top: 00),
         child: SizedBox(
             child: Card(
                 clipBehavior: Clip.antiAlias,

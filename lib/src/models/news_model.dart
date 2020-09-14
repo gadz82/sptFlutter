@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:scelteperte/src/providers/db_provider.dart';
 
@@ -56,13 +58,10 @@ class News{
     });
   }
 
-  Future<List<News>> getNews(int postId) async {
+  Future<News> getNews(int postId) async {
     final Database db = await DBProvider.db.database;
     final List<Map<String, dynamic>> maps = await db.query('news', where: 'post_id = ?', whereArgs: [postId], limit: 1);
-    return List.generate(maps.length, (i) {
-      return fromMap(maps[i]);
-      //News
-    });
+    return fromMap(maps[0]);
   }
 
   /// Update Operation

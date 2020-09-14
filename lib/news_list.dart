@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:scelteperte/news_item.dart';
 import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:scelteperte/src/models/news_model.dart' as NewsModel;
 import 'package:scelteperte/src/utils.dart';
@@ -89,9 +90,7 @@ class _NewsListState extends State<NewsList> {
                           for(NewsModel.News n in news)
                             Card(
                               child: InkWell(
-                                  onTap: (){
-
-                                  },
+                                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => NewsItem(postId: n.postId, appBarTitle: n.title))),
                                   child: Row(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children:[
