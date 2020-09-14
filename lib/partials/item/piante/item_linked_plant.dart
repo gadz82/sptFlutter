@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scelteperte/piante_item.dart';
+import 'package:scelteperte/plants_item.dart';
 import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
 import 'package:scelteperte/src/utils.dart';
@@ -20,7 +20,7 @@ class ItemLinkedPlant extends StatelessWidget {
                   textColor: Colors.black,
                   color: Colors.white,
                   padding: EdgeInsets.symmetric(horizontal: 10.00),
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PlantItem(postId: relatedPlant.postId, appBarTitle: relatedPlant.title))),
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PlantsItem(postId: relatedPlant.postId, appBarTitle: relatedPlant.title))),
                   child: ListTile(
                     contentPadding: EdgeInsets.symmetric(vertical: 10),
                     leading: ClipRRect(

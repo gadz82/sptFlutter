@@ -1,23 +1,23 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:scelteperte/frutta_item.dart';
+import 'package:scelteperte/fruits_item.dart';
 import 'package:scelteperte/partials/filters/fruit.dart';
 import 'package:scelteperte/src/filters/fruit_filters.dart';
 import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class Fruits extends StatefulWidget {
+class FruitsList extends StatefulWidget {
 
   final FruitFilters activeFilters;
 
-  Fruits({this.activeFilters});
+  FruitsList({this.activeFilters});
 
   @override
-  _FruitsState createState() => _FruitsState();
+  _FruitsListState createState() => _FruitsListState();
 }
 
-class _FruitsState extends State<Fruits> {
+class _FruitsListState extends State<FruitsList> {
 
   Future<bool> fruitsReady;
 
@@ -137,7 +137,7 @@ class _FruitsState extends State<Fruits> {
                      children: [
                        for(Fruit f in frutti)
                          FlatButton(
-                             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FruitItem(postId: f.postId, appBarTitle: f.title))),
+                             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FruitsItem(postId: f.postId, appBarTitle: f.title))),
                              padding: EdgeInsets.zero,
                              child: Container(
                                  child: Wrap(

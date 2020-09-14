@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RicettaTable extends StatelessWidget {
+class PlantTable extends StatelessWidget {
 
-  @required String preparazione;
-  @required String cottura;
-  @required String porzioni;
-  @required String difficolta;
+  @required String ambiente;
+  @required String fioritura;
+  @required String tipologiaFoglie;
+  @required String tipoPianta;
 
-  RicettaTable({this.preparazione, this.cottura, this.porzioni, this.difficolta});
+  PlantTable({this.ambiente, this.fioritura, this.tipologiaFoglie, this.tipoPianta});
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,8 @@ class RicettaTable extends StatelessWidget {
                     ),
                     child: Wrap(
                       children: [
-                        Icon(Icons.access_time, color: Colors.green, size: 22,),
-                        Text(" Preparazione", style: TextStyle(fontSize: 17, color: Colors.black87))
+                        Icon(Icons.map, color: Colors.green, size: 22,),
+                        Text(" Ambiente", style: TextStyle(fontSize: 17, color: Colors.black87))
                       ],
                     ),
                   ),
@@ -50,7 +50,7 @@ class RicettaTable extends StatelessWidget {
                           )
                       ),
                     ),
-                    child: Text(this.preparazione.toUpperCase(), style: TextStyle(color: Colors.black54)),
+                    child: Text(this.ambiente.toUpperCase(), style: TextStyle(color: Colors.black54)),
                   ),
                 ]),
             TableRow(
@@ -70,8 +70,8 @@ class RicettaTable extends StatelessWidget {
                     ),
                     child: Wrap(
                       children: [
-                        Icon(Icons.av_timer, color: Colors.green, size: 22,),
-                        Text(" Cottura", style: TextStyle(fontSize: 17, color: Colors.black87))
+                        Icon(Icons.local_florist, color: Colors.green, size: 22,),
+                        Text(" Fioritura", style: TextStyle(fontSize: 17, color: Colors.black87))
                       ],
                     ),
                   ),
@@ -88,7 +88,45 @@ class RicettaTable extends StatelessWidget {
                           )
                       ),
                     ),
-                    child: Text(this.cottura.toUpperCase(), style: TextStyle(color: Colors.black54)),
+                    child: Text(this.fioritura.toUpperCase(), style: TextStyle(color: Colors.black54)),
+                  ),
+                ]),
+              TableRow(
+                children: [
+                  Container(
+                    height: 40,
+                    padding: EdgeInsets.only(left: 10),
+                    alignment: Alignment.centerLeft,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border(
+                          bottom: BorderSide( //                   <--- left side
+                            color: Color(0xff333333),
+                            width: 0.5,
+                          )
+                      ),
+                    ),
+                    child: Wrap(
+                      children: [
+                        Icon(Icons.nature, color: Colors.green, size: 22,),
+                        Text(" Tipologia Foglie", style: TextStyle(fontSize: 17, color: Colors.black87))
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 40,
+                    padding: EdgeInsets.only(right: 10),
+                    alignment: Alignment.centerRight,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border(
+                          bottom: BorderSide( //                   <--- left side
+                            color: Color(0xff333333),
+                            width: 0.5,
+                          )
+                      ),
+                    ),
+                    child: Text(this.tipologiaFoglie.toUpperCase(), style: TextStyle(color: Colors.black54)),
                   ),
                 ]),
             TableRow(
@@ -108,8 +146,8 @@ class RicettaTable extends StatelessWidget {
                     ),
                     child: Wrap(
                       children: [
-                        Icon(Icons.people, color: Colors.green, size: 22,),
-                        Text(" Porzioni", style: TextStyle(fontSize: 17, color: Colors.black87))
+                        Icon(Icons.ac_unit, color: Colors.green, size: 22,),
+                        Text(" Tipo Pianta", style: TextStyle(fontSize: 17, color: Colors.black87))
                       ],
                     ),
                   ),
@@ -126,45 +164,7 @@ class RicettaTable extends StatelessWidget {
                           )
                       ),
                     ),
-                    child: Text(this.porzioni.toUpperCase(), style: TextStyle(color: Colors.black54)),
-                  ),
-                ]),
-            TableRow(
-                children: [
-                  Container(
-                    height: 40,
-                    padding: EdgeInsets.only(left: 10),
-                    alignment: Alignment.centerLeft,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border(
-                          bottom: BorderSide( //                   <--- left side
-                            color: Color(0xff333333),
-                            width: 0.5,
-                          )
-                      ),
-                    ),
-                    child: Wrap(
-                      children: [
-                        Icon(Icons.local_dining, color: Colors.green, size: 22,),
-                        Text(" Difficoltà", style: TextStyle(fontSize: 17, color: Colors.black87))
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 40,
-                    padding: EdgeInsets.only(right: 10),
-                    alignment: Alignment.centerRight,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border(
-                          bottom: BorderSide( //                   <--- left side
-                            color: Color(0xff333333),
-                            width: 0.5,
-                          )
-                      ),
-                    ),
-                    child: Text(this.difficolta.toUpperCase(), style: TextStyle(color: Colors.black54)),
+                    child: Text(this.tipoPianta.toUpperCase(), style: TextStyle(color: Colors.black54)),
                   ),
                 ]),
           ],

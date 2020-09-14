@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:scelteperte/src/models/page_model.dart';
 
-class Oroscopo extends StatefulWidget {
+class Oroscope extends StatefulWidget {
   @override
-  _OroscopoState createState() => _OroscopoState();
+  _OroscopeState createState() => _OroscopeState();
 }
 
-class _OroscopoState extends State<Oroscopo> {
+class _OroscopeState extends State<Oroscope> {
 
   Future pagina;
 

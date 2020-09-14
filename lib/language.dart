@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:scelteperte/src/models/page_model.dart';
 
-class Linguaggio extends StatefulWidget {
+class Language extends StatefulWidget {
   @override
-  _LinguaggioState createState() => _LinguaggioState();
+  _LanguageState createState() => _LanguageState();
 }
 
-class _LinguaggioState extends State<Linguaggio> {
+class _LanguageState extends State<Language> {
 
   TextEditingController searchStringController = TextEditingController();
 

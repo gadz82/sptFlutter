@@ -1,22 +1,22 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:scelteperte/partials/filters/recipes.dart';
-import 'package:scelteperte/ricette_item.dart';
+import 'package:scelteperte/recipes_item.dart';
 import 'package:scelteperte/src/filters/recipe_filters.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class Recipes extends StatefulWidget {
+class RecipesList extends StatefulWidget {
 
   final RecipesFilters activeFilters;
 
-  Recipes({this.activeFilters});
+  RecipesList({this.activeFilters});
 
   @override
-  _RecipesState createState() => _RecipesState();
+  _RecipesListState createState() => _RecipesListState();
 }
 
-class _RecipesState extends State<Recipes> {
+class _RecipesListState extends State<RecipesList> {
 
   Future<bool> recipesReady;
 
@@ -133,7 +133,7 @@ class _RecipesState extends State<Recipes> {
                           for(Recipe r in ricette)
                             Card(
                               child: InkWell(
-                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RecipeItem(postId: r.postId, appBarTitle: r.title))),
+                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RecipesItem(postId: r.postId, appBarTitle: r.title))),
                                 child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children:[

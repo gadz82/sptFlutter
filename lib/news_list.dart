@@ -4,12 +4,12 @@ import 'package:scelteperte/src/models/news_model.dart' as NewsModel;
 import 'package:scelteperte/src/utils.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class News extends StatefulWidget {
+class NewsList extends StatefulWidget {
   @override
-  _NewsState createState() => _NewsState();
+  _NewsListState createState() => _NewsListState();
 }
 
-class _NewsState extends State<News> {
+class _NewsListState extends State<NewsList> {
 
   Future<bool> newsReady;
 

@@ -7,12 +7,12 @@ import 'package:scelteperte/src/utils.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Fiere extends StatefulWidget {
+class Fairs extends StatefulWidget {
   @override
-  _FiereState createState() => _FiereState();
+  _FairsState createState() => _FairsState();
 }
 
-class _FiereState extends State<Fiere> {
+class _FairsState extends State<Fairs> {
 
   Future pagina;
 

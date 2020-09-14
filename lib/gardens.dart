@@ -11,12 +11,12 @@ import 'package:scelteperte/src/utils.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Giardini extends StatefulWidget {
+class Gardens extends StatefulWidget {
   @override
-  _GiardiniState createState() => _GiardiniState();
+  _GardensState createState() => _GardensState();
 }
 
-class _GiardiniState extends State<Giardini> {
+class _GardensState extends State<Gardens> {
 
   Future pagina;
 

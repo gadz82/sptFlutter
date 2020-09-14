@@ -4,29 +4,29 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:scelteperte/partials/item/frutta/item_linked_fruit.dart';
-import 'package:scelteperte/partials/item/frutta/table.dart';
+import 'package:scelteperte/partials/item/frutta/fruit_table.dart';
 import 'package:scelteperte/partials/item/item_card.dart';
 import 'package:scelteperte/partials/item/piante/item_linked_plant.dart';
-import 'package:scelteperte/partials/item/piante/table.dart';
+import 'package:scelteperte/partials/item/piante/plant_table.dart';
 import 'package:scelteperte/partials/item/ricette/item_linked_recipe.dart';
-import 'package:scelteperte/piante.dart';
+import 'package:scelteperte/plants_list.dart';
 import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class PlantItem extends StatefulWidget {
+class PlantsItem extends StatefulWidget {
 
   final int postId;
   final String appBarTitle;
 
-  PlantItem({this.postId, this.appBarTitle});
+  PlantsItem({this.postId, this.appBarTitle});
 
   @override
-  _PlantItemState createState() => _PlantItemState();
+  _PlantsItemState createState() => _PlantsItemState();
 }
 
-class _PlantItemState extends State<PlantItem> {
+class _PlantsItemState extends State<PlantsItem> {
 
   Future<bool> plantReady;
 
@@ -124,7 +124,7 @@ class _PlantItemState extends State<PlantItem> {
                           ),
                         ]
                       ),
-                      PiantaTable(ambiente: pianta.environment, fioritura: pianta.flowering, tipologiaFoglie: pianta.leaf, tipoPianta: pianta.type),
+                      PlantTable(ambiente: pianta.environment, fioritura: pianta.flowering, tipologiaFoglie: pianta.leaf, tipoPianta: pianta.type),
                       ItemCard(cardTitle: "Storia e curiosità", content: pianta.history),
                       ItemCard(cardTitle: "Terreno", content: pianta.terrain),
                       ItemCard(cardTitle: "Tipologia Pianta", content: pianta.plantType),

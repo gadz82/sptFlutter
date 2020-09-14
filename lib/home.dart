@@ -2,23 +2,23 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:scelteperte/fiere.dart';
-import 'package:scelteperte/frutta.dart';
-import 'package:scelteperte/giardini_orti.dart';
-import 'package:scelteperte/linguaggio.dart';
-import 'package:scelteperte/news.dart';
-import 'package:scelteperte/oroscopo.dart';
+import 'package:scelteperte/fairs.dart';
+import 'package:scelteperte/fuits_list.dart';
+import 'package:scelteperte/gardens.dart';
+import 'package:scelteperte/language.dart';
+import 'package:scelteperte/news_list.dart';
+import 'package:scelteperte/oroscope.dart';
 import 'package:scelteperte/partials/drawer.dart';
 import 'package:scelteperte/partials/home/home_slider.dart';
 import 'package:scelteperte/partials/home/last_entries.dart';
 import 'package:scelteperte/partials/home/nav_card.dart';
-import 'package:scelteperte/piante.dart';
-import 'package:scelteperte/promozioni.dart';
-import 'package:scelteperte/ricette.dart';
+import 'package:scelteperte/plants_list.dart';
+import 'package:scelteperte/promotions_list.dart';
+import 'package:scelteperte/recipes_list.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:scelteperte/src/models/slide_model.dart';
-import 'package:scelteperte/volantini.dart';
-import 'package:scelteperte/volantini_webview.dart';
+import 'package:scelteperte/flyers_list.dart';
+import 'package:scelteperte/flyers_webview.dart';
 
 
 class Home extends StatefulWidget {
@@ -56,17 +56,17 @@ class _HomeState extends State<Home> {
       title: 'Scelte per Te',
       routes: {
         '/home': (context) => Home(appReady: this.appReady),
-        '/volantini': (context) => Volantini(),
+        '/volantini': (context) => FlyersList(),
         '/volantini/webview': (context) => VolantiniWebView(),
-        '/frutta': (context) => Fruits(),
-        '/piante': (context) => Plants(),
-        '/ricette': (context) => Recipes(),
-        '/news': (context) => News(),
-        '/oroscopo': (context) => Oroscopo(),
-        '/linguaggio': (context) => Linguaggio(),
-        '/fiere': (context) => Fiere(),
-        '/giardini': (context) => Giardini(),
-        '/promozioni': (context) => Promozioni()
+        '/frutta': (context) => FruitsList(),
+        '/piante': (context) => PlantsList(),
+        '/ricette': (context) => RecipesList(),
+        '/news': (context) => NewsList(),
+        '/oroscopo': (context) => Oroscope(),
+        '/linguaggio': (context) => Language(),
+        '/fiere': (context) => Fairs(),
+        '/giardini': (context) => Gardens(),
+        '/promozioni': (context) => PromotionsList()
       },
       home: Scaffold(
           appBar: AppBar(

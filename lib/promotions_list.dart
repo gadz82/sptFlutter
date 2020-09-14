@@ -7,12 +7,12 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:scelteperte/src/models/page_model.dart';
 import 'package:scelteperte/src/models/promo_model.dart';
 
-class Promozioni extends StatefulWidget {
+class PromotionsList extends StatefulWidget {
   @override
-  _PromozioniState createState() => _PromozioniState();
+  _PromotionsListState createState() => _PromotionsListState();
 }
 
-class _PromozioniState extends State<Promozioni> {
+class _PromotionsListState extends State<PromotionsList> {
 
   Future<bool> promosReady;
 

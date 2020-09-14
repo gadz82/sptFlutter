@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:scelteperte/src/models/page_model.dart';
-import 'package:scelteperte/volantini_webview.dart';
+import 'package:scelteperte/flyers_webview.dart';
 
-class Volantini extends StatefulWidget {
+class FlyersList extends StatefulWidget {
   @override
-  _VolantiniState createState() => _VolantiniState();
+  _FlyersListState createState() => _FlyersListState();
 }
 
 // stores ExpansionPanel state information
@@ -36,7 +36,7 @@ List<Item> generateItems(List<String> data) {
 }
 
 /// This Widget is the main application widget.
-class _VolantiniState extends State<Volantini> {
+class _FlyersListState extends State<FlyersList> {
   List<Item> _regioni;
   Map _jsonData;
   Future<bool> volantinoReady;

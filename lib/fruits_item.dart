@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:scelteperte/partials/item/frutta/table.dart';
+import 'package:scelteperte/partials/item/frutta/fruit_table.dart';
 import 'package:scelteperte/partials/item/item_card.dart';
 import 'package:scelteperte/partials/item/piante/item_linked_plant.dart';
 import 'package:scelteperte/partials/item/ricette/item_linked_recipe.dart';
@@ -11,18 +11,18 @@ import 'package:scelteperte/src/models/plant_model.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class FruitItem extends StatefulWidget {
+class FruitsItem extends StatefulWidget {
 
   final int postId;
   final String appBarTitle;
 
-  FruitItem({this.postId, this.appBarTitle});
+  FruitsItem({this.postId, this.appBarTitle});
 
   @override
-  _FruitItemState createState() => _FruitItemState();
+  _FruitsItemState createState() => _FruitsItemState();
 }
 
-class _FruitItemState extends State<FruitItem> {
+class _FruitsItemState extends State<FruitsItem> {
 
   Future<bool> fruitReady;
 
@@ -134,7 +134,7 @@ class _FruitItemState extends State<FruitItem> {
                           ),
                         ]
                       ),
-                      FruttaTable(origine: frutto.origin, stagione: frutto.season),
+                      FruitTable(origine: frutto.origin, stagione: frutto.season),
                       ItemCard(cardTitle: "Storia e curiosità", content: frutto.description),
                       ItemCard(cardTitle: "Caratteristiche", content: frutto.features),
                       ItemCard(cardTitle: "Varietà", content: frutto.variety),
@@ -145,7 +145,6 @@ class _FruitItemState extends State<FruitItem> {
                           child: Text('Scheda Pianta', style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold, color:Colors.green)),
                         ),
                         ItemLinkedPlant(relatedPlants: relatedPlants),
-
 
 
                       if(hasRelatedRecipes)
