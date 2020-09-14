@@ -101,7 +101,6 @@ class _LanguageState extends State<Language> {
                     Expanded(
                       child: ListView(
                           shrinkWrap: true,
-
                           children:[
                             for(Map entry in this.matches)
                               ListTile(
@@ -115,7 +114,6 @@ class _LanguageState extends State<Language> {
                           ]
                       )
                     )
-
                   ],
                 );
               } else {
