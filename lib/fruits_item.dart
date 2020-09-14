@@ -158,21 +158,28 @@ class _FruitsItemState extends State<FruitsItem> {
                       ItemCard(cardTitle: "Caratteristiche", content: frutto.features),
                       ItemCard(cardTitle: "Varietà", content: frutto.variety),
                       if(hasRelatedPlants)
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          margin: EdgeInsets.only(top:15, bottom:15),
-                          child: Text('Scheda Pianta', style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold, color:Colors.green)),
+                        Wrap(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              margin: EdgeInsets.only(top:15, bottom:15),
+                              child: Text('Scheda Pianta', style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold, color:Colors.green)),
+                            ),
+                            ItemLinkedPlant(relatedPlants: relatedPlants),
+                          ],
                         ),
-                        ItemLinkedPlant(relatedPlants: relatedPlants),
 
 
                       if(hasRelatedRecipes)
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          margin: EdgeInsets.only(top:15, bottom:15),
-                          child: Text('Ricetta Abbinata', style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold, color:Colors.green)),
-                        ),
-                        ItemLinkedRecipe(relatedRecipes : relatedRecipes),
+                        Wrap(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            margin: EdgeInsets.only(top:15, bottom:15),
+                            child: Text('Ricetta Abbinata', style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold, color:Colors.green)),
+                          ),
+                          ItemLinkedRecipe(relatedRecipes : relatedRecipes),
+                        ]),
 
                       Container(
                         margin: EdgeInsets.only(top:10, bottom: 10),

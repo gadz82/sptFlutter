@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:scelteperte/partials/bottom_banner.dart';
+import 'package:scelteperte/partials/item/download_button.dart';
 import 'package:scelteperte/partials/item/frutta/item_linked_fruit.dart';
 import 'package:scelteperte/partials/item/frutta/fruit_table.dart';
 import 'package:scelteperte/partials/item/item_card.dart';
@@ -149,14 +150,23 @@ class _RecipesItemState extends State<RecipesItem> {
                         ItemCard(cardTitle: "Preparazione", content: recipe.preparation),
 
                         if(hasRelatedFruits)
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 15),
-                            margin: EdgeInsets.only(top:15, bottom:15),
-                            child: Text('Scheda Frutto', style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold, color:Colors.green)),
+                          Wrap(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                margin: EdgeInsets.only(top:15, bottom:15),
+                                child: Text('Scheda Frutto', style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold, color:Colors.green)),
+                              ),
+                              ItemLinkedFruit(relatedFruits: relatedFruits),
+
+                            ],
                           ),
 
-                        ItemLinkedFruit(relatedFruits: relatedFruits),
 
+                        Container(
+                          margin: EdgeInsets.only(top:10, bottom: 10),
+                          child: DownloadButton(url: recipe.pdf, buttonTitle: "Scarica Scheda PDF"),
+                        )
                       ],
                     );
 
