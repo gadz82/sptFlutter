@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:scelteperte/partials/item/download_button.dart';
 import 'package:scelteperte/partials/item/frutta/fruit_table.dart';
 import 'package:scelteperte/partials/item/item_card.dart';
@@ -10,6 +11,7 @@ import 'package:scelteperte/partials/item/ricette/item_linked_recipe.dart';
 import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
+import 'package:share/share.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class FruitsItem extends StatefulWidget {
@@ -81,7 +83,23 @@ class _FruitsItemState extends State<FruitsItem> {
         appBar: AppBar(
             title: Text(widget.appBarTitle),
             backgroundColor: Colors.green,
+            actions: [
+              FutureBuilder(
+                future: fruitReady,
+                builder: (context, AsyncSnapshot<bool> fReady) {
+                  if (fReady.hasData && fReady.data == true) {
+                    return InkWell(
+                      child: Icon(Icons.share),
+                      onTap: () => Share.share(frutto.url),
+                    );
+                  } else {
+                    return SizedBox();
+                  }
+                }
+              )
+            ],
         ),
+        bottomNavigationBar: BottomBanner(),
         body: Container(
           child: FutureBuilder(
             future: fruitReady,
@@ -156,7 +174,11 @@ class _FruitsItemState extends State<FruitsItem> {
                         ),
                         ItemLinkedRecipe(relatedRecipes : relatedRecipes),
 
-                      DownloadButton(url: frutto.pdf, buttonTitle: "Scarica Scheda Frutto")
+                      Container(
+                        margin: EdgeInsets.only(top:10, bottom: 10),
+                        child: DownloadButton(url: frutto.pdf, buttonTitle: "Scarica Scheda PDF"),
+                      )
+
 
                     ],
                   );

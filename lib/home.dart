@@ -8,12 +8,14 @@ import 'package:scelteperte/gardens.dart';
 import 'package:scelteperte/language.dart';
 import 'package:scelteperte/news_list.dart';
 import 'package:scelteperte/oroscope.dart';
+import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:scelteperte/partials/drawer.dart';
 import 'package:scelteperte/partials/home/home_slider.dart';
 import 'package:scelteperte/partials/home/last_entries.dart';
 import 'package:scelteperte/partials/home/nav_card.dart';
 import 'package:scelteperte/plants_list.dart';
 import 'package:scelteperte/promotions_list.dart';
+import 'package:scelteperte/recipes_item.dart';
 import 'package:scelteperte/recipes_list.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:scelteperte/src/models/slide_model.dart';
@@ -78,11 +80,8 @@ class _HomeState extends State<Home> {
                     builder: (context, AsyncSnapshot<bool> ready) {
                       // ignore: missing_return
                       if (ready.hasData) {
-                        log('App Sync with remote completed');
-                        return Visibility(
-                            visible: false, child: Text('loaded'));
+                        return SizedBox();
                       }
-                      log('App Sync with remote in progress during Home rendering');
                       return Container(
                           width: 60.0,
                           height: 20.0,
@@ -96,6 +95,7 @@ class _HomeState extends State<Home> {
                     })
               ]),
           drawer: SptDrawer(),
+          bottomNavigationBar: BottomBanner(),
           body: Builder(builder: (context) =>
               ListView(children: [
                 FutureBuilder(
@@ -152,7 +152,7 @@ class _HomeState extends State<Home> {
                             if (recipe.hasData) {
                               return GestureDetector(
                                   onTap: () {
-                                    log('tap');
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => RecipesItem(postId: recipe.data.postId, appBarTitle: recipe.data.title)));
                                   },
                                   child: MacroHomeSectionButton(
                                       image: new NetworkImage(recipe.data.thumb),
@@ -160,9 +160,7 @@ class _HomeState extends State<Home> {
                                   ));
                             } else {
                               return GestureDetector(
-                                  onTap: () {
-                                    log('tap');
-                                  },
+                                  onTap: () => Navigator.pushNamed(context, '/ricette'),
                                   child: MacroHomeSectionButton(
                                       image: new AssetImage('images/ricetta.jpg'),
                                       title: 'Ricetta del mese'

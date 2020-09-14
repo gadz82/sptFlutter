@@ -14,7 +14,7 @@ class DownloadButton extends StatelessWidget {
         padding:EdgeInsets.symmetric(horizontal: 15, vertical: 3),
         width: 1000,
         child: RaisedButton.icon(
-          icon: Icon(Icons.description),
+          icon: Icon(Icons.cloud_download ),
           textColor: Colors.white,
           color: Colors.lightGreen,
           label: Text(buttonTitle),

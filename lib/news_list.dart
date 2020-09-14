@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:scelteperte/src/models/news_model.dart' as NewsModel;
 import 'package:scelteperte/src/utils.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -71,6 +72,7 @@ class _NewsListState extends State<NewsList> {
           title: Text("Consigli e Curiosità"),
           backgroundColor: Colors.green
         ),
+        bottomNavigationBar: BottomBanner(),
         body: Container(
             child: FutureBuilder(
                 future: newsReady,

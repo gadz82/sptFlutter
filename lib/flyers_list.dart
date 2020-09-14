@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:scelteperte/src/models/page_model.dart';
 import 'package:scelteperte/flyers_webview.dart';
 
@@ -62,6 +63,7 @@ class _FlyersListState extends State<FlyersList> {
     return Scaffold(
         appBar: AppBar(
             title: Text("Volantini Conad"), backgroundColor: Colors.green),
+        bottomNavigationBar: BottomBanner(),
         body: Wrap(children: [
           FutureBuilder(
             future: volantinoReady,

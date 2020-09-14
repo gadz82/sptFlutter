@@ -6,6 +6,7 @@ import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:scelteperte/src/models/page_model.dart';
 import 'package:scelteperte/src/utils.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -62,6 +63,7 @@ class _GardensState extends State<Gardens> {
             title: Text(currentRegionName),
             backgroundColor: Colors.green
         ),
+        bottomNavigationBar: BottomBanner(),
         body: Container(
             child: ListView(
               children: [

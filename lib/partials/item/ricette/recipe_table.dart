@@ -50,7 +50,7 @@ class RecipeTable extends StatelessWidget {
                           )
                       ),
                     ),
-                    child: Text(this.preparazione.toUpperCase(), style: TextStyle(color: Colors.black54)),
+                    child: Text(this.preparazione.toUpperCase()+" minuti", style: TextStyle(color: Colors.black54)),
                   ),
                 ]),
             TableRow(
@@ -88,7 +88,7 @@ class RecipeTable extends StatelessWidget {
                           )
                       ),
                     ),
-                    child: Text(this.cottura.toUpperCase(), style: TextStyle(color: Colors.black54)),
+                    child: Text(this.cottura.toUpperCase()+" minuti", style: TextStyle(color: Colors.black54)),
                   ),
                 ]),
             TableRow(

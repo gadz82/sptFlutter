@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:scelteperte/fruits_item.dart';
+import 'package:scelteperte/plants_item.dart';
+import 'package:scelteperte/recipes_item.dart';
 import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
@@ -14,9 +17,9 @@ class WrappedEntryCard extends StatelessWidget {
   final String image;
   final String title;
   final String description;
-  final String namedRoute;
+  final Function onTap;
 
-  WrappedEntryCard({this.image, this.title, this.description, this.namedRoute});
+  WrappedEntryCard({this.image, this.title, this.description, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +79,7 @@ class WrappedEntryCard extends StatelessWidget {
                             padding: EdgeInsets.only(right: 15, bottom:10),
                             alignment:Alignment.centerRight,
                             child: RaisedButton(
-                              onPressed: () {},
+                              onPressed: () => onTap(),
                               color: Colors.green,
                               textColor: Colors.white,
                               child: const Text(
@@ -119,7 +122,7 @@ class _HomeLastEntriesState extends State<HomeLastEntries> {
               future: lastRecipe,
               builder:(context, AsyncSnapshot<Recipe> recipe){
                 if(recipe.hasData){
-                  return WrappedEntryCard(title: recipe.data.title, description: recipe.data.description, image : recipe.data.image, namedRoute: '/recipes/${recipe.data.postId}');
+                  return WrappedEntryCard(title: recipe.data.title, description: recipe.data.description, image : recipe.data.image, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RecipesItem(postId: recipe.data.postId, appBarTitle: recipe.data.title))));
                 } else {
                   return Center(
                       child: CircularProgressIndicator()
@@ -130,7 +133,7 @@ class _HomeLastEntriesState extends State<HomeLastEntries> {
               future: lastPlant,
               builder:(context, AsyncSnapshot<Plant> plant){
                 if(plant.hasData){
-                  return WrappedEntryCard(title: plant.data.title, description: plant.data.description, image : plant.data.image, namedRoute: '/plants/${plant.data.postId}');
+                  return WrappedEntryCard(title: plant.data.title, description: plant.data.description, image : plant.data.image, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PlantsItem(postId: plant.data.postId, appBarTitle: plant.data.title))));
                 } else {
                   return Center(
                       child: CircularProgressIndicator()
@@ -141,7 +144,7 @@ class _HomeLastEntriesState extends State<HomeLastEntries> {
               future: lastFruit,
               builder:(context, AsyncSnapshot<Fruit> fruit){
                 if(fruit.hasData){
-                  return WrappedEntryCard(title: fruit.data.title, description: fruit.data.description, image : fruit.data.image, namedRoute: '/fruits/${fruit.data.postId}');
+                  return WrappedEntryCard(title: fruit.data.title, description: fruit.data.description, image : fruit.data.image, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FruitsItem(postId: fruit.data.postId, appBarTitle: fruit.data.title))));
                 } else {
                   return Center(
                       child: CircularProgressIndicator()

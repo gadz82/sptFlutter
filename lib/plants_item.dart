@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:scelteperte/partials/item/frutta/item_linked_fruit.dart';
 import 'package:scelteperte/partials/item/frutta/fruit_table.dart';
 import 'package:scelteperte/partials/item/item_card.dart';
@@ -13,6 +14,7 @@ import 'package:scelteperte/plants_list.dart';
 import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
+import 'package:share/share.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class PlantsItem extends StatefulWidget {
@@ -30,7 +32,7 @@ class _PlantsItemState extends State<PlantsItem> {
 
   Future<bool> plantReady;
 
-  Plant pianta;
+  Plant plant;
 
   bool hasRelatedFruits = false;
   List<Fruit> relatedFruits = [];
@@ -44,11 +46,11 @@ class _PlantsItemState extends State<PlantsItem> {
   getPlant(){
     return Plant().getPlant(widget.postId).then((value){
       setState((){
-        pianta = value;
+        plant = value;
       });
       var futures = <Future>[];
 
-      futures.add(Plant().getRelatedFruits(pianta).then((value) {
+      futures.add(Plant().getRelatedFruits(plant).then((value) {
         setState(() {
           this.relatedFruits.addAll(value);
           this.hasRelatedFruits = value.length > 0 ? true : false;
@@ -70,12 +72,28 @@ class _PlantsItemState extends State<PlantsItem> {
         appBar: AppBar(
             title: Text(widget.appBarTitle),
             backgroundColor: Colors.green,
+            actions: [
+              FutureBuilder(
+                  future: plantReady,
+                  builder: (context, AsyncSnapshot<bool> fReady) {
+                    if (fReady.hasData && fReady.data == true) {
+                      return InkWell(
+                        child: Icon(Icons.share),
+                        onTap: () => Share.share(plant.url),
+                      );
+                    } else {
+                      return SizedBox();
+                    }
+                  }
+              )
+            ],
         ),
+        bottomNavigationBar: BottomBanner(),
         body: Container(
           child: FutureBuilder(
             future: plantReady,
-            builder: (context, AsyncSnapshot<bool> fReady){
-               if(fReady.hasData && fReady.data == true){
+            builder: (context, AsyncSnapshot<bool> plantReady){
+               if(plantReady.hasData && plantReady.data == true){
                  return ListView(
                     children: [
                       Container(
@@ -87,7 +105,7 @@ class _PlantsItemState extends State<PlantsItem> {
                               Expanded(
                                 child: FadeInImage.memoryNetwork(
                                     placeholder: kTransparentImage,
-                                    image: pianta.image,
+                                    image: plant.image,
                                     fit: BoxFit.fitWidth
                                 ),
                               ),
@@ -97,11 +115,11 @@ class _PlantsItemState extends State<PlantsItem> {
                       Container(
                         padding: EdgeInsets.only(top:25),
                         alignment: Alignment.center,
-                        child: Text(pianta.title, style: TextStyle(fontSize: 18, color: Colors.green, fontWeight: FontWeight.bold)),
+                        child: Text(plant.title, style: TextStyle(fontSize: 18, color: Colors.green, fontWeight: FontWeight.bold)),
                       ),
                       Container(
                         margin:EdgeInsets.symmetric(vertical:15),
-                        child: Html(data: pianta.description)
+                        child: Html(data: plant.description)
                       ),
                       Row(
                         children: <Widget>[
@@ -124,13 +142,13 @@ class _PlantsItemState extends State<PlantsItem> {
                           ),
                         ]
                       ),
-                      PlantTable(ambiente: pianta.environment, fioritura: pianta.flowering, tipologiaFoglie: pianta.leaf, tipoPianta: pianta.type),
-                      ItemCard(cardTitle: "Storia e curiosità", content: pianta.history),
-                      ItemCard(cardTitle: "Terreno", content: pianta.terrain),
-                      ItemCard(cardTitle: "Tipologia Pianta", content: pianta.plantType),
-                      ItemCard(cardTitle: "Annaffiatura", content: pianta.watering),
-                      ItemCard(cardTitle: "Esposizione", content: pianta.sunExposition),
-                      ItemCard(cardTitle: "Malattie e Parassiti", content: pianta.diseases),
+                      PlantTable(ambiente: plant.environment, fioritura: plant.flowering, tipologiaFoglie: plant.leaf, tipoPianta: plant.type),
+                      ItemCard(cardTitle: "Storia e curiosità", content: plant.history),
+                      ItemCard(cardTitle: "Terreno", content: plant.terrain),
+                      ItemCard(cardTitle: "Tipologia Pianta", content: plant.plantType),
+                      ItemCard(cardTitle: "Annaffiatura", content: plant.watering),
+                      ItemCard(cardTitle: "Esposizione", content: plant.sunExposition),
+                      ItemCard(cardTitle: "Malattie e Parassiti", content: plant.diseases),
 
                       if(hasRelatedFruits)
                         Container(

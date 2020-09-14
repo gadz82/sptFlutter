@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:scelteperte/partials/item/frutta/item_linked_fruit.dart';
 import 'package:scelteperte/partials/item/frutta/fruit_table.dart';
 import 'package:scelteperte/partials/item/item_card.dart';
@@ -15,6 +16,7 @@ import 'package:scelteperte/plants_list.dart';
 import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
+import 'package:share/share.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class RecipesItem extends StatefulWidget {
@@ -72,13 +74,28 @@ class _RecipesItemState extends State<RecipesItem> {
         appBar: AppBar(
           title: Text(widget.appBarTitle),
           backgroundColor: Colors.green,
+          actions: [
+            FutureBuilder(
+                future: recipeReady,
+                builder: (context, AsyncSnapshot<bool> recipeReady) {
+                  if (recipeReady.hasData && recipeReady.data == true) {
+                    return InkWell(
+                      child: Icon(Icons.share),
+                      onTap: () => Share.share(recipe.url),
+                    );
+                  } else {
+                    return SizedBox();
+                  }
+                }
+            )
+          ],
         ),
+        bottomNavigationBar: BottomBanner(),
         body: Container(
             child: FutureBuilder(
                 future: recipeReady,
                 builder: (context, AsyncSnapshot<bool> rReady){
                   if(rReady.hasData && rReady.data == true){
-                    log(recipe.toString());
                     return ListView(
                       children: [
                         Container(

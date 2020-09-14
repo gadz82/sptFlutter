@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:scelteperte/partials/filters/plants.dart';
 import 'package:scelteperte/plants_item.dart';
 import 'package:scelteperte/src/filters/fruit_filters.dart';
@@ -118,6 +119,7 @@ class _PlantsListState extends State<PlantsList> {
             )
           ],
         ),
+        bottomNavigationBar: BottomBanner(),
         body: Container(
             child: FutureBuilder(
                 future: plantsReady,

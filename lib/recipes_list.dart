@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:scelteperte/partials/filters/recipes.dart';
 import 'package:scelteperte/recipes_item.dart';
 import 'package:scelteperte/src/filters/recipe_filters.dart';
@@ -117,6 +118,7 @@ class _RecipesListState extends State<RecipesList> {
             )
           ],
         ),
+        bottomNavigationBar: BottomBanner(),
         body: Container(
             child: FutureBuilder(
                 future: recipesReady,

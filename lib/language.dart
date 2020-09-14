@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:scelteperte/src/models/page_model.dart';
 
 class Language extends StatefulWidget {
@@ -58,6 +59,7 @@ class _LanguageState extends State<Language> {
             title: Text("Significato dei Fiori"),
             backgroundColor: Colors.green
         ),
+        bottomNavigationBar: BottomBanner(),
         body: Container(
           child: FutureBuilder(
             future: listReady,

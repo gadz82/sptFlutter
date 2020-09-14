@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 
@@ -28,6 +29,7 @@ class _VolantiniWebViewState extends State<VolantiniWebView> {
     return Scaffold(
       appBar: AppBar(
       title: Text("Volantini Conad"), backgroundColor: Colors.green),
+      bottomNavigationBar: BottomBanner(),
       body: WebView(
         initialUrl: args.url,
         javascriptMode: JavascriptMode.unrestricted,

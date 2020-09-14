@@ -13,7 +13,6 @@ class CardIngredients extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(ingredients.toString());
     int length = ingredients.length;
     return Card(
       clipBehavior: Clip.antiAlias,
