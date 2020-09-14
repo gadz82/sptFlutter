@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:scelteperte/partials/bottom_banner.dart';
+import 'package:scelteperte/plants_item.dart';
 import 'package:scelteperte/src/models/page_model.dart';
 
 class Oroscope extends StatefulWidget {
@@ -58,10 +59,11 @@ class _OroscopeState extends State<Oroscope> {
     return Scaffold(
         appBar: AppBar(
             title: Text(this.currentSign['titolo']),
-        backgroundColor: Colors.green
+            backgroundColor: Colors.green
         ),
-        body: Container(
-          child: Card(
+        bottomNavigationBar: BottomBanner(),
+        body: ListView(
+          children: [Card(
             margin: EdgeInsets.all(15.00),
             child: Wrap(
               children: [
@@ -99,7 +101,7 @@ class _OroscopeState extends State<Oroscope> {
                       ),
                       RaisedButton(
                         onPressed: (){
-
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => PlantsItem(postId: this.currentSign['post_id_collegato'], appBarTitle: this.currentSign['fiore_collegato'])));
                         },
                         color: Colors.green,
                         child: Wrap(
@@ -114,7 +116,7 @@ class _OroscopeState extends State<Oroscope> {
                 )
               ],
             ),
-          ),
+          )],
         )
     );
   }

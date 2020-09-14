@@ -200,9 +200,10 @@ class _GardensState extends State<Gardens> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text("Fiere ed Eventi"),
+            title: Text("Giardini e Orti Botanici"),
             backgroundColor: Colors.green
         ),
+        bottomNavigationBar: BottomBanner(),
         body: Container(
           child: FutureBuilder(
             future: pagina,

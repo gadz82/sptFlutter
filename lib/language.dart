@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:scelteperte/partials/bottom_banner.dart';
+import 'package:scelteperte/plants_item.dart';
 import 'package:scelteperte/src/models/page_model.dart';
 
 class Language extends StatefulWidget {
@@ -105,7 +106,7 @@ class _LanguageState extends State<Language> {
                             for(Map entry in this.matches)
                               ListTile(
                                   onTap: entry['postId'].length > 0 ? (){
-
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => PlantsItem(postId: int.parse(entry['postId']), appBarTitle: entry['titolo'])));
                                   } : null,
                                   title: Text(entry['titolo']),
                                   subtitle: Text(entry['descrizione']),

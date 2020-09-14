@@ -158,6 +158,11 @@ class _RecipesFilterMenuState extends State<RecipesFilterMenu> {
                                 value: 'alfabetico-za',
                                 child: Text('Alfabetico Z-A'))
                           ],
+                          onChanged: (value) {
+                            setState(() {
+                              filterObject.filtroOrdinamento = value;
+                            });
+                          }
                       ),
                       MultiSelectFormField(
                         autovalidate: false,

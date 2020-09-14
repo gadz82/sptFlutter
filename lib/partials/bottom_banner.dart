@@ -28,8 +28,10 @@ class _BottomBannerState extends State<BottomBanner> {
       if(storage.containsKey('bannerList')){
           bannerList = jsonDecode(storage.getString('bannerList'));
           bannerList.shuffle();
-          banner = bannerList[0];
-          haveBanner = Future.value(true);
+          setState(() {
+            haveBanner = Future.value(true);
+            banner = bannerList[0];
+          });
       }
     });
   }
