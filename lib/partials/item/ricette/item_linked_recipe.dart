@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scelteperte/recipes_item.dart';
 import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
@@ -21,9 +22,7 @@ class ItemLinkedRecipe extends StatelessWidget {
                   textColor: Colors.black,
                   color: Colors.white,
                   padding: EdgeInsets.symmetric(horizontal: 10.00),
-                  onPressed: () {
-                    /*Navigator.pushNamed(context, item.namedRoute);*/
-                  },
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RecipesItem(postId: relatedRecipe.postId, appBarTitle: relatedRecipe.title))),
                   child: ListTile(
                     contentPadding: EdgeInsets.symmetric(vertical: 10),
                     leading: ClipRRect(

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:scelteperte/partials/item/download_button.dart';
 import 'package:scelteperte/partials/item/frutta/fruit_table.dart';
 import 'package:scelteperte/partials/item/item_card.dart';
 import 'package:scelteperte/partials/item/piante/item_linked_plant.dart';
@@ -153,7 +154,9 @@ class _FruitsItemState extends State<FruitsItem> {
                           margin: EdgeInsets.only(top:15, bottom:15),
                           child: Text('Ricetta Abbinata', style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold, color:Colors.green)),
                         ),
-                        ItemLinkedRecipe(relatedRecipes : relatedRecipes)
+                        ItemLinkedRecipe(relatedRecipes : relatedRecipes),
+
+                      DownloadButton(url: frutto.pdf, buttonTitle: "Scarica Scheda Frutto")
 
                     ],
                   );
