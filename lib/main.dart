@@ -51,31 +51,41 @@ class _AppSplashLoaderState extends State<AppSplashLoader> {
                   } else {
                     log('App First Boot, waiting for first data sync');
                     return DecoratedBox(
-                      decoration: const BoxDecoration(color: Colors.white),
+                      decoration: const BoxDecoration(
+                        color: Colors.lightGreen,
+                        gradient:  RadialGradient(
+                          radius: 1.4,
+                          colors: [
+                            Colors.green,
+                            Colors.black
+                          ]
+                        ),
+                      ),
                       child: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           textDirection: TextDirection.ltr,
                           children: <Widget>[
-                            FlutterLogo(size: 48),
+                            Padding(
+                              padding: EdgeInsets.all(100),
+                              child:  Image.asset('images/logo.png')
+                            ),
                             Padding(
                               padding: EdgeInsets.all(32),
                               child: Text(
-                                'This app is only meant to be run under the Flutter debugger',
+                                'Inizializzazione Scelte per Te',
                                 textDirection: TextDirection.ltr,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.black87),
+                                style: TextStyle(color: Colors.white),
                               ),
                             ),
                             Column(
                               children: <Widget>[
-                                CircularProgressIndicator(),
-                                Text(
-                                    'Caricamento Dati',
-                                    textDirection: TextDirection.ltr,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.black87)
+                                CircularProgressIndicator(
+                                    backgroundColor: Colors.green,
+                                    valueColor: new AlwaysStoppedAnimation<Color>(Colors.white)
                                 )
+
                               ],
                             )
                           ],

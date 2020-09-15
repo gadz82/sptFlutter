@@ -48,10 +48,11 @@ class _BottomBannerState extends State<BottomBanner> {
             margin:EdgeInsets.all(0),
             padding:EdgeInsets.all(0),
             decoration: BoxDecoration(
+              color: Colors.white,
               boxShadow: [
                 BoxShadow(
                     color: Colors.black54,
-                    blurRadius: 7.5,
+                    blurRadius: 5,
                     offset: Offset(0.0, 0.75)
                 )
               ]
