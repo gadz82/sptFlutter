@@ -84,6 +84,7 @@ class _FairsState extends State<Fairs> {
             title: Text(currentMonthName),
             backgroundColor: Colors.green
         ),
+        bottomNavigationBar: BottomBanner(),
         body: Container(
           child: ListView(
             children: [

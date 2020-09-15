@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
@@ -17,6 +19,10 @@ class Utils {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  showSnackBar(BuildContext context, String text){
+    return Scaffold.of(context).showSnackBar(SnackBar(content: Text(text),));
   }
 
 }

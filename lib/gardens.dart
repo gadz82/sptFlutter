@@ -33,7 +33,6 @@ class _GardensState extends State<Gardens> {
   Widget _buildRegionList(Pagina data){
 
     dynamic regions = jsonDecode(data.jsonData);
-    log(regions.toString());
     return Container(
 
       child: ListView(

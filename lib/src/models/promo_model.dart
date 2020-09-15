@@ -60,13 +60,10 @@ class Promo {
   }
 
 
-  Future<List<Promo>> getPromo(int postId) async {
+  Future<Promo> getPromo(int postId) async {
     final Database db = await DBProvider.db.database;
     final List<Map<String, dynamic>> maps = await db.query('promozioni', where: 'post_id = ?', whereArgs: [postId], limit: 1);
-    return List.generate(maps.length, (i) {
-      return fromMap(maps[i]);
-      //Promo
-    });
+    return fromMap(maps[0]);
   }
 
   /// Update Operation

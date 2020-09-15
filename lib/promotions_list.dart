@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:scelteperte/partials/bottom_banner.dart';
+import 'package:scelteperte/promotions_item.dart';
 import 'package:scelteperte/src/models/page_model.dart';
 import 'package:scelteperte/src/models/promo_model.dart';
 
@@ -101,11 +102,15 @@ class _PromotionsListState extends State<PromotionsList> {
                         controller: _scrollController,
                         children: [
                           for(Promo p in this.promos)
-                            ListTile(
-                              title: Text(p.title),
-                              subtitle : Text(_parseHtmlString(p.description).substring(0,80)+"...", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13), textAlign: TextAlign.left),
-                              trailing: Icon(Icons.keyboard_arrow_right)
+                            InkWell(
+                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PromotionsItem(postId: p.postId, appBarTitle: p.title))),
+                              child: ListTile(
+                                  title: Text(p.title),
+                                  subtitle : Text(_parseHtmlString(p.description).substring(0,80)+"...", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13), textAlign: TextAlign.left),
+                                  trailing: Icon(Icons.keyboard_arrow_right)
+                              )
                             )
+
                         ]
                     );
 

@@ -63,60 +63,62 @@ class _OroscopeState extends State<Oroscope> {
         ),
         bottomNavigationBar: BottomBanner(),
         body: ListView(
-          children: [Card(
-            margin: EdgeInsets.all(15.00),
-            child: Wrap(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top:10),
-                  alignment: Alignment.center,
-                  child: Text(this.currentSign['titolo'], style: TextStyle(fontSize: 30),)
-                ),
-                Container(
-                  padding:EdgeInsets.symmetric(horizontal: 60.00, vertical: 20.00),
-                  child: Image.asset(
-                    'images/segni/${this.currentSign['titolo'].toString().toLowerCase()}.png'
+          children: [
+            Card(
+              margin: EdgeInsets.all(15.00),
+              child: Wrap(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top:10),
+                    alignment: Alignment.center,
+                    child: Text(this.currentSign['titolo'], style: TextStyle(fontSize: 30),)
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(bottom: 10),
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: [
-                      Wrap(
-                        children: [
-                          Text('Elemento: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                          Text(this.currentSign['elemento'])
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical:10.0),
-                        child: Text(this.currentSign['date'])
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Html(
-                            data: this.currentSign['descrizione']
-                        ),
-                      ),
-                      RaisedButton(
-                        onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => PlantsItem(postId: this.currentSign['post_id_collegato'], appBarTitle: this.currentSign['fiore_collegato'])));
-                        },
-                        color: Colors.green,
-                        child: Wrap(
-                         children: [
-                           Text('SCHEDA ', style: TextStyle(color: Colors.white)),
-                           Text(this.currentSign['fiore_collegato'].toString().toUpperCase(), style: TextStyle(color: Colors.white)),
-                         ],
-                        ),
-                      )
-                    ],
+                  Container(
+                    padding:EdgeInsets.symmetric(horizontal: 60.00, vertical: 20.00),
+                    child: Image.asset(
+                      'images/segni/${this.currentSign['titolo'].toString().toLowerCase()}.png'
+                    ),
                   ),
-                )
-              ],
-            ),
-          )],
+                  Container(
+                    padding: EdgeInsets.only(bottom: 10),
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: [
+                        Wrap(
+                          children: [
+                            Text('Elemento: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text(this.currentSign['elemento'])
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical:10.0),
+                          child: Text(this.currentSign['date'])
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Html(
+                              data: this.currentSign['descrizione']
+                          ),
+                        ),
+                        RaisedButton(
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => PlantsItem(postId: this.currentSign['post_id_collegato'], appBarTitle: this.currentSign['fiore_collegato'])));
+                          },
+                          color: Colors.green,
+                          child: Wrap(
+                           children: [
+                             Text('SCHEDA ', style: TextStyle(color: Colors.white)),
+                             Text(this.currentSign['fiore_collegato'].toString().toUpperCase(), style: TextStyle(color: Colors.white)),
+                           ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
         )
     );
   }
