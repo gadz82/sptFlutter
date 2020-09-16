@@ -44,7 +44,7 @@ class _BottomBannerState extends State<BottomBanner> {
         if (haveBanner.hasData && haveBanner.data == true) {
 
           return Container(
-            height: 45,
+            height: 47,
             margin:EdgeInsets.all(0),
             padding:EdgeInsets.all(0),
             decoration: BoxDecoration(
@@ -66,7 +66,7 @@ class _BottomBannerState extends State<BottomBanner> {
                       child: FadeInImage.memoryNetwork(
                         placeholder: kTransparentImage,
                         image: banner['banner_app'],
-                        fit: BoxFit.fitWidth
+                        width: MediaQuery.of(context).orientation == Orientation.portrait ?  MediaQuery.of(context).size.width :  MediaQuery.of(context).size.height,
                       ),
                       onTap: () => Utils().launchURL(banner['url_puntamento']),
                     )
