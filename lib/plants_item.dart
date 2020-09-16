@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:scelteperte/partials/bottom_banner.dart';
@@ -10,9 +10,11 @@ import 'package:scelteperte/partials/item/frutta/fruit_table.dart';
 import 'package:scelteperte/partials/item/item_card.dart';
 import 'package:scelteperte/partials/item/piante/item_linked_plant.dart';
 import 'package:scelteperte/partials/item/piante/plant_table.dart';
+import 'package:scelteperte/partials/item/piante/slider.dart';
 import 'package:scelteperte/partials/item/ricette/item_linked_recipe.dart';
 import 'package:scelteperte/plants_list.dart';
 import 'package:scelteperte/src/models/fruit_model.dart';
+import 'package:scelteperte/src/models/plant_image.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:share/share.dart';
@@ -35,6 +37,10 @@ class _PlantsItemState extends State<PlantsItem> {
 
   Plant plant;
 
+  bool multiImage = false;
+
+  List<PlantImage> additionalImages = [];
+
   bool hasRelatedFruits = false;
   List<Fruit> relatedFruits = [];
 
@@ -47,6 +53,14 @@ class _PlantsItemState extends State<PlantsItem> {
   getPlant(){
     return Plant().getPlant(widget.postId).then((value){
       setState((){
+        if(value.extraImages != null && value.extraImages != ''){
+          multiImage = true;
+          List _additionalImages = jsonDecode(value.extraImages);
+          additionalImages.add(PlantImage(title: value.title, src: value.image, thumb: value.thumb));
+          for(dynamic img in _additionalImages){
+            additionalImages.add(PlantImage(title: img['title'], src: img['src'], thumb: img['thumb']));
+          }
+        }
         plant = value;
       });
       var futures = <Future>[];
@@ -94,9 +108,11 @@ class _PlantsItemState extends State<PlantsItem> {
           child: FutureBuilder(
             future: plantReady,
             builder: (context, AsyncSnapshot<bool> plantReady){
+
                if(plantReady.hasData && plantReady.data == true){
                  return ListView(
                     children: [
+                      !multiImage ?
                       Container(
                         height: 250,
                         child: Row(
@@ -112,6 +128,9 @@ class _PlantsItemState extends State<PlantsItem> {
                               ),
                             ]
                         ),
+                      ) : 
+                      SliderPlants(
+                        slides: additionalImages,
                       ),
                       Container(
                         padding: EdgeInsets.only(top:25),

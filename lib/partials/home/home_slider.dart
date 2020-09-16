@@ -50,7 +50,7 @@ class SliderHome extends StatelessWidget {
                           image: slides[index].image,
                           fit: BoxFit.cover,
                           height: MediaQuery.of(context).orientation == Orientation.portrait ? MediaQuery.of(context).size.height * 0.20 : MediaQuery.of(context).size.height * 0.65,
-                          width: 1000
+                          width: 1000,
                       ),
                       onTap: () => slideInteraction(context, slides[index]),
                     )

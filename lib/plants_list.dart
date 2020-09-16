@@ -125,15 +125,16 @@ class _PlantsListState extends State<PlantsList> {
                 future: plantsReady,
                 builder: (context, AsyncSnapshot<bool> plantsReady){
                   if(plantsReady.hasData && plantsReady.data == true){
-                    Size size = MediaQuery.of(context).size;
                     /*24 is for notification bar on Android*/
-                    final double itemHeight = (size.height - kToolbarHeight - 350) / 2;
-                    final double itemWidth = size.width / 2;
+                    Size size = MediaQuery.of(context).size;
+                    Orientation currentOrientation = MediaQuery.of(context).orientation;
+                    final double itemHeight = currentOrientation == Orientation.portrait ? (size.height - kToolbarHeight - 350) / 2 : (size.height - kToolbarHeight) / 2;
+                    final double itemWidth = currentOrientation == Orientation.portrait ? size.width / 2 : size.width / 3;
                     return GridView.count(
                         padding: EdgeInsets.all(5.00),
                         crossAxisSpacing: 5,
                         controller: _scrollController,
-                        crossAxisCount: 2,
+                        crossAxisCount: currentOrientation == Orientation.portrait ? 2 : 3,
                         childAspectRatio: (itemWidth / itemHeight),
                         children: [
                           for(Plant p in piante)
