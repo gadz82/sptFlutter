@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1073185860489-080g95hhsggugk0jgqu1f7n66u5kjqba.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1073185860489-080g95hhsggugk0jgqu1f7n66u5kjqba</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDnrNOMZgVfcWSam6iL50QktZoVoqjBcno</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1073185860489</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.desegno.sptn</string>
+	<key>PROJECT_ID</key>
+	<string>scelte-per-te</string>
+	<key>STORAGE_BUCKET</key>
+	<string>scelte-per-te.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1073185860489:ios:ee0ee10ef6595a018bcf58</string>
+	<key>DATABASE_URL</key>
+	<string>https://scelte-per-te.firebaseio.com</string>
+</dict>
+</plist>

@@ -161,7 +161,7 @@ class _FruitFilterMenuState extends State<FruitFilterMenu> {
                           }),
                       MultiSelectFormField(
                         autovalidate: false,
-                        titleText: 'Origine',
+                        title: new Text('Origine'),
                         validator: (value) {
                           if (value == null || value.length == 0) {
                             return 'Filtra in base all\'origine';
@@ -173,7 +173,7 @@ class _FruitFilterMenuState extends State<FruitFilterMenu> {
                         valueField: 'value',
                         okButtonLabel: 'OK',
                         cancelButtonLabel: 'ANNULLA',
-                        hintText: 'Seleziona i valori',
+                        hintWidget: new Text('Seleziona i valori'),
                         initialValue: filterObject.filtroOrigine != null ? filterObject.filtroOrigine.split(',') : null,
                         onSaved: (value) {
                           setState(() {
@@ -187,7 +187,7 @@ class _FruitFilterMenuState extends State<FruitFilterMenu> {
                       ),
                       MultiSelectFormField(
                         autovalidate: false,
-                        titleText: 'Stagione',
+                        title: new Text('Stagione'),
                         validator: (value) {
                           if (value == null || value.length == 0) {
                             return 'Filtra in base alla stagione';
@@ -199,7 +199,7 @@ class _FruitFilterMenuState extends State<FruitFilterMenu> {
                         valueField: 'value',
                         okButtonLabel: 'OK',
                         cancelButtonLabel: 'ANNULLA',
-                        hintText: 'Seleziona la stagione',
+                        hintWidget: new Text('Seleziona la stagione'),
                         initialValue: filterObject.filtroStagione != null ? filterObject.filtroStagione.split(',') : null,
                         onSaved: (value) {
                           setState(() {
@@ -213,7 +213,7 @@ class _FruitFilterMenuState extends State<FruitFilterMenu> {
                       ),
                       MultiSelectFormField(
                         autovalidate: false,
-                        titleText: 'Tipologia',
+                        title: new Text('Tipologia'),
                         validator: (value) {
                           if (value == null || value.length == 0) {
                             return 'Filtra in base alla tipologia';
@@ -225,7 +225,7 @@ class _FruitFilterMenuState extends State<FruitFilterMenu> {
                         valueField: 'value',
                         okButtonLabel: 'OK',
                         cancelButtonLabel: 'ANNULLA',
-                        hintText: 'Seleziona i valori',
+                        hintWidget: new Text('Seleziona i valori'),
                         initialValue: filterObject.filtroTipologia != null ? filterObject.filtroTipologia.split(',') : null,
                         onSaved: (value) {
                           setState(() {

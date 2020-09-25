@@ -21,6 +21,7 @@ import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:scelteperte/src/models/slide_model.dart';
 import 'package:scelteperte/flyers_list.dart';
 import 'package:scelteperte/flyers_webview.dart';
+import 'package:scelteperte/src/utils.dart';
 
 
 class Home extends StatefulWidget {
@@ -49,6 +50,7 @@ class _HomeState extends State<Home> {
       setState(() {
         this.featuredRecipe = Recipe().getFeaturedRecipe();
       });
+      Utils().initFirebase(context);
     });
   }
 

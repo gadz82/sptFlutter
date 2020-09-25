@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,6 +26,21 @@ class Utils {
 
   showSnackBar(BuildContext context, String text){
     return Scaffold.of(context).showSnackBar(SnackBar(content: Text(text),));
+  }
+
+  void initFirebase(BuildContext context){
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+    _firebaseMessaging.getToken().then((String token) {
+      assert(token != null);
+      String _deviceToken = "Push Messaging token: $token";
+      print(_deviceToken);
+    });
+  }
+
+  void handlePushNotification(String event, Map<String, dynamic> notification){
+    log(event);
+    log(notification.toString());
   }
 
 }

@@ -175,7 +175,7 @@ class _PlantsFilterMenuState extends State<PlantsFilterMenu> {
                           }),
                       MultiSelectFormField(
                         autovalidate: false,
-                        titleText: 'Ambiente',
+                        title: new Text('Ambiente'),
                         validator: (value) {
                           if (value == null || value.length == 0) {
                             return 'Seleziona i valori';
@@ -187,7 +187,7 @@ class _PlantsFilterMenuState extends State<PlantsFilterMenu> {
                         valueField: 'value',
                         okButtonLabel: 'OK',
                         cancelButtonLabel: 'ANNULLA',
-                        hintText: 'Seleziona i valori',
+                        hintWidget: new Text('Seleziona i valori'),
                         initialValue: filterObject.filtroAmbiente != null ? filterObject.filtroAmbiente.split(',') : null,
                         onSaved: (value) {
                           setState(() {
@@ -201,7 +201,7 @@ class _PlantsFilterMenuState extends State<PlantsFilterMenu> {
                       ),
                       MultiSelectFormField(
                         autovalidate: false,
-                        titleText: 'Fioritura',
+                        title: new Text('Fioritura'),
                         validator: (value) {
                           if (value == null || value.length == 0) {
                             return 'Stagione di fioritura';
@@ -213,7 +213,7 @@ class _PlantsFilterMenuState extends State<PlantsFilterMenu> {
                         valueField: 'value',
                         okButtonLabel: 'OK',
                         cancelButtonLabel: 'ANNULLA',
-                        hintText: 'Stagione di fioritura',
+                        hintWidget: new Text('Stagione di fioritura'),
                         initialValue: filterObject.filtroFioritura != null ? filterObject.filtroFioritura.split(',') : null,
                         onSaved: (value) {
                           setState(() {
@@ -227,7 +227,7 @@ class _PlantsFilterMenuState extends State<PlantsFilterMenu> {
                       ),
                       MultiSelectFormField(
                         autovalidate: false,
-                        titleText: 'Foglia',
+                        title: new Text('Foglia'),
                         validator: (value) {
                           if (value == null || value.length == 0) {
                             return 'Foglie caduche o sempreverdi';
@@ -239,7 +239,7 @@ class _PlantsFilterMenuState extends State<PlantsFilterMenu> {
                         valueField: 'value',
                         okButtonLabel: 'OK',
                         cancelButtonLabel: 'ANNULLA',
-                        hintText: 'Foglie caduche o sempreverdi',
+                        hintWidget: new Text('Foglie caduche o sempreverdi'),
                         initialValue: filterObject.filtroFoglia != null ? filterObject.filtroFoglia.split(',') : null,
                         onSaved: (value) {
                           setState(() {
@@ -253,7 +253,7 @@ class _PlantsFilterMenuState extends State<PlantsFilterMenu> {
                       ),
                       MultiSelectFormField(
                         autovalidate: false,
-                        titleText: 'Tipologia pianta',
+                        title: new Text('Tipologia pianta'),
                         validator: (value) {
                           if (value == null || value.length == 0) {
                             return 'Filtra in base alla tipologia';
@@ -265,7 +265,7 @@ class _PlantsFilterMenuState extends State<PlantsFilterMenu> {
                         valueField: 'value',
                         okButtonLabel: 'OK',
                         cancelButtonLabel: 'ANNULLA',
-                        hintText: 'Seleziona i valori',
+                        hintWidget: new Text('Seleziona i valori'),
                         initialValue: filterObject.filtroTipologia != null ? filterObject.filtroTipologia.split(',') : null,
                         onSaved: (value) {
                           setState(() {

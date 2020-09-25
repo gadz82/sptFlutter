@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:scelteperte/home.dart';
 import 'package:scelteperte/src/providers/spt_provider.dart';
+import 'package:scelteperte/src/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'dart:developer';
 
 void main() {
@@ -18,12 +20,28 @@ class _AppSplashLoaderState extends State<AppSplashLoader> {
 
   Future<bool> appReady;
   Future<SharedPreferences> localStorage;
+  String _messageText;
+  String _deviceToken;
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   @override
   void initState(){
     super.initState();
     appReady = SptProvider.fetchData();
     localStorage = SptProvider.localStorage;
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        Utils().handlePushNotification('onMessage', message);
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        Utils().handlePushNotification('onLaunch', message);
+      },
+      onResume: (Map<String, dynamic> message) async {
+        Utils().handlePushNotification('onResume', message);
+      },
+    );
+    this.appReady.whenComplete(() {
+    });
   }
 
   @override

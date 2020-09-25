@@ -166,7 +166,7 @@ class _RecipesFilterMenuState extends State<RecipesFilterMenu> {
                       ),
                       MultiSelectFormField(
                         autovalidate: false,
-                        titleText: 'Tipo Piatto',
+                        title: new Text('Tipo Piatto'),
                         validator: (value) {
                           if (value == null || value.length == 0) {
                             return 'Seleziona la portata';
@@ -178,7 +178,7 @@ class _RecipesFilterMenuState extends State<RecipesFilterMenu> {
                         valueField: 'value',
                         okButtonLabel: 'OK',
                         cancelButtonLabel: 'ANNULLA',
-                        hintText: 'Seleziona la portata',
+                        hintWidget: new Text('Seleziona la portata'),
                         initialValue: filterObject.filtroTipologiaPiatto != null ? filterObject.filtroTipologiaPiatto.split(',') : null,
                         onSaved: (value) {
                           setState(() {
@@ -192,7 +192,7 @@ class _RecipesFilterMenuState extends State<RecipesFilterMenu> {
                       ),
                       MultiSelectFormField(
                         autovalidate: false,
-                        titleText: 'Tempo di preparazione',
+                        title: new Text('Tempo di preparazione'),
                         validator: (value) {
                           if (value == null || value.length == 0) {
                             return 'Seleziona uno o più valori';
@@ -204,7 +204,7 @@ class _RecipesFilterMenuState extends State<RecipesFilterMenu> {
                         valueField: 'value',
                         okButtonLabel: 'OK',
                         cancelButtonLabel: 'ANNULLA',
-                        hintText: 'Seleziona uno o più valori',
+                        hintWidget: new Text('Seleziona uno o più valori'),
                         initialValue: filterObject.filtroTempo != null ? filterObject.filtroTempo.split(',') : null,
                         onSaved: (value) {
                           setState(() {
@@ -218,7 +218,7 @@ class _RecipesFilterMenuState extends State<RecipesFilterMenu> {
                       ),
                       MultiSelectFormField(
                         autovalidate: false,
-                        titleText: 'Difficoltà',
+                        title: new Text('Difficoltà'),
                         validator: (value) {
                           if (value == null || value.length == 0) {
                             return 'Livello di difficoltà';
@@ -230,7 +230,7 @@ class _RecipesFilterMenuState extends State<RecipesFilterMenu> {
                         valueField: 'value',
                         okButtonLabel: 'OK',
                         cancelButtonLabel: 'ANNULLA',
-                        hintText: 'Livello di difficoltà',
+                        hintWidget: new Text('Livello di difficoltà'),
                         initialValue: filterObject.filtroDifficolta != null ? filterObject.filtroDifficolta.split(',') : null,
                         onSaved: (value) {
                           setState(() {
