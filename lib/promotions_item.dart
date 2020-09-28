@@ -120,7 +120,7 @@ class _PromotionsItemState extends State<PromotionsItem> {
                                 margin: EdgeInsets.all(15),
                                 child: RaisedButton(
                                   onPressed: (){
-                                    if(promo.link != null && promo.link != '' && 0 == 1){
+                                    if(promo.link != null && promo.link != ''){
                                       Utils().launchURL(promo.link);
                                     } else {
                                       Utils().showSnackBar(context, "Mostra il coupon direttamente alla cassa!");
