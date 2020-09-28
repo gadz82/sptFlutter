@@ -9,8 +9,9 @@ class SptProvider {
   static SharedPreferences _preferences;
 
   static const int appVersionDefault = 12;
-
-  static final String baseUrl = "http://www.scelteperte.it/sptrapi/initialize?mtoken=FNmZbp6nR7EEs7Eg&ts=";
+  static final String mToken = "FNmZbp6nR7EEs7Eg";
+  static final String baseUrl = "http://www.scelteperte.it/sptrapi/initialize?mtoken="+mToken+"&ts=";
+  static final String deviceRegistrationUrl = "http://www.scelteperte.it/sptrapi/register-device/";
 
   SptProvider._();
 
@@ -36,7 +37,7 @@ class SptProvider {
     if(storage.containsKey('tokenPagine')) url += '&md5_tokenPagine='+storage.getString('tokenPagine');
     if(storage.containsKey('tokenRicette')) url += '&md5_tokenRicette='+storage.getString('tokenRicette');
     if(storage.containsKey('tokenNews')) url += '&md5_tokenNews='+storage.getString('tokenNews');
-    if(storage.containsKey('tokenNotifiche')) url += '&md5_tokenNotifiche='+storage.getString('tokenNotifiche');
+    if(storage.containsKey('tokenNotifiurlche')) url += '&md5_tokenNotifiche='+storage.getString('tokenNotifiche');
 
     final response =  await http.get(url);
 
@@ -427,6 +428,26 @@ class SptProvider {
       return false;
     }).whenComplete((){
       log('completed');
+    });
+    return res;
+  }
+
+  static Future<bool> registerDevice({deviceType, regId, deviceId}) async {
+    final res = await http.post(deviceRegistrationUrl,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          "regId" : regId,
+          "deviceType": deviceType,
+          "deviceId" : deviceId,
+          "mtoken" : mToken
+        })
+    ).then((value){
+      log('registered');
+      return true;
+    }).catchError((e){
+      return false;
     });
     return res;
   }

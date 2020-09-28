@@ -1,7 +1,7 @@
-import 'dart:developer';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:scelteperte/contact.dart';
 import 'package:scelteperte/fairs.dart';
 import 'package:scelteperte/fuits_list.dart';
 import 'package:scelteperte/gardens.dart';
@@ -21,8 +21,6 @@ import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:scelteperte/src/models/slide_model.dart';
 import 'package:scelteperte/flyers_list.dart';
 import 'package:scelteperte/flyers_webview.dart';
-import 'package:scelteperte/src/utils.dart';
-
 
 class Home extends StatefulWidget {
   final Future<bool> appReady;
@@ -38,6 +36,7 @@ class _HomeState extends State<Home> {
   Future<bool> appReady;
   Future<List<Slide>> slides;
   Future<Recipe> featuredRecipe;
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   @override
   void initState() {
@@ -50,12 +49,14 @@ class _HomeState extends State<Home> {
       setState(() {
         this.featuredRecipe = Recipe().getFeaturedRecipe();
       });
-      Utils().initFirebase(context);
+
     });
+
   }
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'Scelte per Te',
       routes: {
@@ -70,7 +71,8 @@ class _HomeState extends State<Home> {
         '/linguaggio': (context) => Language(),
         '/fiere': (context) => Fairs(),
         '/giardini': (context) => Gardens(),
-        '/promozioni': (context) => PromotionsList()
+        '/promozioni': (context) => PromotionsList(),
+        '/contatti': (context) => Contact()
       },
       home: Scaffold(
           appBar: AppBar(
@@ -175,7 +177,8 @@ class _HomeState extends State<Home> {
                   HomeNavCard(items: [
                     NavItem(title: 'Frutta e Verdura', subTitle: 'Scopri le nostre schede', namedRoute: '/frutta', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-frutta-app.jpg'),
                     NavItem(title: 'Piante e Fiori', subTitle: 'Scopri come coltivare', namedRoute: '/piante', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-fiori-app.jpg'),
-                    NavItem(title: 'Ricette', subTitle: 'A base di frutta e verdura', namedRoute: '/ricette', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-ricette-app.jpg')
+                    NavItem(title: 'Ricette', subTitle: 'A base di frutta e verdura', namedRoute: '/ricette', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-ricette-app.jpg'),
+                    NavItem(title: 'Sconti Esclusivi', subTitle: 'Per i possessori dell\'App Scelte per Te', namedRoute: '/promozioni', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/icona-flora.png')
                   ]),
                   Container(
                       margin: EdgeInsets.only(top: 0.00),

@@ -1,4 +1,6 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:scelteperte/src/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SptDrawer extends StatefulWidget {
@@ -8,16 +10,9 @@ class SptDrawer extends StatefulWidget {
 
 class _SptDrawerState extends State<SptDrawer> {
 
-  _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+
     return Drawer(
       // Add a ListView to the drawer. This ensures the user can scroll
       // through the options in the drawer if there isn't enough vertical
@@ -135,7 +130,7 @@ class _SptDrawerState extends State<SptDrawer> {
                 dense: true,
                 onTap: () {
                   Navigator.pop(context);
-                  _launchURL('https://www.instagram.com/scelteperte/');
+                  Utils().launchURL('https://www.instagram.com/scelteperte/');
                 },
               ),
               ListTile(
@@ -143,17 +138,15 @@ class _SptDrawerState extends State<SptDrawer> {
                 dense: true,
                 onTap: () {
                   Navigator.pop(context);
-                  _launchURL('https://www.facebook.com/scelteperte');
+                  Utils().launchURL('https://www.facebook.com/scelteperte');
                 },
               ),
               ListTile(
                 title: Text('Contattaci'),
                 dense: true,
                 onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
                   Navigator.pop(context);
+                  Navigator.pushNamed(context, '/contatti');
                 },
               ),
             ]

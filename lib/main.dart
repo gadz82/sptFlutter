@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:scelteperte/home.dart';
 import 'package:scelteperte/src/providers/spt_provider.dart';
 import 'package:scelteperte/src/utils.dart';
@@ -6,10 +7,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'dart:developer';
 
-void main() {
-  runApp(AppSplashLoader());
-}
 
+Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
+  if (message.containsKey('data')) {
+    // Handle data message
+    final dynamic data = message['data'];
+    log(data.toString());
+  }
+
+  if (message.containsKey('notification')) {
+    // Handle notification message
+    final dynamic notification = message['notification'];
+    log(notification.toString());
+  }
+  log(message.toString());
+  // Or do other work.
+}
+void main() {
+  runApp(GetMaterialApp(home: AppSplashLoader()));
+}
 
 class AppSplashLoader extends StatefulWidget {
   @override
@@ -20,8 +36,7 @@ class _AppSplashLoaderState extends State<AppSplashLoader> {
 
   Future<bool> appReady;
   Future<SharedPreferences> localStorage;
-  String _messageText;
-  String _deviceToken;
+
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   @override
@@ -29,18 +44,20 @@ class _AppSplashLoaderState extends State<AppSplashLoader> {
     super.initState();
     appReady = SptProvider.fetchData();
     localStorage = SptProvider.localStorage;
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        Utils().handlePushNotification('onMessage', message);
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        Utils().handlePushNotification('onLaunch', message);
-      },
-      onResume: (Map<String, dynamic> message) async {
-        Utils().handlePushNotification('onResume', message);
-      },
-    );
     this.appReady.whenComplete(() {
+      _firebaseMessaging.configure(
+        onMessage: (Map<String, dynamic> message) async {
+          Utils().handlePushNotification('onMessage', message);
+        },
+        onLaunch: (Map<String, dynamic> message) async {
+          Utils().handlePushNotification('onLaunch', message);
+        },
+        onResume: (Map<String, dynamic> message) async {
+          Utils().handlePushNotification('onResume', message);
+        },
+        onBackgroundMessage: Utils.sptnBackgroundMessageHandler
+      );
+      Utils().initFirebase(context);
     });
   }
 

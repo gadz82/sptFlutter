@@ -1,8 +1,17 @@
 import 'dart:developer';
-
+import 'dart:io' show Platform;
+import 'package:device_info/device_info.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:scelteperte/flyers_list.dart';
+import 'package:scelteperte/fruits_item.dart';
+import 'package:scelteperte/news_item.dart';
+import 'package:scelteperte/plants_item.dart';
+import 'package:scelteperte/promotions_item.dart';
+import 'package:scelteperte/recipes_item.dart';
+import 'package:scelteperte/src/providers/spt_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
@@ -25,22 +34,86 @@ class Utils {
   }
 
   showSnackBar(BuildContext context, String text){
-    return Scaffold.of(context).showSnackBar(SnackBar(content: Text(text),));
+    return Scaffold.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 
-  void initFirebase(BuildContext context){
+  void initFirebase(BuildContext context) async {
+
     final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+    String _deviceId = await this.getDeviceId();
 
     _firebaseMessaging.getToken().then((String token) {
       assert(token != null);
-      String _deviceToken = "Push Messaging token: $token";
-      print(_deviceToken);
+      String _deviceToken = token;
+      log(_deviceToken);
+      SptProvider.registerDevice(deviceId: _deviceId, regId: _deviceToken, deviceType: Platform.isIOS ? 'ios' : 'android');
     });
+
+  }
+
+  Future<String> getDeviceId() async {
+    var deviceInfo = DeviceInfoPlugin();
+    if (Platform.isIOS) { // import 'dart:io'
+      var iosDeviceInfo = await deviceInfo.iosInfo;
+      return iosDeviceInfo.identifierForVendor; // unique ID on iOS
+    } else {
+      var androidDeviceInfo = await deviceInfo.androidInfo;
+      return androidDeviceInfo.androidId; // unique ID on Android
+    }
   }
 
   void handlePushNotification(String event, Map<String, dynamic> notification){
-    log(event);
-    log(notification.toString());
+
+    if(event == 'onMessage'){
+        Get.snackbar(notification['data']['title'], notification['data']['body'],
+            snackPosition: SnackPosition.BOTTOM,
+            duration: Duration(seconds: 5),
+            barBlur: 15,
+            titleText: Text(notification['data']['title'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            mainButton: FlatButton(child: Text('Scopri'),onPressed: (){
+              this.getNotificationClickEventRoute(notification);
+            })
+        );
+    } else {
+        this.getNotificationClickEventRoute(notification);
+    }
+  }
+
+  Future getNotificationClickEventRoute(Map<String, dynamic> notification){
+    switch(notification['data']['type']){
+      case 'prodotti':
+        return Get.to(PlantsItem(postId : int.parse(notification['data']['postId']), appBarTitle: notification['data']['title']));
+        break;
+      case 'frutta-verdura':
+        return Get.to(FruitsItem(postId : int.parse(notification['data']['postId']), appBarTitle: notification['data']['title']));
+        break;
+      case 'ricette':
+        return Get.to(RecipesItem(postId : int.parse(notification['data']['postId']), appBarTitle: notification['data']['title']));
+        break;
+      case 'post':
+        return Get.to(NewsItem(postId : int.parse(notification['data']['postId']), appBarTitle: notification['data']['title']));
+        break;
+      case 'promozioni-app':
+        return Get.to(PromotionsItem(postId : int.parse(notification['data']['postId']), appBarTitle: notification['data']['title']));
+        break;
+      case 'volantini':
+        return Get.to(FlyersList());
+        break;
+    }
+  }
+
+  static Future<dynamic> sptnBackgroundMessageHandler(Map<String, dynamic> message) async {
+    if (message.containsKey('data')) {
+      // Handle data message
+      final dynamic data = message['data'];
+    }
+
+    if (message.containsKey('notification')) {
+      // Handle notification message
+      final dynamic notification = message['notification'];
+    }
+    // Or do other work.
   }
 
 }
