@@ -6,7 +6,6 @@ import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:scelteperte/src/models/page_model.dart';
 import 'package:scelteperte/src/utils.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Fairs extends StatefulWidget {
   @override
@@ -25,15 +24,6 @@ class _FairsState extends State<Fairs> {
     super.initState();
     this.pagina = Pagina().getPage('fiere-ed-eventi');
   }
-
-  _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
 
   Widget _buildCurrentMonthsList(Pagina data){
 

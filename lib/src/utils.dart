@@ -80,7 +80,7 @@ class Utils {
     }
   }
 
-  Future getNotificationClickEventRoute(Map<String, dynamic> notification){
+  getNotificationClickEventRoute(Map<String, dynamic> notification){
     switch(notification['data']['type']){
       case 'prodotti':
         return Get.to(PlantsItem(postId : int.parse(notification['data']['postId']), appBarTitle: notification['data']['title']));
@@ -103,17 +103,6 @@ class Utils {
     }
   }
 
-  static Future<dynamic> sptnBackgroundMessageHandler(Map<String, dynamic> message) async {
-    if (message.containsKey('data')) {
-      // Handle data message
-      final dynamic data = message['data'];
-    }
-
-    if (message.containsKey('notification')) {
-      // Handle notification message
-      final dynamic notification = message['notification'];
-    }
-    // Or do other work.
-  }
+  static Future<dynamic> sptnBackgroundMessageHandler(Map<String, dynamic> message) async {}
 
 }

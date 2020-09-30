@@ -1,4 +1,3 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scelteperte/contact.dart';
@@ -36,7 +35,6 @@ class _HomeState extends State<Home> {
   Future<bool> appReady;
   Future<List<Slide>> slides;
   Future<Recipe> featuredRecipe;
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   @override
   void initState() {

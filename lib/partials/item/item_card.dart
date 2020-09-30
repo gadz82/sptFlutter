@@ -4,8 +4,8 @@ import 'package:scelteperte/src/utils.dart';
 
 class ItemCard extends StatelessWidget {
 
-  @required String cardTitle;
-  @required String content;
+  @required final String cardTitle;
+  @required final String content;
 
   ItemCard({this.cardTitle, this.content});
 

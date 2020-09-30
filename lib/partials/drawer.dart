@@ -1,7 +1,5 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:scelteperte/src/utils.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SptDrawer extends StatefulWidget {
   @override
@@ -153,14 +151,6 @@ class _SptDrawerState extends State<SptDrawer> {
         ).toList(),
       )
 
-      /*ListView(
-        // Important: Remove any padding from the ListView.
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-
-
-        ],
-      ),*/
     );
   }
 }

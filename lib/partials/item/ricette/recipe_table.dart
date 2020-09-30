@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class RecipeTable extends StatelessWidget {
 
-  @required String preparazione;
-  @required String cottura;
-  @required String porzioni;
-  @required String difficolta;
+  @required final String preparazione;
+  @required final String cottura;
+  @required final String porzioni;
+  @required final String difficolta;
 
   RecipeTable({this.preparazione, this.cottura, this.porzioni, this.difficolta});
 

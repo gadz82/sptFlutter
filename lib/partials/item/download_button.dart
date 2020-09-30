@@ -3,8 +3,8 @@ import 'package:scelteperte/src/utils.dart';
 
 class DownloadButton extends StatelessWidget {
 
-  @required String buttonTitle;
-  @required String url;
+  @required final String buttonTitle;
+  @required final String url;
 
   DownloadButton({this.buttonTitle, this.url});
 

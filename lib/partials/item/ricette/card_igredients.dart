@@ -1,13 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:scelteperte/src/utils.dart';
 
 class CardIngredients extends StatelessWidget {
 
-  @required List<dynamic> ingredients;
+  @required final List<dynamic> ingredients;
 
   CardIngredients({this.ingredients});
 

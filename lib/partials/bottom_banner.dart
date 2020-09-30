@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:scelteperte/src/providers/spt_provider.dart';
 import 'package:scelteperte/src/utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class BottomBanner extends StatefulWidget {

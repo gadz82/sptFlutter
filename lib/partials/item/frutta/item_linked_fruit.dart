@@ -6,7 +6,7 @@ import 'package:transparent_image/transparent_image.dart';
 
 class ItemLinkedFruit extends StatelessWidget {
 
-  @required List<Fruit> relatedFruits;
+  @required final List<Fruit> relatedFruits;
 
   ItemLinkedFruit({this.relatedFruits});
 

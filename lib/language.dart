@@ -1,9 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:scelteperte/plants_item.dart';
 import 'package:scelteperte/src/models/page_model.dart';

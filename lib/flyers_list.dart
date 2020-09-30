@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:core';
+import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -89,8 +90,10 @@ class _FlyersListState extends State<FlyersList> {
           CupertinoActionSheetAction(
             child: Text(element),
             onPressed: () {
-              Navigator.pop(context, '🙋 Ok!');
-              Navigator.pushNamed(context, '/volantini/webview', arguments: VolantinoWebViewArgs(url: 'https://promozioni.gustourconad.it/'+region+'/'+element,));
+              Navigator.of(context, rootNavigator: true).pop();
+              log(element);
+              log(region);
+              Navigator.pushNamed(context, '/volantini/webview', arguments: VolantinoWebViewArgs(url: 'https://promozioni.gustourconad.it/appview/'+region+'/ipermercato/render/volantino?pdv='+element));
             },
           )
       );
@@ -101,9 +104,9 @@ class _FlyersListState extends State<FlyersList> {
         actions: menu,
         cancelButton: CupertinoActionSheetAction(
           child: const Text('Annulla'),
-          isDefaultAction: true,
+          isDefaultAction: false,
           onPressed: () {
-            Navigator.pop(context, 'Cancel');
+            Navigator.of(context, rootNavigator: true).pop();
           },
         ));
   }
@@ -131,26 +134,26 @@ class _FlyersListState extends State<FlyersList> {
             itemBuilder: (context, index) {
               String key = _jsonData[item.key].keys.elementAt(index);
               return (key == 'ipermercato') ?
-              ListTile(
-                title:  Text(key.toString().toUpperCase()),
-                trailing: Icon(Icons.chevron_right),
-                dense: true,
-                onTap: () {
-                  containerForSheet<String>(
-                    context: context,
-                    child: _showActionSheet(_jsonData[item.key][key].keys.toList(), key)
-                  );
-                }
-              )
+                ListTile(
+                  title:  Text(key.toString().toUpperCase()),
+                  trailing: Icon(Icons.chevron_right),
+                  dense: true,
+                  onTap: () {
+                    containerForSheet<String>(
+                      context: context,
+                      child: _showActionSheet(_jsonData[item.key][key].keys.toList(), item.key)
+                    );
+                  }
+                )
               :
-              ListTile(
-                title: Text(key.toString().toUpperCase()),
-                trailing: Icon(Icons.chevron_right),
-                dense: true,
-                onTap: () {
-                  Navigator.pushNamed(context, '/volantini/webview', arguments: VolantinoWebViewArgs(url: 'https://promozioni.gustourconad.it/'+item.key,));
-                },
-              );
+                ListTile(
+                  title: Text(key.toString().toUpperCase()),
+                  trailing: Icon(Icons.chevron_right),
+                  dense: true,
+                  onTap: () {
+                    Navigator.pushNamed(context, '/volantini/webview', arguments: VolantinoWebViewArgs(url: 'https://promozioni.gustourconad.it/appview/'+item.key+'/'+key+'/render/volantino'));
+                  },
+                );
             },
           ),
         );

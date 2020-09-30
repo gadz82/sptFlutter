@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class PlantTable extends StatelessWidget {
 
-  @required String ambiente;
-  @required String fioritura;
-  @required String tipologiaFoglie;
-  @required String tipoPianta;
+  @required final String ambiente;
+  @required final String fioritura;
+  @required final String tipologiaFoglie;
+  @required final String tipoPianta;
 
   PlantTable({this.ambiente, this.fioritura, this.tipologiaFoglie, this.tipoPianta});
 

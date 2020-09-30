@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:scelteperte/recipes_item.dart';
-import 'package:scelteperte/src/models/fruit_model.dart';
-import 'package:scelteperte/src/models/plant_model.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:scelteperte/src/utils.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class ItemLinkedRecipe extends StatelessWidget {
 
-  @required List<Recipe> relatedRecipes;
+  @required final List<Recipe> relatedRecipes;
 
   ItemLinkedRecipe({this.relatedRecipes});
 

@@ -1,12 +1,7 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:scelteperte/promotions_item.dart';
-import 'package:scelteperte/src/models/page_model.dart';
 import 'package:scelteperte/src/models/promo_model.dart';
 
 class PromotionsList extends StatefulWidget {

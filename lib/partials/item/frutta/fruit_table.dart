@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class FruitTable extends StatelessWidget {
 
-  @required String origine;
-  @required String stagione;
+  @required final String origine;
+  @required final String stagione;
 
   FruitTable({this.origine, this.stagione});
 

@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:scelteperte/src/models/plant_image.dart';
-import 'package:scelteperte/src/models/slide_model.dart';
-import 'package:scelteperte/src/utils.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class SliderPlants extends StatelessWidget {
