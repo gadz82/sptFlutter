@@ -231,7 +231,7 @@ class MacroHomeSectionButton extends StatelessWidget{
             height: (MediaQuery.of(context).size.width * 0.20) -10,
             margin: EdgeInsets.only(bottom: 10),
             decoration: new BoxDecoration(
-                boxShadow: [BoxShadow(blurRadius: 5,color: Colors.black)],
+                boxShadow: [BoxShadow(blurRadius: 5,color: Colors.grey)],
                 shape: BoxShape.circle,
                 image: new DecorationImage(fit: BoxFit.fill, image: image)
             )
