@@ -11,6 +11,7 @@ import 'package:scelteperte/partials/item/piante/slider.dart';
 import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:scelteperte/src/models/plant_image.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
+import 'package:scelteperte/src/utils.dart';
 import 'package:share/share.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -108,7 +109,7 @@ class _PlantsItemState extends State<PlantsItem> {
                     children: [
                       !multiImage ?
                       Container(
-                        height: 250,
+                        height: Utils().getDeviceType() == 'phone' ? 250 : 500,
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,

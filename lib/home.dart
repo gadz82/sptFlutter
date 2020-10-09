@@ -20,6 +20,7 @@ import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:scelteperte/src/models/slide_model.dart';
 import 'package:scelteperte/flyers_list.dart';
 import 'package:scelteperte/flyers_webview.dart';
+import 'package:scelteperte/src/utils.dart';
 
 class Home extends StatefulWidget {
   final Future<bool> appReady;
@@ -230,6 +231,7 @@ class MacroHomeSectionButton extends StatelessWidget{
             height: (MediaQuery.of(context).size.width * 0.20) -10,
             margin: EdgeInsets.only(bottom: 10),
             decoration: new BoxDecoration(
+                boxShadow: [BoxShadow(blurRadius: 5,color: Colors.black)],
                 shape: BoxShape.circle,
                 image: new DecorationImage(fit: BoxFit.fill, image: image)
             )
@@ -240,7 +242,7 @@ class MacroHomeSectionButton extends StatelessWidget{
               title,
               textAlign: TextAlign.center,
               overflow: TextOverflow.clip,
-              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 11.50),
+              style: TextStyle(fontWeight: FontWeight.normal, fontSize: Utils().getDeviceType() == 'phone' ? 11.50 : 16),
             ))
       ],
     );

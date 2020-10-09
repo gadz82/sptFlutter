@@ -16,7 +16,7 @@ class DownloadButton extends StatelessWidget {
         child: RaisedButton.icon(
           icon: Icon(Icons.cloud_download ),
           textColor: Colors.white,
-          color: Colors.lightGreen,
+          color: Colors.green,
           label: Text(buttonTitle),
           onPressed: () {
             Utils().launchURL(url);

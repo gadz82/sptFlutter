@@ -7,6 +7,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:scelteperte/partials/bottom_banner.dart';
 import 'package:scelteperte/plants_item.dart';
 import 'package:scelteperte/src/models/page_model.dart';
+import 'package:scelteperte/src/utils.dart';
 
 class Oroscope extends StatefulWidget {
   @override
@@ -74,7 +75,8 @@ class _OroscopeState extends State<Oroscope> {
                     child: Text(this.currentSign['titolo'], style: TextStyle(fontSize: 30),)
                   ),
                   Container(
-                    padding:EdgeInsets.symmetric(horizontal: 60.00, vertical: 20.00),
+                    padding: Utils().getDeviceType() == 'phone' ? EdgeInsets.symmetric(horizontal: 60.00, vertical: 20.00) : EdgeInsets.symmetric(horizontal: 250.00, vertical: 20.00),
+                    alignment: Alignment.center,
                     child: Image.asset(
                       'images/segni/${this.currentSign['titolo'].toString().toLowerCase()}.png'
                     ),
@@ -97,7 +99,7 @@ class _OroscopeState extends State<Oroscope> {
                         Padding(
                           padding: EdgeInsets.all(10.0),
                           child: Html(
-                              data: this.currentSign['descrizione']
+                             data: this.currentSign['descrizione']
                           ),
                         ),
                         RaisedButton(

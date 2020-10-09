@@ -63,77 +63,78 @@ class _AppSplashLoaderState extends State<AppSplashLoader> {
 
   @override
   Widget build(BuildContext buildContext) {
-    return FutureBuilder<SharedPreferences>(
-        future: localStorage,
-        builder: (context, AsyncSnapshot<SharedPreferences> storage) {
-          if(storage.hasData && storage.data.containsKey('boot') && storage.data.getBool('boot')){
-            log('App Already booted, rendering home page during appa sync');
-            return Home(appReady : appReady);
-          } else {
-            return FutureBuilder<dynamic>(
-                future: appReady,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    storage.data.setBool('boot', true);
-                    log('App Ready, Home first time rendering');
-                    return Home(appReady: appReady);
-                  } else if (snapshot.hasError) {
+    return Scaffold(
+      body : FutureBuilder<SharedPreferences>(
+          future: localStorage,
+          builder: (context, AsyncSnapshot<SharedPreferences> storage) {
+            if(storage.hasData && storage.data.containsKey('boot') && storage.data.getBool('boot') && 1 == 2){
+              log('App Already booted, rendering home page during appa sync');
+              return Home(appReady : appReady);
+            } else {
+              return FutureBuilder<dynamic>(
+                  future: appReady,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData && 1 == 2) {
+                      storage.data.setBool('boot', true);
+                      log('App Ready, Home first time rendering');
+                      return Home(appReady: appReady);
+                    } else if (snapshot.hasError && 1 == 2) {
 
-                    return Text("${snapshot.error}", textDirection: TextDirection.ltr,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black87));
+                      return Text("${snapshot.error}", textDirection: TextDirection.ltr,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.black87));
 
-                  } else {
-                    log('App First Boot, waiting for first data sync');
-                    return DecoratedBox(
-                      decoration: const BoxDecoration(
-                        color: Colors.lightGreen,
-                        gradient:  RadialGradient(
-                          radius: 1.4,
-                          colors: [
-                            Colors.green,
-                            Colors.black
-                          ]
+                    } else {
+                      log('App First Boot, waiting for first data sync');
+                      return DecoratedBox(
+                        decoration: const BoxDecoration(
+                          color: Colors.lightGreen,
+                          gradient:  RadialGradient(
+                              radius: 1.4,
+                              colors: [
+                                Colors.green,
+                                Colors.black
+                              ]
+                          ),
                         ),
-                      ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          textDirection: TextDirection.ltr,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(100),
-                              child:  Image.asset('images/logo.png')
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(32),
-                              child: Text(
-                                'Inizializzazione Scelte per Te',
-                                textDirection: TextDirection.ltr,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.white),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            textDirection: TextDirection.ltr,
+                            children: <Widget>[
+                              Padding(
+                                  padding: EdgeInsets.all(100),
+                                  child:  Image.asset('images/logo.png')
                               ),
-                            ),
-                            Column(
-                              children: <Widget>[
-                                CircularProgressIndicator(
-                                    backgroundColor: Colors.green,
-                                    valueColor: new AlwaysStoppedAnimation<Color>(Colors.white)
-                                )
+                              Padding(
+                                  padding: EdgeInsets.all(32),
+                                  child: Container(child: Text(
+                                    'Inizializzazione Scelte per Te',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(color: Colors.white),
+                                  ))
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  CircularProgressIndicator(
+                                      backgroundColor: Colors.green,
+                                      valueColor: new AlwaysStoppedAnimation<Color>(Colors.white)
+                                  )
 
-                              ],
-                            )
-                          ],
+                                ],
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    );
+                      );
 
+                    }
                   }
-                }
-            );
+              );
+            }
           }
-        }
-      );
+      )
+    );
   }
 }
 

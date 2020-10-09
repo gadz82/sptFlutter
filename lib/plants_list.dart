@@ -6,6 +6,7 @@ import 'package:scelteperte/plants_item.dart';
 import 'package:scelteperte/src/filters/fruit_filters.dart';
 import 'package:scelteperte/src/filters/plant_filters.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
+import 'package:scelteperte/src/utils.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class PlantsList extends StatefulWidget {
@@ -128,13 +129,18 @@ class _PlantsListState extends State<PlantsList> {
                     /*24 is for notification bar on Android*/
                     Size size = MediaQuery.of(context).size;
                     Orientation currentOrientation = MediaQuery.of(context).orientation;
-                    final double itemHeight = currentOrientation == Orientation.portrait ? (size.height - kToolbarHeight - 350) / 2 : (size.height - kToolbarHeight) / 2;
-                    final double itemWidth = currentOrientation == Orientation.portrait ? size.width / 2 : size.width / 3;
+                    final double itemHeight = Utils().getDeviceType() == 'phone' ?
+                        (currentOrientation == Orientation.portrait ? (size.height - kToolbarHeight - size.width) / 2 : (size.height - kToolbarHeight) / 1.93):
+                        (currentOrientation == Orientation.portrait ? (size.height - kToolbarHeight - (size.width / 1.3)) / 2 : (size.height - kToolbarHeight) / 4);
+                    final double itemWidth = Utils().getDeviceType() == 'phone' ?
+                        (currentOrientation == Orientation.portrait ? size.width / 2 : size.width / 3):
+                        (currentOrientation == Orientation.portrait ? size.width / 3 : size.width / 4);
+
                     return GridView.count(
                         padding: EdgeInsets.all(5.00),
                         crossAxisSpacing: 5,
                         controller: _scrollController,
-                        crossAxisCount: currentOrientation == Orientation.portrait ? 2 : 3,
+                        crossAxisCount: Utils().getDeviceType() == 'phone' ? (currentOrientation == Orientation.portrait ? 2 : 3) : currentOrientation == Orientation.portrait ? 3 : 4,
                         childAspectRatio: (itemWidth / itemHeight),
                         children: [
                           for(Plant p in piante)
@@ -157,7 +163,7 @@ class _PlantsListState extends State<PlantsList> {
                                               ),
                                               Container(
                                                 height: 25,
-                                                width: 1000,
+                                                width: 2000,
                                                 decoration: BoxDecoration(
                                                     color: Colors.white,
                                                     gradient: LinearGradient(

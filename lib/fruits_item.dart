@@ -10,6 +10,7 @@ import 'package:scelteperte/partials/item/ricette/item_linked_recipe.dart';
 import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
+import 'package:scelteperte/src/utils.dart';
 import 'package:share/share.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -107,7 +108,7 @@ class _FruitsItemState extends State<FruitsItem> {
                  return ListView(
                     children: [
                       Container(
-                        height: 250,
+                        height: Utils().getDeviceType() == 'phone' ? 250 : 500,
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,

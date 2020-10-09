@@ -5,6 +5,7 @@ import 'package:scelteperte/recipes_item.dart';
 import 'package:scelteperte/src/models/fruit_model.dart';
 import 'package:scelteperte/src/models/plant_model.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
+import 'package:scelteperte/src/utils.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class HomeLastEntries extends StatefulWidget {
@@ -43,8 +44,8 @@ class WrappedEntryCard extends StatelessWidget {
                                   placeholder: kTransparentImage,
                                   image: image,
                                   fit: BoxFit.cover,
-                                  height: 210,
-                                  width: 1000
+                                  height: (MediaQuery.of(context).orientation == Orientation.portrait && Utils().getDeviceType() == 'phone') ? 210 : 400,
+                                  width: 2000
                               ),
                             ),
                             Container(

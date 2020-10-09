@@ -85,7 +85,7 @@ class _GardensState extends State<Gardens> {
                             ),
                             Container(
                               padding:EdgeInsets.symmetric(horizontal:15, vertical: 5),
-                              height: 200,
+                              height: Utils().getDeviceType() == 'phone' ? 200 : 400,
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children:[
@@ -96,7 +96,6 @@ class _GardensState extends State<Gardens> {
                                           fit: BoxFit.fitWidth
                                       ),
                                     ),
-
                                   ]
                               ),
                             ),
@@ -126,7 +125,7 @@ class _GardensState extends State<Gardens> {
                                   child: RaisedButton.icon(
                                     icon: Icon(Icons.phone),
                                     textColor: Colors.white,
-                                    color: Colors.lightGreen,
+                                    color: Colors.green,
                                     label: Text(garden['telefono']),
                                     onPressed: () {
                                       Utils().launchURL("tel:${garden['telefono']}");
@@ -141,7 +140,7 @@ class _GardensState extends State<Gardens> {
                                   child: RaisedButton.icon(
                                     icon: Icon(Icons.mobile_screen_share),
                                     textColor: Colors.white,
-                                    color: Colors.lightGreen,
+                                    color: Colors.green,
                                     label: Text(garden['cellulare']),
                                     onPressed: () {
                                       Utils().launchURL("tel:${garden['cellulare']}");
@@ -156,7 +155,7 @@ class _GardensState extends State<Gardens> {
                                   child: RaisedButton.icon(
                                     icon: Icon(Icons.language),
                                     textColor: Colors.white,
-                                    color: Colors.lightGreen,
+                                    color: Colors.green,
                                     label: const Text('Sito Web'),
                                     onPressed: () {
                                       Utils().launchURL(garden['sito']);
@@ -171,7 +170,7 @@ class _GardensState extends State<Gardens> {
                                   child: RaisedButton.icon(
                                     icon: Icon(Icons.map),
                                     textColor: Colors.white,
-                                    color: Colors.lightGreen,
+                                    color: Colors.green,
                                     label: const Text('Indicazioni Stradali'),
                                     onPressed: () {
                                       final url = 'https://www.google.com/maps/search/?api=1&query=${garden['lat']},${garden['lng']}';

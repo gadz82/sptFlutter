@@ -71,7 +71,7 @@ class _NewsItemState extends State<NewsItem> {
                     return ListView(
                       children: [
                         Container(
-                          height: 150,
+                          height: Utils().getDeviceType() == 'phone' ? 150 : 350,
                           child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,

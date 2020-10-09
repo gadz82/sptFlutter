@@ -25,6 +25,11 @@ class Utils {
     return htmlString.replaceAll(exp, '');
   }
 
+  String getDeviceType() {
+    final data = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
+    return data.size.shortestSide < 600 ? 'phone' :'tablet';
+  }
+
   void launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -64,38 +69,58 @@ class Utils {
   }
 
   void handlePushNotification(String event, Map<String, dynamic> notification){
+    log(event);
+    log(notification.toString());
+    String title;
+    String body;
+    String type;
+    String postId;
 
+    log(notification['data'].toString());
+
+    if(Platform.isIOS){
+      title = notification['title'];
+      body = notification['body'];
+      type = notification['type'];
+      postId = notification['postId'];
+    } else {
+      title = notification['data']['title'];
+      body = notification['data']['body'];
+      type = notification['data']['type'];
+      postId = notification['data']['postId'];
+    }
     if(event == 'onMessage'){
-        Get.snackbar(notification['data']['title'], notification['data']['body'],
+
+        Get.snackbar(title, body,
             snackPosition: SnackPosition.BOTTOM,
             duration: Duration(seconds: 5),
             barBlur: 15,
-            titleText: Text(notification['data']['title'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            titleText: Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             mainButton: FlatButton(child: Text('Scopri'),onPressed: (){
-              this.getNotificationClickEventRoute(notification);
+              this.getNotificationClickEventRoute(type, postId, title);
             })
         );
     } else {
-        this.getNotificationClickEventRoute(notification);
+        this.getNotificationClickEventRoute(type, postId, title);
     }
   }
 
-  getNotificationClickEventRoute(Map<String, dynamic> notification){
-    switch(notification['data']['type']){
+  getNotificationClickEventRoute(type, postId, title){
+    switch(type){
       case 'prodotti':
-        return Get.to(PlantsItem(postId : int.parse(notification['data']['postId']), appBarTitle: notification['data']['title']));
+        return Get.to(PlantsItem(postId : int.parse(postId), appBarTitle: title));
         break;
       case 'frutta-verdura':
-        return Get.to(FruitsItem(postId : int.parse(notification['data']['postId']), appBarTitle: notification['data']['title']));
+        return Get.to(FruitsItem(postId : int.parse(postId), appBarTitle: title));
         break;
       case 'ricette':
-        return Get.to(RecipesItem(postId : int.parse(notification['data']['postId']), appBarTitle: notification['data']['title']));
+        return Get.to(RecipesItem(postId : int.parse(postId), appBarTitle: title));
         break;
       case 'post':
-        return Get.to(NewsItem(postId : int.parse(notification['data']['postId']), appBarTitle: notification['data']['title']));
+        return Get.to(NewsItem(postId : int.parse(postId), appBarTitle: title));
         break;
       case 'promozioni-app':
-        return Get.to(PromotionsItem(postId : int.parse(notification['data']['postId']), appBarTitle: notification['data']['title']));
+        return Get.to(PromotionsItem(postId : int.parse(postId), appBarTitle: title));
         break;
       case 'volantini':
         return Get.to(FlyersList());

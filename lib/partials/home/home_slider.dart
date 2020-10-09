@@ -47,8 +47,10 @@ class SliderHome extends StatelessWidget {
                           placeholder: kTransparentImage,
                           image: slides[index].image,
                           fit: BoxFit.cover,
-                          height: MediaQuery.of(context).orientation == Orientation.portrait ? MediaQuery.of(context).size.height * 0.20 : MediaQuery.of(context).size.height * 0.65,
-                          width: 1000,
+                          height: MediaQuery.of(context).orientation == Orientation.portrait ?
+                            MediaQuery.of(context).size.height * (Utils().getDeviceType() == 'phone' ? 0.18 : 0.26) :
+                            MediaQuery.of(context).size.height * (Utils().getDeviceType() == 'phone' ? 0.65 : 0.45),
+                          width: 2000,
                       ),
                       onTap: () => slideInteraction(context, slides[index]),
                     )

@@ -95,7 +95,7 @@ class _NewsListState extends State<NewsList> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children:[
                                         Expanded(
-                                          flex: 3,
+                                          flex: Utils().getDeviceType() == 'phone' ? 3 : 1,
                                           child: FadeInImage.memoryNetwork(
                                               placeholder: kTransparentImage,
                                               image: n.thumb,
@@ -103,7 +103,7 @@ class _NewsListState extends State<NewsList> {
                                           ),
                                         ),
                                         Expanded(
-                                            flex: 6,
+                                            flex: Utils().getDeviceType() == 'phone' ? 6 : 5,
                                             child: Container(
                                                 padding: EdgeInsets.all(10.00),
                                                 child : Wrap(
@@ -112,7 +112,7 @@ class _NewsListState extends State<NewsList> {
                                                       Divider(),
                                                       Container(
                                                           width: 1000,
-                                                          child: Text(Utils().parseHtmlString(n.text).substring(0,80)+"...", style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
+                                                          child: Text(Utils().parseHtmlString(n.text).substring(0, (Utils().getDeviceType() == 'phone' ? 80 : 300))+"...", style: TextStyle(fontSize: 13), textAlign: TextAlign.left)
                                                       )
                                                     ]
                                                 )

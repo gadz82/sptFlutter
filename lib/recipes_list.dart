@@ -5,6 +5,7 @@ import 'package:scelteperte/partials/filters/recipes.dart';
 import 'package:scelteperte/recipes_item.dart';
 import 'package:scelteperte/src/filters/recipe_filters.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
+import 'package:scelteperte/src/utils.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class RecipesList extends StatefulWidget {
@@ -133,52 +134,56 @@ class _RecipesListState extends State<RecipesList> {
                         controller: _scrollController,
                         children: [
                           for(Recipe r in ricette)
-                            Card(
-                              child: InkWell(
-                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RecipesItem(postId: r.postId, appBarTitle: r.title))),
-                                child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children:[
-                                      Expanded(
-                                          flex: 3,
-                                          child: FadeInImage.memoryNetwork(
-                                              placeholder: kTransparentImage,
-                                              image: r.thumb,
-                                              fit: BoxFit.fitWidth
+                            Container(
+                              margin: EdgeInsets.only(bottom: Utils().getDeviceType() == 'phone' ? 5 : 15),
+                              child: Card(
+                                child: InkWell(
+                                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RecipesItem(postId: r.postId, appBarTitle: r.title))),
+                                    child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children:[
+                                          Expanded(
+                                            flex: Utils().getDeviceType() == 'phone' ? 3 : 1,
+                                            child: FadeInImage.memoryNetwork(
+                                                placeholder: kTransparentImage,
+                                                image: r.thumb,
+                                                fit: BoxFit.fitWidth
+                                            ),
                                           ),
-                                        ),
-                                      Expanded(
-                                        flex: 6,
-                                        child: Container(
-                                          padding: EdgeInsets.all(10.00),
-                                          child : Wrap(
-                                            children: [
-                                              Text(r.title, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color:Colors.green), textAlign: TextAlign.left),
-                                              Divider(),
-                                              Container(
-                                                width: 1000,
-                                                child: Text(r.description, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13, ), textAlign: TextAlign.left)
-                                              ),
-                                              Container(
-                                                  margin: EdgeInsets.only(top:5.00),
-                                                  width: 1000,
-                                                  child: Text("Pronto in ${r.preparationTime} minuti", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color:Colors.green ), textAlign: TextAlign.left)
-                                              ),
-                                              Container(
-                                                  width: 1000,
-                                                  margin: EdgeInsets.only(top:5.00),
-                                                  child: Text("Difficoltà ${r.difficultyFilter.toUpperCase()}", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12,color:Colors.blueGrey, fontWeight: FontWeight.bold), textAlign: TextAlign.left)
-                                              ),
-                                            ]
-                                          )
-                                        )
-                                      ),
+                                          Expanded(
+                                              flex: Utils().getDeviceType() == 'phone' ? 6 : 5,
+                                              child: Container(
+                                                  padding: EdgeInsets.all(10.00),
+                                                  child : Wrap(
+                                                      children: [
+                                                        Text(r.title, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: Utils().getDeviceType() == 'phone' ? 13 : 15, fontWeight: FontWeight.bold, color:Colors.green), textAlign: TextAlign.left),
+                                                        Divider(),
+                                                        Container(
+                                                            width: 1000,
+                                                            child: Text(r.description, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13, ), textAlign: TextAlign.left)
+                                                        ),
+                                                        Container(
+                                                            margin: EdgeInsets.only(top:5.00),
+                                                            width: 1000,
+                                                            child: Text("Pronto in ${r.preparationTime} minuti", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color:Colors.green ), textAlign: TextAlign.left)
+                                                        ),
+                                                        Container(
+                                                            width: 1000,
+                                                            margin: EdgeInsets.only(top:5.00),
+                                                            child: Text("Difficoltà ${r.difficultyFilter.toUpperCase()}", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12,color:Colors.blueGrey, fontWeight: FontWeight.bold), textAlign: TextAlign.left)
+                                                        ),
+                                                      ]
+                                                  )
+                                              )
+                                          ),
 
-                                  ]
-                                )
+                                        ]
+                                    )
 
-                              ),
-                            )
+                                ),
+                              )
+                            ),
+
                           ]
                       );
 

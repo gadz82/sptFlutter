@@ -21,6 +21,7 @@ class Contact extends StatelessWidget {
                 children: [
                   Container(
                     padding:EdgeInsets.symmetric(horizontal: 60.00, vertical: 20.00),
+                    alignment: Alignment.center,
                     child: Image.asset(
                         'images/logo.png'
                     ),

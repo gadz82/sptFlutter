@@ -34,7 +34,7 @@ class _FairsState extends State<Fairs> {
       child: ListView(
         children: [
           Container(
-            height: 140,
+            height: Utils().getDeviceType() == 'phone' ? 140 : 300,
             child:FittedBox(
                 child: FadeInImage.memoryNetwork(
                   placeholder: kTransparentImage,
@@ -89,7 +89,7 @@ class _FairsState extends State<Fairs> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children:[
                               Expanded(
-                                flex: 3,
+                                flex: Utils().getDeviceType() == 'phone' ? 3 : 1,
                                 child: FadeInImage.memoryNetwork(
                                     placeholder: kTransparentImage,
                                     image: event['immagine'],
@@ -97,7 +97,7 @@ class _FairsState extends State<Fairs> {
                                 ),
                               ),
                               Expanded(
-                                  flex: 6,
+                                  flex: Utils().getDeviceType() == 'phone' ? 6 : 9,
                                   child: Container(
                                       padding: EdgeInsets.all(10.00),
                                       child : Wrap(
@@ -129,7 +129,7 @@ class _FairsState extends State<Fairs> {
                             child: RaisedButton.icon(
                               icon: Icon(Icons.language),
                               textColor: Colors.white,
-                              color: Colors.lightGreen,
+                              color: Colors.green,
                               label: const Text('Sito Web'),
                               onPressed: () {
                                 Utils().launchURL(event['link']);
@@ -144,7 +144,7 @@ class _FairsState extends State<Fairs> {
                           child: RaisedButton.icon(
                             icon: Icon(Icons.calendar_today),
                             textColor: Colors.white,
-                            color: Colors.lightGreen,
+                            color: Colors.green,
                             label: const Text('Aggiungi al Calendario'),
                             onPressed: () {
                                                             
@@ -169,7 +169,7 @@ class _FairsState extends State<Fairs> {
                           child: RaisedButton.icon(
                             icon: Icon(Icons.map),
                             textColor: Colors.white,
-                            color: Colors.lightGreen,
+                            color: Colors.green,
                             label: const Text('Vedi su Mappa'),
                             onPressed: () {
                               final url = 'https://www.google.com/maps/search/?api=1&query=${event['lat']},${event['lng']}';
