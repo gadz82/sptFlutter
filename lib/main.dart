@@ -67,18 +67,18 @@ class _AppSplashLoaderState extends State<AppSplashLoader> {
       body : FutureBuilder<SharedPreferences>(
           future: localStorage,
           builder: (context, AsyncSnapshot<SharedPreferences> storage) {
-            if(storage.hasData && storage.data.containsKey('boot') && storage.data.getBool('boot') && 1 == 2){
+            if(storage.hasData && storage.data.containsKey('boot') && storage.data.getBool('boot')){
               log('App Already booted, rendering home page during appa sync');
               return Home(appReady : appReady);
             } else {
               return FutureBuilder<dynamic>(
                   future: appReady,
                   builder: (context, snapshot) {
-                    if (snapshot.hasData && 1 == 2) {
+                    if (snapshot.hasData) {
                       storage.data.setBool('boot', true);
                       log('App Ready, Home first time rendering');
                       return Home(appReady: appReady);
-                    } else if (snapshot.hasError && 1 == 2) {
+                    } else if (snapshot.hasError) {
 
                       return Text("${snapshot.error}", textDirection: TextDirection.ltr,
                           textAlign: TextAlign.center,
