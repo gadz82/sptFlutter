@@ -74,10 +74,17 @@ class _RecipesItemState extends State<RecipesItem> {
                 future: recipeReady,
                 builder: (context, AsyncSnapshot<bool> recipeReady) {
                   if (recipeReady.hasData && recipeReady.data == true) {
-                    return InkWell(
-                      child: Icon(Icons.share),
-                      onTap: () => Share.share(recipe.url),
+                    return Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: InkWell(
+                          child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: Icon(Icons.share)
+                          ),
+                          onTap: () async => await Utils().isIpad() ? Share.share(recipe.url, sharePositionOrigin: Rect.fromCenter(center: Offset(MediaQuery.of(context).size.width, 0), width: 100, height: 100)) : Share.share(recipe.url),
+                        )
                     );
+
                   } else {
                     return SizedBox();
                   }

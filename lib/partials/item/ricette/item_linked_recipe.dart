@@ -24,7 +24,7 @@ class ItemLinkedRecipe extends StatelessWidget {
                   child: ListTile(
                     contentPadding: EdgeInsets.symmetric(vertical: 10),
                     leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(25.0),
+                        //borderRadius: BorderRadius.circular(25.0),
                         child: FadeInImage.memoryNetwork(
                             placeholder: kTransparentImage,
                             image: relatedRecipe.thumb,

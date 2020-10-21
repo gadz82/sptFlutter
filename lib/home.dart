@@ -37,6 +37,8 @@ class _HomeState extends State<Home> {
   Future<List<Slide>> slides;
   Future<Recipe> featuredRecipe;
 
+  String homeRecipesApp = 'http://www.scelteperte.it/wp-content/themes/natural/images/home-ricette-app.jpg';
+
   @override
   void initState() {
     super.initState();
@@ -47,6 +49,11 @@ class _HomeState extends State<Home> {
       });
       setState(() {
         this.featuredRecipe = Recipe().getFeaturedRecipe();
+        this.featuredRecipe.then((r){
+          setState(() {
+            this.homeRecipesApp = r.image;
+          });
+        });
       });
 
     });
@@ -55,6 +62,29 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
+    Widget navItemRicetta = FutureBuilder(
+      future: featuredRecipe,
+      builder: (context, AsyncSnapshot<Recipe> recipe) {
+        if (recipe.hasData) {
+          return GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => RecipesItem(postId: recipe.data.postId, appBarTitle: recipe.data.title)));
+              },
+              child: MacroHomeSectionButton(
+                  image: new NetworkImage(recipe.data.thumb),
+                  title: 'Ricetta del mese'
+              ));
+        } else {
+          return GestureDetector(
+              onTap: () => Navigator.pushNamed(context, '/ricette'),
+              child: MacroHomeSectionButton(
+                  image: new AssetImage('images/ricetta.jpg'),
+                  title: 'Ricetta del mese'
+              ));
+        }
+      },
+    );
 
     return MaterialApp(
       title: 'Scelte per Te',
@@ -118,9 +148,55 @@ class _HomeState extends State<Home> {
                         );
                       }
                     }),
+                    Container(
+                        margin: EdgeInsets.only(top: 0.00),
+                        padding: EdgeInsets.all(10.00),
+                        child: RaisedButton(
+                            textColor: Colors.white,
+                            color: Colors.green,
+                            padding: EdgeInsets.symmetric(horizontal: 10.00),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/volantini');
+                            },
+                            child: ListTile(
+                              contentPadding: EdgeInsets.all(0),
+                              leading: CircleAvatar(
+                                  backgroundColor: Colors.green,
+                                  backgroundImage: new AssetImage('images/margherita.png')
+                              ),
+                              title: Text('Volantino Conad', style: TextStyle(color: Colors.white)),
+                              subtitle: Text(
+                                  'Sfoglia il volantino e scopri le offerte',
+                                  style: TextStyle(color: Colors.white, fontSize: 10.00)
+                              ),
+                              trailing: Icon(Icons.chevron_right, color: Colors.white),
+                            )
+                        )
+                    ),
+
+                  HomeNavCard(items: [
+                    NavItem(title: 'Frutta e Verdura', subTitle: 'Scopri le nostre schede', namedRoute: '/frutta', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-frutta-app.jpg'),
+                    NavItem(title: 'Piante e Fiori', subTitle: 'Scopri come coltivare', namedRoute: '/piante', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-fiori-app.jpg'),
+                    NavItem(title: 'Ricette', subTitle: 'A base di frutta e verdura', namedRoute: '/ricette', image: this.homeRecipesApp),
+                    NavItem(title: 'Sconti Esclusivi', subTitle: 'Per i possessori dell\'App Scelte per Te', namedRoute: '/promozioni', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/icona-flora.png')
+                  ]),
+
+                  HomeLastEntries(),
                   Container(
+                    margin: EdgeInsets.only(bottom: 15),
+                    child: HomeNavCard(items: [
+                      NavItem(title: 'Consigli e Curiosità', subTitle: 'Dal mondo di Flora', namedRoute: '/news', asset: 'images/flora.jpg'),
+                      NavItem(title: 'Fiere ed Eventi', subTitle: 'Sul mondo del Giardinaggio e Floricoltura', namedRoute: '/fiere', asset: 'images/fiere.jpg'),
+                      NavItem(title: 'Linguaggio dei Fiori', subTitle: 'Scopri il significato di piante e fiori', namedRoute: '/linguaggio', asset: 'images/linguaggio.jpg'),
+                      NavItem(title: 'Oroscopo del verde', subTitle: 'Scopri la pianta del tuo segno zodiacale', namedRoute: '/linguaggio', asset: 'images/oroscopo.jpg'),
+                      NavItem(title: 'Giardini e Orti Botanici', subTitle: 'Meravigliosi angoli da visitare in Italia', namedRoute: '/giardini', asset: 'images/giardini.jpg')
+                    ])
+                  )
+
+                  /*Container(
                     alignment: Alignment.center,
                     padding: EdgeInsets.symmetric(horizontal: 5.00),
+                    margin: EdgeInsets.symmetric(vertical:15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -148,67 +224,10 @@ class _HomeState extends State<Home> {
                                 image: new AssetImage('images/giardini.jpg'),
                                 title: 'Giardini e Orti Botanici'
                             )),
-                        FutureBuilder(
-                          future: featuredRecipe,
-                          builder: (context, AsyncSnapshot<Recipe> recipe) {
-                            if (recipe.hasData) {
-                              return GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => RecipesItem(postId: recipe.data.postId, appBarTitle: recipe.data.title)));
-                                  },
-                                  child: MacroHomeSectionButton(
-                                      image: new NetworkImage(recipe.data.thumb),
-                                      title: 'Ricetta del mese'
-                                  ));
-                            } else {
-                              return GestureDetector(
-                                  onTap: () => Navigator.pushNamed(context, '/ricette'),
-                                  child: MacroHomeSectionButton(
-                                      image: new AssetImage('images/ricetta.jpg'),
-                                      title: 'Ricetta del mese'
-                                  ));
-                            }
-                          },
-                        )
+
                       ],
                     ),
-                  ),
-                  HomeNavCard(items: [
-                    NavItem(title: 'Frutta e Verdura', subTitle: 'Scopri le nostre schede', namedRoute: '/frutta', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-frutta-app.jpg'),
-                    NavItem(title: 'Piante e Fiori', subTitle: 'Scopri come coltivare', namedRoute: '/piante', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-fiori-app.jpg'),
-                    NavItem(title: 'Ricette', subTitle: 'A base di frutta e verdura', namedRoute: '/ricette', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-ricette-app.jpg'),
-                    NavItem(title: 'Sconti Esclusivi', subTitle: 'Per i possessori dell\'App Scelte per Te', namedRoute: '/promozioni', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/icona-flora.png')
-                  ]),
-                  Container(
-                      margin: EdgeInsets.only(top: 0.00),
-                      padding: EdgeInsets.all(10.00),
-                      child: RaisedButton(
-                          textColor: Colors.white,
-                          color: Colors.green,
-                          padding: EdgeInsets.symmetric(horizontal: 10.00),
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/volantini');
-                          },
-                          child: ListTile(
-                            contentPadding: EdgeInsets.all(0),
-                            leading: CircleAvatar(
-                                backgroundColor: Colors.green,
-                                backgroundImage: new AssetImage('images/margherita.png')
-                            ),
-                            title: Text('Volantino Conad', style: TextStyle(color: Colors.white)),
-                            subtitle: Text(
-                                'Sfoglia il volantino e scopri le offerte',
-                                style: TextStyle(color: Colors.white, fontSize: 10.00)
-                            ),
-                            trailing: Icon(Icons.chevron_right, color: Colors.white),
-                          )
-                      )
-                  ),
-                  HomeLastEntries(),
-                  HomeNavCard(items: [
-                    NavItem(title: 'Consigli e Curiosità', subTitle: 'Dal mondo di Flora', namedRoute: '/news', asset: 'images/flora.jpg'),
-                    NavItem(title: 'Fiere ed Eventi', subTitle: 'Sul mondo del Giardinaggio e Floricoltura', namedRoute: '/fiere', asset: 'images/fiere.jpg')
-                  ]),
+                  ),*/
           ])
         )
       ),
@@ -232,7 +251,7 @@ class MacroHomeSectionButton extends StatelessWidget{
             margin: EdgeInsets.only(bottom: 10),
             decoration: new BoxDecoration(
                 boxShadow: [BoxShadow(blurRadius: 5,color: Colors.grey)],
-                shape: BoxShape.circle,
+                shape: BoxShape.rectangle,
                 image: new DecorationImage(fit: BoxFit.fill, image: image)
             )
         ),

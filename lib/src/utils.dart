@@ -30,6 +30,15 @@ class Utils {
     return data.size.shortestSide < 600 ? 'phone' :'tablet';
   }
 
+  Future<bool> isIpad() async {
+    if(Platform.isIOS){
+      final iosInfo = await DeviceInfoPlugin().iosInfo;
+      return iosInfo.name.toLowerCase().contains('ipad');
+    } else {
+      return false;
+    }
+  }
+
   void launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);

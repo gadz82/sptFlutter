@@ -44,7 +44,7 @@ class HomeNavCard extends StatelessWidget {
                                       child: ListTile(
                                         contentPadding: EdgeInsets.all(0),
                                         leading: ClipRRect(
-                                            borderRadius: BorderRadius.circular(25.0),
+                                            //borderRadius: BorderRadius.circular(25.0),
                                             child: item.image != null ? FadeInImage.memoryNetwork(
                                                 placeholder: kTransparentImage,
                                                 image: item.image,

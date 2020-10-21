@@ -131,7 +131,7 @@ class _FruitFilterMenuState extends State<FruitFilterMenu> {
                                 });
                               },
                               icon: Icon(Icons.clear, color: Colors.black),
-                              iconSize: searchStringController.text.length > 0 ? 15.00 : 0.00,
+                              iconSize: 15,
                               padding: EdgeInsets.only(top: 20.00),
                             ),
                           ),

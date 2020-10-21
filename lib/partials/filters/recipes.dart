@@ -132,17 +132,12 @@ class _RecipesFilterMenuState extends State<RecipesFilterMenu> {
                                 });
                               },
                               icon: Icon(Icons.clear, color: Colors.black),
-                              iconSize: searchStringController.text.length > 0 ? 15.00 : 0.00,
+                              iconSize: 15,
                               padding: EdgeInsets.only(top: 20.00),
                             ),
                           ),
                           controller: searchStringController,
-                          onChanged: (value) {
-                            setState(() {
-                              filterObject.filtroNome = value;
-                              searchStringController.text = value;
-                            });
-                          }),
+                       ),
                       DropdownButtonFormField(
                           decoration: InputDecoration(labelText: 'Ordinamento',contentPadding: EdgeInsets.all(10.00)),
                           value: this.filterObject.filtroOrdinamento != null ? this.filterObject.filtroOrdinamento : 'recenti',

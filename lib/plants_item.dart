@@ -87,10 +87,17 @@ class _PlantsItemState extends State<PlantsItem> {
                   future: plantReady,
                   builder: (context, AsyncSnapshot<bool> fReady) {
                     if (fReady.hasData && fReady.data == true) {
-                      return InkWell(
-                        child: Icon(Icons.share),
-                        onTap: () => Share.share(plant.url),
+                      return Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: InkWell(
+                          child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: Icon(Icons.share)
+                          ),
+                          onTap: () async => await Utils().isIpad() ? Share.share(plant.url, sharePositionOrigin: Rect.fromCenter(center: Offset(MediaQuery.of(context).size.width, 0), width: 100, height: 100)) : Share.share(plant.url),
+                        )
                       );
+
                     } else {
                       return SizedBox();
                     }

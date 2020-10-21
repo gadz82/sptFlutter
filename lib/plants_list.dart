@@ -130,7 +130,7 @@ class _PlantsListState extends State<PlantsList> {
                     Size size = MediaQuery.of(context).size;
                     Orientation currentOrientation = MediaQuery.of(context).orientation;
                     final double itemHeight = Utils().getDeviceType() == 'phone' ?
-                        (currentOrientation == Orientation.portrait ? (size.height - kToolbarHeight - size.width) / 2 : (size.height - kToolbarHeight) / 1.93):
+                        (currentOrientation == Orientation.portrait ? (size.height - kToolbarHeight - size.width) / 1.8 : (size.height - kToolbarHeight) / 1.93):
                         (currentOrientation == Orientation.portrait ? (size.height - kToolbarHeight - (size.width / 1.3)) / 2 : (size.height - kToolbarHeight) / 4);
                     final double itemWidth = Utils().getDeviceType() == 'phone' ?
                         (currentOrientation == Orientation.portrait ? size.width / 2 : size.width / 3):

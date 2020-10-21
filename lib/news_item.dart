@@ -51,10 +51,17 @@ class _NewsItemState extends State<NewsItem> {
                 future: newsReady,
                 builder: (context, AsyncSnapshot<bool> newsReady) {
                   if (newsReady.hasData && newsReady.data == true) {
-                    return InkWell(
-                      child: Icon(Icons.share),
-                      onTap: () => Share.share(news.url),
+                    return Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: InkWell(
+                          child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: Icon(Icons.share)
+                          ),
+                          onTap: () async => await Utils().isIpad() ? Share.share(news.url, sharePositionOrigin: Rect.fromCenter(center: Offset(MediaQuery.of(context).size.width, 0), width: 100, height: 100)) : Share.share(news.url),
+                        )
                     );
+
                   } else {
                     return SizedBox();
                   }
