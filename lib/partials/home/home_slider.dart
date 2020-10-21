@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:scelteperte/src/models/slide_model.dart';
@@ -11,14 +13,17 @@ class SliderHome extends StatelessWidget {
   SliderHome({this.slides});
 
   void slideInteraction(BuildContext context, Slide slide){
+    log(slide.toString());
     if(slide.navTo != null && slide.navTo != ''){
       try{
         String namedRoute = slide.navTo.replaceAll('#/app', '');
         Navigator.pushNamed(context, namedRoute);
+        return;
       } catch (err){}
     }
     if(slide.navLink != null && slide.navLink != ''){
       Utils().launchURL(slide.navLink);
+      return;
     }
   }
 
