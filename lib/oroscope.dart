@@ -24,7 +24,6 @@ class _OroscopeState extends State<Oroscope> {
   initState() {
     super.initState();
     this.pagina = Pagina().getPage('oroscopo-dei-fiori');
-    log(this.pagina.toString());
   }
 
   Widget _buildOroscopoList(Pagina data){

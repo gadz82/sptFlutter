@@ -63,29 +63,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    Widget navItemRicetta = FutureBuilder(
-      future: featuredRecipe,
-      builder: (context, AsyncSnapshot<Recipe> recipe) {
-        if (recipe.hasData) {
-          return GestureDetector(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => RecipesItem(postId: recipe.data.postId, appBarTitle: recipe.data.title)));
-              },
-              child: MacroHomeSectionButton(
-                  image: new NetworkImage(recipe.data.thumb),
-                  title: 'Ricetta del mese'
-              ));
-        } else {
-          return GestureDetector(
-              onTap: () => Navigator.pushNamed(context, '/ricette'),
-              child: MacroHomeSectionButton(
-                  image: new AssetImage('images/ricetta.jpg'),
-                  title: 'Ricetta del mese'
-              ));
-        }
-      },
-    );
-
     return MaterialApp(
       title: 'Scelte per Te',
       routes: {
@@ -147,39 +124,104 @@ class _HomeState extends State<Home> {
                             )
                         );
                       }
-                    }),
-                    Container(
-                        margin: EdgeInsets.only(top: 0.00),
-                        padding: EdgeInsets.all(10.00),
-                        child: RaisedButton(
-                            textColor: Colors.white,
-                            color: Colors.green,
-                            padding: EdgeInsets.symmetric(horizontal: 10.00),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/volantini');
+                  }),
+                  Container(
+                      margin: EdgeInsets.only(top: 0.00),
+                      padding: EdgeInsets.all(10.00),
+                      child: RaisedButton(
+                          textColor: Colors.white,
+                          color: Colors.green,
+                          padding: EdgeInsets.symmetric(horizontal: 10.00),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/volantini');
+                          },
+                          child: ListTile(
+                            contentPadding: EdgeInsets.all(0),
+                            leading: CircleAvatar(
+                                backgroundColor: Colors.green,
+                                backgroundImage: new AssetImage('images/margherita.png')
+                            ),
+                            title: Text('Volantino Conad', style: TextStyle(color: Colors.white)),
+                            subtitle: Text(
+                                'Sfoglia il volantino e scopri le offerte',
+                                style: TextStyle(color: Colors.white, fontSize: 10.00)
+                            ),
+                            trailing: Icon(Icons.chevron_right, color: Colors.white),
+                          )
+                      )
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(horizontal: 5.00),
+                    margin: EdgeInsets.symmetric(vertical:15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        FutureBuilder(
+                          future: featuredRecipe,
+                          builder: (context, AsyncSnapshot<Recipe> recipe) {
+                            if (recipe.hasData) {
+                              return GestureDetector(
+                                  onTap: () => Navigator.pushNamed(context, '/ricette'),
+                                  child: MacroHomeSectionButton(
+                                      image: new NetworkImage(recipe.data.thumb),
+                                      title: 'Ricette'
+                                  ));
+                            } else {
+                              return GestureDetector(
+                                  onTap: () => Navigator.pushNamed(context, '/ricette'),
+                                  child: MacroHomeSectionButton(
+                                      image: new AssetImage('images/ricetta.jpg'),
+                                      title: 'Ricette'
+                                  ));
+                            }
+                          },
+                        ),
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/frutta');
                             },
-                            child: ListTile(
-                              contentPadding: EdgeInsets.all(0),
-                              leading: CircleAvatar(
-                                  backgroundColor: Colors.green,
-                                  backgroundImage: new AssetImage('images/margherita.png')
-                              ),
-                              title: Text('Volantino Conad', style: TextStyle(color: Colors.white)),
-                              subtitle: Text(
-                                  'Sfoglia il volantino e scopri le offerte',
-                                  style: TextStyle(color: Colors.white, fontSize: 10.00)
-                              ),
-                              trailing: Icon(Icons.chevron_right, color: Colors.white),
-                            )
-                        )
-                    ),
+                            child: MacroHomeSectionButton(
+                                image: new NetworkImage("http://www.scelteperte.it/wp-content/themes/natural/images/home-frutta-app.jpg"),
+                                title: 'Frutta e Verdura')
+                        ),
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/oroscopo');
+                            },
+                            child: MacroHomeSectionButton(
+                                image: new NetworkImage("http://www.scelteperte.it/wp-content/themes/natural/images/home-fiori-app.jpg"),
+                                title: 'Piante e Fiori'
+                            )),
 
-                  HomeNavCard(items: [
-                    NavItem(title: 'Frutta e Verdura', subTitle: 'Scopri le nostre schede', namedRoute: '/frutta', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-frutta-app.jpg'),
-                    NavItem(title: 'Piante e Fiori', subTitle: 'Scopri come coltivare', namedRoute: '/piante', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/home-fiori-app.jpg'),
-                    NavItem(title: 'Ricette', subTitle: 'A base di frutta e verdura', namedRoute: '/ricette', image: this.homeRecipesApp),
-                    NavItem(title: 'Sconti Esclusivi', subTitle: 'Per i possessori dell\'App Scelte per Te', namedRoute: '/promozioni', image: 'http://www.scelteperte.it/wp-content/themes/natural/images/icona-flora.png')
-                  ]),
+                      ],
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(top: 0.00),
+                      padding: EdgeInsets.all(10.00),
+                      child: RaisedButton(
+                          textColor: Colors.white,
+                          color: Color(0xfff7a701),
+                          padding: EdgeInsets.symmetric(horizontal: 10.00),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/promozioni');
+                          },
+                          child: ListTile(
+                            contentPadding: EdgeInsets.all(0),
+                            leading: CircleAvatar(
+                                backgroundColor: Color(0xfff7a701),
+                                backgroundImage: new AssetImage('images/sconti.png'),
+                            ),
+                            title: Text('Sconti Esclusivi', style: TextStyle(color: Colors.white)),
+                            subtitle: Text(
+                                'Riservati ai possessori dell\'App Scelte per Te',
+                                style: TextStyle(color: Colors.white, fontSize: 10.00)
+                            ),
+                            trailing: Icon(Icons.chevron_right, color: Colors.white),
+                          )
+                      )
+                  ),
 
                   HomeLastEntries(),
                   Container(
@@ -193,41 +235,6 @@ class _HomeState extends State<Home> {
                     ])
                   )
 
-                  /*Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: 5.00),
-                    margin: EdgeInsets.symmetric(vertical:15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/linguaggio');
-                            },
-                            child: MacroHomeSectionButton(
-                                image: new AssetImage('images/linguaggio.jpg'),
-                                title: 'Linguaggio dei Fiori')
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/oroscopo');
-                            },
-                            child: MacroHomeSectionButton(
-                                image: new AssetImage('images/oroscopo.jpg'),
-                                title: 'Oroscopo del verde'
-                            )),
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/giardini');
-                            },
-                            child: MacroHomeSectionButton(
-                                image: new AssetImage('images/giardini.jpg'),
-                                title: 'Giardini e Orti Botanici'
-                            )),
-
-                      ],
-                    ),
-                  ),*/
           ])
         )
       ),
@@ -243,26 +250,45 @@ class MacroHomeSectionButton extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
+      alignment: Alignment.bottomLeft,
       children: [
         Container(
-            width: (MediaQuery.of(context).size.width * 0.20) -10,
-            height: (MediaQuery.of(context).size.width * 0.20) -10,
-            margin: EdgeInsets.only(bottom: 10),
+            width: (MediaQuery.of(context).size.width * 0.30) -10,
+            height: (MediaQuery.of(context).size.width * 0.30) -10,
             decoration: new BoxDecoration(
-                boxShadow: [BoxShadow(blurRadius: 5,color: Colors.grey)],
+                //boxShadow: [BoxShadow(blurRadius: 5,color: Colors.grey)],
                 shape: BoxShape.rectangle,
                 image: new DecorationImage(fit: BoxFit.fill, image: image)
             )
         ),
         Container(
-            width: (MediaQuery.of(context).size.width * 0.25) -10,
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.clip,
-              style: TextStyle(fontWeight: FontWeight.normal, fontSize: Utils().getDeviceType() == 'phone' ? 11.50 : 16),
-            ))
+          height: 20,
+          width: (MediaQuery.of(context).size.width * 0.30) -10,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              gradient: LinearGradient(
+                  begin: Alignment.centerRight,
+                  end: Alignment.centerLeft,
+                  colors: [
+                    Colors.transparent,
+                    Colors.green,
+                  ],
+                  stops: [
+                    0.0,
+                    1.0
+                  ])),
+        ),
+        Padding(
+            padding: EdgeInsets.all(5),
+            child: Text(title,
+                style: TextStyle(
+                fontSize: Utils().getDeviceType() == 'phone' ? 11 : 13,
+                fontWeight: FontWeight.bold,
+                color:Colors.white),
+                textAlign: TextAlign.left
+            )
+        ),
       ],
     );
   }
