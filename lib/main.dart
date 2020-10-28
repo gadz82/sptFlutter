@@ -24,7 +24,7 @@ Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
   // Or do other work.
 }
 void main() {
-  runApp(GetMaterialApp(home: AppSplashLoader()));
+  runApp(GetMaterialApp(home: AppSplashLoader(),debugShowCheckedModeBanner: false));
 }
 
 class AppSplashLoader extends StatefulWidget {

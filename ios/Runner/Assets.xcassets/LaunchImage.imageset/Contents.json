@@ -46,6 +46,12 @@
       "subtype" : "667h"
     },
     {
+      "filename" : "LaunchImage-1242@3x~iphoneXsMax-portrait_1242x2688-4.png",
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "subtype" : "2436h"
+    },
+    {
       "filename" : "LaunchImage-Portrait~ipad_768x1024.png",
       "idiom" : "ipad",
       "scale" : "1x"

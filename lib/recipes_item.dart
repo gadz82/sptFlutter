@@ -129,15 +129,15 @@ class _RecipesItemState extends State<RecipesItem> {
                             children: <Widget>[
                               Expanded(
                                 child: Table(
-                                  border: TableBorder(top: BorderSide(color: Color(0xff333333), width: 0.5), bottom: BorderSide(color: Color(0xff333333), width: 0.5)),
+                                  border: TableBorder(top: BorderSide(color: Color(0xfff7a701), width: 0.5), bottom: BorderSide(color: Color(0xfff7a701), width: 0.5)),
                                   children: [
                                     TableRow(
                                         children: [
                                           Container(
-                                            color: Color(0xffcccccc),
+                                            color: Color(0xfff7a701),
                                             width: 1000.0,
                                             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                                            child: Text("Scheda Piatto", style: TextStyle(fontWeight: FontWeight.bold)),
+                                            child: Text("Scheda Piatto", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
                                           ),
                                         ]
                                     ),

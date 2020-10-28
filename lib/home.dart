@@ -14,7 +14,6 @@ import 'package:scelteperte/partials/home/last_entries.dart';
 import 'package:scelteperte/partials/home/nav_card.dart';
 import 'package:scelteperte/plants_list.dart';
 import 'package:scelteperte/promotions_list.dart';
-import 'package:scelteperte/recipes_item.dart';
 import 'package:scelteperte/recipes_list.dart';
 import 'package:scelteperte/src/models/recipe_model.dart';
 import 'package:scelteperte/src/models/slide_model.dart';
@@ -64,6 +63,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Scelte per Te',
       routes: {
         '/home': (context) => Home(appReady: this.appReady),
@@ -187,7 +187,7 @@ class _HomeState extends State<Home> {
                         ),
                         GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, '/oroscopo');
+                              Navigator.pushNamed(context, '/piante');
                             },
                             child: MacroHomeSectionButton(
                                 image: new NetworkImage("http://www.scelteperte.it/wp-content/themes/natural/images/home-fiori-app.jpg"),
