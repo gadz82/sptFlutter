@@ -49,7 +49,7 @@ class _FlyersListState extends State<FlyersList> {
     volantinoReady = Pagina().getPageVolantino().then((value) {
       _jsonData = jsonDecode(value.jsonData);
       List regions = _jsonData.keys.where((element) {
-        for (String e in ['umbria', 'lazio', 'campania', 'calabria']) {
+        for (String e in ['umbria', 'lazio', 'campania', 'calabria', 'sicilia']) {
           if (e == element) return true;
         }
         return false;
